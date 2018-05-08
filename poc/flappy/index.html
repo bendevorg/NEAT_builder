@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
+  <script language="javascript" type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script language="javascript" type="text/javascript" src="../neural_network/NeuralNetwork.js"></script>
   <script language="javascript" type="text/javascript" src="../math/Matrix.js"></script>
   <script language="javascript" type="text/javascript" src="main.js"></script>
@@ -23,8 +24,31 @@
   <p>
     <button id="best">run best so far</button>
   </p>
+  <div id="NNParams">
+    <label>Neural Network</label>
+    <input type="range" id="inputLayers" min="1" max="10" step="1" placeholder="Input Layers"/>
+    <div id="inputList">
 
-
+    </div>
+    <input type="text" id="hiddenLayers" placeholder="Hidden Layers"/>
+    <input type="text" id="learningRate" placeholder="Learning Rate"/>
+    <p>FIXED Output layers: 2 (jump or do nothing)</p>
+  </div>
+  <div id="GAParams">
+    <label>Genetic Algorithm</label>
+    <input type="text" id="generationSize" placeholder="Species per generation"/>
+    <input type="text" id="mutationRate" placeholder="MutationRate"/>
+    <input type="text" id="hiddenLayers" placeholder="Hidden Layers"/>
+  </div>
+  <script>
+    $('#inputLayers').change(function(){
+      let amountInputLayers = $('#inputLayers').val();
+      $('#inputList').html('');
+      for (let i = 0; i < amountInputLayers; i++){
+        $('#inputList').append(`<input type="text" id="input${i}" placeholder="Type your input variable"/>`);
+      }
+    });
+  </script>
 </body>
 
 </html>
