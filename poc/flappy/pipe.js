@@ -4,7 +4,7 @@ class Pipe {
     // How big is the empty space
     let spacing = 125;
     // Where is th center of the empty space
-    let centery = Math.random() * spacing - (GAME_HEIGHT - spacing);
+    let centery =  Math.floor(Math.random() * (GAME_HEIGHT - spacing)) + spacing;
 
     // Top and bottom of pipe
     this.top = centery - spacing / 2;
