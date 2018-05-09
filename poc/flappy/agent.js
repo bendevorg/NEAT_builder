@@ -39,7 +39,7 @@ class Agent {
     if (brain instanceof NeuralNetwork){
 
       this.x = 64;
-      this.y = height / 2;
+      this.y = GAME_HEIGHT / 2;
       this.r = 12;
 
       // Gravity, lift and velocity
@@ -62,10 +62,10 @@ class Agent {
   }
 
   // Display the bird
-  show() {
-    fill(255, 100);
-    stroke(255);
-    ellipse(this.x, this.y, this.r * 2, this.r * 2);
+  show(game) {
+    game.fill(255, 100);
+    game.stroke(255);
+    game.ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
 
   think(){
@@ -85,15 +85,15 @@ class Agent {
       // Now create the inputs to the neural network
       let inputs = [];
       // x position of closest pipe
-      inputs[0] = map(closest.x, this.x, width, 0, 1);
+      inputs[0] = closest.x / GAME_HEIGHT; // map(closest.x, this.x, width, 0, 1);
       // top of closest pipe opening
-      inputs[1] = map(closest.top, 0, height, 0, 1);
+      inputs[1] = closest.top / GAME_HEIGHT; //map(closest.top, 0, GAME_HEIGHT, 0, 1);
       // bottom of closest pipe opening
-      inputs[2] = map(closest.bottom, 0, height, 0, 1);
+      inputs[2] = closest.bottom / GAME_HEIGHT;// map(closest.bottom, 0, GAME_HEIGHT, 0, 1);
       // bird's y position
-      inputs[3] = map(this.y, 0, height, 0, 1);
+      inputs[3] = this.y / GAME_HEIGHT; //map(this.y, 0, GAME_HEIGHT, 0, 1);
       // bird's y velocity
-      inputs[4] = map(this.velocity, -5, 5, 0, 1);
+      inputs[4] = this.velocity / 5; //map(this.velocity, -5, 5, 0, 1);
 
       // Get the outputs from the network
       let action = this.brain.predict(inputs);
@@ -112,7 +112,7 @@ class Agent {
 
   bottomTop() {
     // Bird dies when hits bottom?
-    return (this.y > height || this.y < 0);
+    return (this.y > GAME_HEIGHT || this.y < 0);
   }
 
   // Update bird's position based on velocity, gravity, etc.
