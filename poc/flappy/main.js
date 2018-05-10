@@ -25,9 +25,17 @@ let runBestButton;
 const GAME_WIDTH = 600;
 const GAME_HEIGHT = 400;
 
-new p5(flappyBird);
+//new p5(flappyBird);
+
+let userInputs = [];
 
 function flappyBird(game){
+
+  let inputCounter = 0;
+  while ($('#input' + inputCounter).length !== 0){
+    userInputs.push($('#input' + inputCounter).val());
+    inputCounter++;
+  }
 
   game.setup = () => {
     let canvas = game.createCanvas(GAME_WIDTH, GAME_HEIGHT);

@@ -12,6 +12,7 @@ function mutate(x) {
 let previous = false;
 let y2 = 0;
 
+
 function randomGaussian(mean, sd){
   let y1, x1, x2, w;
   if (previous) {
@@ -50,7 +51,14 @@ class Agent {
       this.brain = brain.copy();
       this.brain.mutate(mutate);
     } else {
-      this.brain = new NeuralNetwork(5, 8, 2);
+      let inputLayers = Number.parseInt($('#inputLayers').val());
+      let hiddenLayers = Number.parseInt($('#hiddenLayers').val());
+      this.brain = new NeuralNetwork(inputLayers, hiddenLayers, 2);
+    }
+    this.mathInputs = [];
+
+    for (let i = 0; i < userInputs.length; i++){
+      this.mathInputs.push(math.parse(userInputs[i]).compile());
     }
 
     this.score = 0;
@@ -84,16 +92,33 @@ class Agent {
     if (closest != null) {
       // Now create the inputs to the neural network
       let inputs = [];
+
+      this.scope = {
+        birdX: this.x,
+        birdY: this.y,
+        birdVelocity: this.velocity,
+        birdMinVelocity: -5,
+        birdMaxVelocity: 5,
+        pipesClosestX: closest.x,
+        pipesClosestTop: closest.top,
+        pipesClosestBottom: closest.bottom,
+        gameHeight: GAME_HEIGHT,
+        gameWidth: GAME_WIDTH
+      };
+
+      for (let i = 0; i < this.mathInputs.length; i++){
+        inputs[i] = this.mathInputs[i].eval(this.scope);
+      }
       // x position of closest pipe
-      inputs[0] = closest.x / GAME_HEIGHT; // map(closest.x, this.x, width, 0, 1);
+      //inputs[0] = closest.x / GAME_WIDTH; // map(closest.x, this.x, width, 0, 1);
       // top of closest pipe opening
-      inputs[1] = closest.top / GAME_HEIGHT; //map(closest.top, 0, GAME_HEIGHT, 0, 1);
+      //inputs[1] = closest.top / GAME_HEIGHT; //map(closest.top, 0, GAME_HEIGHT, 0, 1);
       // bottom of closest pipe opening
-      inputs[2] = closest.bottom / GAME_HEIGHT;// map(closest.bottom, 0, GAME_HEIGHT, 0, 1);
+      //inputs[2] = closest.bottom / GAME_HEIGHT;// map(closest.bottom, 0, GAME_HEIGHT, 0, 1);
       // bird's y position
-      inputs[3] = this.y / GAME_HEIGHT; //map(this.y, 0, GAME_HEIGHT, 0, 1);
+      //inputs[3] = this.y / GAME_HEIGHT; //map(this.y, 0, GAME_HEIGHT, 0, 1);
       // bird's y velocity
-      inputs[4] = this.velocity / 5; //map(this.velocity, -5, 5, 0, 1);
+      //inputs[4] = this.velocity / 5; //map(this.velocity, -5, 5, 0, 1);
 
       // Get the outputs from the network
       let action = this.brain.predict(inputs);
