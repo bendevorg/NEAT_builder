@@ -1,5 +1,5 @@
 // How big is the population
-let totalPopulation = 500;
+//let totalPopulation = 500;
 // All active agents (not yet collided with pipe)
 let activeAgents = [];
 // All agents for any given population
@@ -31,12 +31,6 @@ let userInputs = [];
 
 function flappyBird(game){
 
-  let inputCounter = 0;
-  while ($('#input' + inputCounter).length !== 0){
-    userInputs.push($('#input' + inputCounter).val());
-    inputCounter++;
-  }
-
   game.setup = () => {
     let canvas = game.createCanvas(GAME_WIDTH, GAME_HEIGHT);
     canvas.parent('canvascontainer');
@@ -50,7 +44,7 @@ function flappyBird(game){
     runBestButton.mousePressed(toggleState);
 
     // Create a population
-    for (let i = 0; i < totalPopulation; i++) {
+    for (let i = 0; i < parameters.geneticAlgorithm.population; i++) {
       let agent = new Agent();
       activeAgents[i] = agent;
       allAgents[i] = agent;

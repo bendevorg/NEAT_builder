@@ -9,8 +9,10 @@
   <script language="javascript" type="text/javascript" src="https://unpkg.com/mathjs@4.2.2/dist/math.js"></script>
   <script language="javascript" type="text/javascript" src="../neural_network/NeuralNetwork.js"></script>
   <script language="javascript" type="text/javascript" src="../math/Matrix.js"></script>
-  <script language="javascript" type="text/javascript" src="main.js"></script>
   <script language="javascript" type="text/javascript" src="../GeneticAlgorithm/GeneticAlgorithm.js"></script>
+  <script language="javascript" type="text/javascript" src="../GeneticAlgorithm/mutate.js"></script>
+  <script language="javascript" type="text/javascript" src="../setup.js"></script>
+  <script language="javascript" type="text/javascript" src="main.js"></script>
   <script language="javascript" type="text/javascript" src="agent.js"></script>
   <script language="javascript" type="text/javascript" src="pipe.js"></script>
 
@@ -35,9 +37,9 @@
       <li>bird.velocity - Bird velocity (velocity in the Y position is -5 and Max 5)</li>
       <li>bird.maxVelocity - Bird maximum velocity (5)</li>
       <li>bird.minVelocity - Bird minimum velocity (-5)</li>
+      <li>bird.score - Actual bird score</li>
+      <li>birds.scoreSum - All birds sums</li>
     </ul>
-      
-      <br/>
     
     <h3>Pipes variables</h3>
       <ul>
@@ -46,8 +48,7 @@
         <li>pipes.closest.top (Closes pipe top entrance)</li>
         <li>pipes.closest.width (Closest pipe width)</li>
       </ul>
-      
-    <br/>
+
     <h3>Game</h3>
     <ul>
       <li>game.height (Height size of game canvas)</li>
@@ -59,17 +60,17 @@
     <label>Neural Network</label><br/>
     <label>Inputs</label>
     <input type="range" id="inputLayers" min="1" max="10" step="1" placeholder="Input Layers"/>
-    <div id="inputList">
-
-    </div>
-    <input type="text" id="hiddenLayers" placeholder="Hidden Layers"/>
+    <div id="inputList"></div>
+    <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers"/>
     <input type="text" id="learningRate" placeholder="Learning Rate"/>
     <p>FIXED Output layers: 2 (jump or do nothing)</p>
   </div>
   <div id="GAParams">
     <label>Genetic Algorithm</label>
-    <input type="text" id="generationSize" placeholder="Species per generation"/>
-    <input type="text" id="mutationRate" placeholder="MutationRate"/>
+    <input type="text" id="populationSize" placeholder="Species per generation"/>
+    <input type="text" id="mutationRate" placeholder="Mutation rate"/>
+    <input type="text" id="scoreFunction" placeholder="Score function"/>
+    <input type="text" id="fitnessExpression" placeholder="Fitness expression"/>
   </div>
   <div>
     <button id="startGame">Start</button>
@@ -83,6 +84,7 @@
       }
     });
     $('#startGame').on('click', function(){
+      setParameters();
       let game = new p5(flappyBird);
     });
   </script>
