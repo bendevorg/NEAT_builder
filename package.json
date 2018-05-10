@@ -4,6 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node tools/startServer.js",
+    "prod": "npm run env_setup_production && npm run server_production",
+    "dev": "npm run env_setup_development && npm run server_development",
+    "env_setup_production": "node tools/setupEnv.js production",
+    "server_production": "node -r dotenv/config tools/startServer.js",
+    "env_setup_development": "node tools/setupEnv.js development",
+    "server_development": "nodemon tools/startServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +22,15 @@
   "bugs": {
     "url": "https://github.com/guiconti/NEAT_builder/issues"
   },
-  "homepage": "https://github.com/guiconti/NEAT_builder#readme"
+  "homepage": "https://github.com/guiconti/NEAT_builder#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "rollbar": "^2.3.9"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.4"
+  }
 }
