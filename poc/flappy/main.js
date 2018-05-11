@@ -1,5 +1,3 @@
-// How big is the population
-//let totalPopulation = 500;
 // All active agents (not yet collided with pipe)
 let activeAgents = [];
 // All agents for any given population
@@ -17,10 +15,6 @@ let allTimeHighScoreSpan;
 
 // All time high score
 let highScore = 0;
-
-// Training or just showing the current best
-let runBest = false;
-let runBestButton;
 
 let game = {
   width: 600,
@@ -42,17 +36,14 @@ function flappyBird(pFive){
     speedSpan = pFive.select('#speed');
     highScoreSpan = pFive.select('#hs');
     allTimeHighScoreSpan = pFive.select('#ahs');
-    runBestButton = pFive.select('#best');
-    runBestButton.mousePressed(toggleState);
-
+    
     // Create a population
     for (let i = 0; i < parameters.geneticAlgorithm.population; i++) {
       let agent = new Agent();
       activeAgents[i] = agent;
       allAgents[i] = agent;
     }
-    bestAgent = activeAgents[0];
-    nextGeneration(true);
+    nextGeneration();
   }
 
   pFive.draw = () => {
@@ -61,7 +52,6 @@ function flappyBird(pFive){
     // Should we speed up cycles per frame
     let cycles = speedSlider.value();
     speedSpan.html(cycles);
-
 
     // How many times to advance the pFive
     for (let n = 0; n < cycles; n++) {
@@ -72,44 +62,28 @@ function flappyBird(pFive){
           pipes.splice(i, 1);
         }
       }
-      // Are we just running the best agent
-      if (runBest) {
-        bestAgent.think(pipes);
-        bestAgent.update();
+
+      // Running all the active agents
+      for (let i = activeAgents.length - 1; i >= 0; i--) {
+        let agent = activeAgents[i];
+        // Bird uses its brain!
+        agent.think(pipes);
+        agent.update();
+
+        // Check all the pipes
         for (let j = 0; j < pipes.length; j++) {
-          // Start over, agent hit pipe
-          if (pipes[j].hits(bestAgent)) {
-            resetGame();
+          // It's hit a pipe
+          if (pipes[j].hits(activeAgents[i])) {
+            // Remove this agent
+            activeAgents.splice(i, 1);
             break;
           }
         }
 
-        if (bestAgent.bottomTop()) {
-          resetGame();
+        if (agent.bottomTop()) {
+          activeAgents.splice(i, 1);
         }
-        // Or are we running all the active agents
-      } else {
-        for (let i = activeAgents.length - 1; i >= 0; i--) {
-          let agent = activeAgents[i];
-          // Bird uses its brain!
-          agent.think(pipes);
-          agent.update();
 
-          // Check all the pipes
-          for (let j = 0; j < pipes.length; j++) {
-            // It's hit a pipe
-            if (pipes[j].hits(activeAgents[i])) {
-              // Remove this agent
-              activeAgents.splice(i, 1);
-              break;
-            }
-          }
-
-          if (agent.bottomTop()) {
-            activeAgents.splice(i, 1);
-          }
-
-        }
       }
 
       // Add a new pipe every so often
@@ -121,28 +95,10 @@ function flappyBird(pFive){
 
     // What is highest score of the current population
     let tempHighScore = 0;
-    // If we're training
-    if (!runBest) {
-      // Which is the best agent?
-      let tempBestBird = null;
-      for (let i = 0; i < activeAgents.length; i++) {
-        let s = activeAgents[i].score;
-        if (s > tempHighScore) {
-          tempHighScore = s;
-          tempBestBird = activeAgents[i];
-        }
-      }
-
-      // Is it the all time high scorer?
-      if (tempHighScore > highScore) {
-        highScore = tempHighScore;
-        bestAgent = tempBestBird;
-      }
-    } else {
-      // Just one agent, the best one so far
-      tempHighScore = bestAgent.score;
-      if (tempHighScore > highScore) {
-        highScore = tempHighScore;
+    for (let i = 0; i < activeAgents.length; i++) {
+      let s = activeAgents[i].score;
+      if (s > tempHighScore) {
+        tempHighScore = s;
       }
     }
 
@@ -155,33 +111,21 @@ function flappyBird(pFive){
       pipes[i].show(pFive);
     }
 
-    if (runBest) {
-      bestAgent.show(pFive);
-    } else {
-      for (let i = 0; i < activeAgents.length; i++) {
-        activeAgents[i].show(pFive);
-      }
-      // If we're out of agents go to the next generation
-      if (activeAgents.length == 0) {
-        nextGeneration(true);
-      }
+    for (let i = 0; i < activeAgents.length; i++) {
+      activeAgents[i].show(pFive);
+    }
+    // If we're out of agents go to the next generation
+    if (activeAgents.length == 0) {
+      resetGame();
+      nextGeneration();
     }
   }
 }
 
-
-// Toggle the state of the simulation
-function toggleState() {
-  runBest = !runBest;
-  // Show the best agent
-  if (runBest) {
-    resetGame();
-    runBestButton.html('continue training');
-    // Go train some more
-  } else {
-    nextGeneration(true);
-    runBestButton.html('run best');
-  }
+// Start the game over
+function resetGame() {
+  counter = 0;
+  pipes = [];
 }
 
 if (typeof module !== 'undefined')

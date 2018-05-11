@@ -1,18 +1,5 @@
-// Start the game over
-function resetGame() {
-  counter = 0;
-  // Resetting best bird score to 0
-  if (bestAgent != undefined) {
-    bestAgent.score = 0;
-  }
-  pipes = [];
-}
-
 // Create the next generation
 function nextGeneration(reset = false) {
-
-  if (reset)
-    resetGame();
   // Normalize the fitness values 0-1
   normalizeFitness(allAgents);
   // Generate a new set of agents
