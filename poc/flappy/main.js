@@ -21,8 +21,6 @@ let game = {
   height: 400
 };
 
-//new p5(flappyBird);
-
 let userInputs = [];
 
 function flappyBird(pFive){
@@ -36,7 +34,7 @@ function flappyBird(pFive){
     speedSpan = pFive.select('#speed');
     highScoreSpan = pFive.select('#hs');
     allTimeHighScoreSpan = pFive.select('#ahs');
-    
+
     // Create a population
     for (let i = 0; i < parameters.geneticAlgorithm.population; i++) {
       let agent = new Agent();
@@ -55,6 +53,10 @@ function flappyBird(pFive){
 
     // How many times to advance the pFive
     for (let n = 0; n < cycles; n++) {
+
+      // Update steps for leaderboard
+      steps++;
+
       // Show all the pipes
       for (let i = pipes.length - 1; i >= 0; i--) {
         pipes[i].update();

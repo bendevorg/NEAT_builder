@@ -15,6 +15,12 @@ let parameters = {
 };
 
 function setParameters(){
+
+  $('#gameDescription').hide();
+  $('#NNParams').hide();
+  $('#GAParams').hide();
+  $('#leaderboardParams').hide();
+
   //  Neural Network inputs
   parameters.neuralNetwork.inputLayers = Number.parseInt($('#inputLayers').val());
   parameters.neuralNetwork.hiddenLayers = Number.parseInt($('#hiddenLayers').val());
@@ -36,6 +42,8 @@ function setParameters(){
   parameters.geneticAlgorithm.mutationRate = Number.parseFloat($('#mutationRate').val());
   parameters.geneticAlgorithm.scoreFunction = $('#scoreFunction').val();
   parameters.geneticAlgorithm.fitnessExpression = $('#fitnessExpression').val();
+
+  $('#gameInfo').show();
 
   // Q Learning Inputs
 }
