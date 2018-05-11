@@ -3,13 +3,16 @@ class Agent {
     if (brain instanceof NeuralNetwork){
 
       this.x = 64;
-      this.y = GAME_HEIGHT / 2;
+      this.y = game.height / 2;
       this.r = 12;
 
       // Gravity, lift and velocity
       this.gravity = 0.8;
       this.lift = -12;
       this.velocity = 0;
+
+      this.minVelocity = -5;
+      this.maxVelocity = 5;
 
       this.brain = brain.copy();
       this.brain.mutate(mutate);
@@ -50,30 +53,19 @@ class Agent {
       // Now create the inputs to the neural network
       let inputs = [];
 
-      this.scope = {
-        birdX: this.x,
-        birdY: this.y,
-        birdVelocity: this.velocity,
-        birdMinVelocity: -5,
-        birdMaxVelocity: 5,
-        pipesClosestX: closest.x,
-        pipesClosestTop: closest.top,
-        pipesClosestBottom: closest.bottom,
-        gameHeight: GAME_HEIGHT,
-        gameWidth: GAME_WIDTH
-      };
+      let params = [this, closest, game];
 
       for (let i = 0; i < parameters.neuralNetwork.inputs.length; i++){
-        inputs[i] = parameters.neuralNetwork.inputs[i].eval(this.scope);
+        inputs[i] = parameters.neuralNetwork.inputs[i](params);
       }
       // x position of closest pipe
       //inputs[0] = closest.x / GAME_WIDTH; // map(closest.x, this.x, width, 0, 1);
       // top of closest pipe opening
-      //inputs[1] = closest.top / GAME_HEIGHT; //map(closest.top, 0, GAME_HEIGHT, 0, 1);
+      //inputs[1] = closest.top / game.height; //map(closest.top, 0, game.height, 0, 1);
       // bottom of closest pipe opening
-      //inputs[2] = closest.bottom / GAME_HEIGHT;// map(closest.bottom, 0, GAME_HEIGHT, 0, 1);
+      //inputs[2] = closest.bottom / game.height;// map(closest.bottom, 0, game.height, 0, 1);
       // bird's y position
-      //inputs[3] = this.y / GAME_HEIGHT; //map(this.y, 0, GAME_HEIGHT, 0, 1);
+      //inputs[3] = this.y / game.height; //map(this.y, 0, game.height, 0, 1);
       // bird's y velocity
       //inputs[4] = this.velocity / 5; //map(this.velocity, -5, 5, 0, 1);
 
@@ -94,7 +86,7 @@ class Agent {
 
   bottomTop() {
     // Bird dies when hits bottom?
-    return (this.y > GAME_HEIGHT || this.y < 0);
+    return (this.y > game.height || this.y < 0);
   }
 
   // Update bird's position based on velocity, gravity, etc.

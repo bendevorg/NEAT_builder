@@ -4,13 +4,13 @@ class Pipe {
     // How big is the empty space
     let spacing = 125;
     // Where is th center of the empty space
-    let centery =  Math.floor(Math.random() * (GAME_HEIGHT - spacing)) + spacing;
+    let centery =  Math.floor(Math.random() * (game.height - spacing)) + spacing;
 
     // Top and bottom of pipe
     this.top = centery - spacing / 2;
-    this.bottom = GAME_HEIGHT - (centery + spacing / 2);
+    this.bottom = game.height - (centery + spacing / 2);
     // Starts at the edge
-    this.x = GAME_WIDTH;
+    this.x = game.width;
     // Width of pipe
     this.w = 80;
     // How fast
@@ -19,7 +19,7 @@ class Pipe {
 
   // Did this pipe hit a bird?
   hits(bird) {
-    if ((bird.y - bird.r) < this.top || (bird.y + bird.r) > (GAME_HEIGHT - this.bottom)) {
+    if ((bird.y - bird.r) < this.top || (bird.y + bird.r) > (game.height - this.bottom)) {
       if (bird.x > this.x && bird.x < this.x + this.w) {
         return true;
       }
@@ -32,7 +32,7 @@ class Pipe {
     game.stroke(255);
     game.fill(200);
     game.rect(this.x, 0, this.w, this.top);
-    game.rect(this.x, GAME_HEIGHT - this.bottom, this.w, this.bottom);
+    game.rect(this.x, game.height - this.bottom, this.w, this.bottom);
   }
 
   // Update the pipe

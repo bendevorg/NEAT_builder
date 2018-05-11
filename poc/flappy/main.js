@@ -22,25 +22,27 @@ let highScore = 0;
 let runBest = false;
 let runBestButton;
 
-const GAME_WIDTH = 600;
-const GAME_HEIGHT = 400;
+let game = {
+  width: 600,
+  height: 400
+};
 
 //new p5(flappyBird);
 
 let userInputs = [];
 
-function flappyBird(game){
+function flappyBird(pFive){
 
-  game.setup = () => {
-    let canvas = game.createCanvas(GAME_WIDTH, GAME_HEIGHT);
+  pFive.setup = () => {
+    let canvas = pFive.createCanvas(game.width, game.height);
     canvas.parent('canvascontainer');
 
     // Access the interface elements
-    speedSlider = game.select('#speedSlider');
-    speedSpan = game.select('#speed');
-    highScoreSpan = game.select('#hs');
-    allTimeHighScoreSpan = game.select('#ahs');
-    runBestButton = game.select('#best');
+    speedSlider = pFive.select('#speedSlider');
+    speedSpan = pFive.select('#speed');
+    highScoreSpan = pFive.select('#hs');
+    allTimeHighScoreSpan = pFive.select('#ahs');
+    runBestButton = pFive.select('#best');
     runBestButton.mousePressed(toggleState);
 
     // Create a population
@@ -53,15 +55,15 @@ function flappyBird(game){
     nextGeneration(true);
   }
 
-  game.draw = () => {
-    game.background(0);
+  pFive.draw = () => {
+    pFive.background(0);
 
     // Should we speed up cycles per frame
     let cycles = speedSlider.value();
     speedSpan.html(cycles);
 
 
-    // How many times to advance the game
+    // How many times to advance the pFive
     for (let n = 0; n < cycles; n++) {
       // Show all the pipes
       for (let i = pipes.length - 1; i >= 0; i--) {
@@ -150,14 +152,14 @@ function flappyBird(game){
 
     // Draw everything!
     for (let i = 0; i < pipes.length; i++) {
-      pipes[i].show(game);
+      pipes[i].show(pFive);
     }
 
     if (runBest) {
-      bestAgent.show(game);
+      bestAgent.show(pFive);
     } else {
       for (let i = 0; i < activeAgents.length; i++) {
-        activeAgents[i].show(game);
+        activeAgents[i].show(pFive);
       }
       // If we're out of agents go to the next generation
       if (activeAgents.length == 0) {

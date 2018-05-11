@@ -23,8 +23,11 @@ function setParameters(){
   parameters.neuralNetwork.inputs = [];
   let inputCounter = 0;
   while ($('#input' + inputCounter).length !== 0){
-    let input = $('#input' + inputCounter).val();
-    parameters.neuralNetwork.inputs.push(math.parse(input).compile());
+    let input = 'return ' + $('#input' + inputCounter).val();
+    for (let parameterName in objectToParameter){
+      input = input.replace(new RegExp(parameterName, 'g'), objectToParameter[parameterName]);
+    }
+    parameters.neuralNetwork.inputs.push(new Function('params', input));
     inputCounter++;
   }
 
