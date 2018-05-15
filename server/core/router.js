@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 router.use(bodyParser.json());
 
-router.use('/poc', express.static('../../poc'));
+router.use('/', express.static('../../client'));
 
 //  Placeholder API
 router.get('/', (req, res) => {

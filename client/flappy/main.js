@@ -12,6 +12,10 @@ let speedSlider;
 let speedSpan;
 let highScoreSpan;
 let allTimeHighScoreSpan;
+let stepsSpan;
+
+// Generation high score
+let generationHighScore = 0;
 
 // All time high score
 let highScore = 0;
@@ -34,6 +38,8 @@ function flappyBird(pFive){
     speedSpan = pFive.select('#speed');
     highScoreSpan = pFive.select('#hs');
     allTimeHighScoreSpan = pFive.select('#ahs');
+    stepsSpan = pFive.select('#stepsCount')
+    timeSpentSpan = pFive.select('#timeSpent')
 
     // Create a population
     for (let i = 0; i < parameters.geneticAlgorithm.population; i++) {
@@ -53,9 +59,6 @@ function flappyBird(pFive){
 
     // How many times to advance the pFive
     for (let n = 0; n < cycles; n++) {
-
-      // Update steps for leaderboard
-      steps++;
 
       // Show all the pipes
       for (let i = pipes.length - 1; i >= 0; i--) {
@@ -93,20 +96,19 @@ function flappyBird(pFive){
         pipes.push(new Pipe());
       }
       counter++;
-    }
 
-    // What is highest score of the current population
-    let tempHighScore = 0;
-    for (let i = 0; i < activeAgents.length; i++) {
-      let s = activeAgents[i].score;
-      if (s > tempHighScore) {
-        tempHighScore = s;
-      }
+      // Update High score
+      updateHighscore();
+
+      //  Check for leadboard goal
+      checkGoal(highScore);
     }
 
     // Update DOM Elements
-    highScoreSpan.html(tempHighScore);
+    highScoreSpan.html(generationHighScore);
     allTimeHighScoreSpan.html(highScore);
+    stepsSpan.html(Math.floor(steps));
+    timeSpentSpan.html(Math.floor(timeSpent/1000));
 
     // Draw everything!
     for (let i = 0; i < pipes.length; i++) {
@@ -121,6 +123,20 @@ function flappyBird(pFive){
       resetGame();
       nextGeneration();
     }
+  }
+}
+
+function updateHighscore(){
+  // What is highest score of the current population
+  generationHighScore = 0;
+  for (let i = 0; i < activeAgents.length; i++) {
+    let s = activeAgents[i].score;
+    if (s > generationHighScore) {
+      generationHighScore = s;
+    }
+  }
+  if (generationHighScore > highScore){
+    highScore = generationHighScore;
   }
 }
 

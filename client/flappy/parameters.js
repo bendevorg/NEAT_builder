@@ -3,3 +3,7 @@ let objectToParameter = {
     'pipes.closest': 'params[1]',
     'game': 'params[2]'
 };
+
+let objective = {
+    steps: 10000
+};

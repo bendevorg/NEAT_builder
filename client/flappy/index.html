@@ -7,13 +7,13 @@
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
   <script language="javascript" type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script language="javascript" type="text/javascript" src="https://unpkg.com/mathjs@4.2.2/dist/math.js"></script>
-  <script language="javascript" type="text/javascript" src="../neural_network/NeuralNetwork.js"></script>
-  <script language="javascript" type="text/javascript" src="../math/Matrix.js"></script>
-  <script language="javascript" type="text/javascript" src="../GeneticAlgorithm/GeneticAlgorithm.js"></script>
-  <script language="javascript" type="text/javascript" src="../GeneticAlgorithm/mutate.js"></script>
+  <script language="javascript" type="text/javascript" src="/neural_network/NeuralNetwork.js"></script>
+  <script language="javascript" type="text/javascript" src="/math/Matrix.js"></script>
+  <script language="javascript" type="text/javascript" src="/GeneticAlgorithm/GeneticAlgorithm.js"></script>
+  <script language="javascript" type="text/javascript" src="/GeneticAlgorithm/mutate.js"></script>
   <script language="javascript" type="text/javascript" src="parameters.js"></script>
-  <script language="javascript" type="text/javascript" src="../setup.js"></script>
-  <script language="javascript" type="text/javascript" src="../leaderboard.js"></script>
+  <script language="javascript" type="text/javascript" src="/utils/setup.js"></script>
+  <script language="javascript" type="text/javascript" src="/utils/leaderboard.js"></script>
   <script language="javascript" type="text/javascript" src="main.js"></script>
   <script language="javascript" type="text/javascript" src="agent.js"></script>
   <script language="javascript" type="text/javascript" src="pipe.js"></script>
@@ -25,8 +25,10 @@
   <div id="gameInfo" style="display:none;">
     <p>
       speed: <input id="speedSlider" type="range" min="1" max="10" value="1"> <span id="speed">1</span>
-      <br/> high score: <span id="hs">0</span>
+      <br/> generation high score: <span id="hs">0</span>
       <br/> all time high score: <span id="ahs">0</span>
+      <br/> steps: <span id="stepsCount">0</span>
+      <br/> time spent: <span id="timeSpent">0</span> seconds
     </p>
   </div>
   <div id="gameDescription">

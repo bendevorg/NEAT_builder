@@ -45,5 +45,7 @@ function setParameters(){
 
   $('#gameInfo').show();
 
+  timeStart = new Date();
+
   // Q Learning Inputs
 }

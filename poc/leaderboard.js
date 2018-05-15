@@ -1,1 +1,0 @@
-let steps = 0;
