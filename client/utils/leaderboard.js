@@ -54,7 +54,11 @@ function retrieveLeaderboard(gameId){
 }
 
 function fillLeaderboard(leaderboardData){
-  $('#leaderboardTable').html('');
+  $('#leaderboardTable').html(`<tr>
+    <th>Name</th>
+    <th>High Score</th>
+    <th>Time</th>
+  </tr>`);
   leaderboardData.forEach(leaderboardEntry => {
     $('#leaderboardTable').append(`<tr>
       <td>${leaderboardEntry.name}</td>
