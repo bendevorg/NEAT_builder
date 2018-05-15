@@ -2,7 +2,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
   <script language="javascript" type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -21,30 +22,58 @@
 </head>
 
 <body>
-  <div id="canvascontainer"></div>
-  <div id="gameInfo" style="display:none;">
-    <p>
-      speed: <input id="speedSlider" type="range" min="1" max="10" value="1"> <span id="speed">1</span>
-      <br/> generation high score: <span id="hs">0</span>
-      <br/> all time high score: <span id="ahs">0</span>
-      <br/> steps: <span id="stepsCount">0</span>
-      <br/> time spent: <span id="timeSpent">0</span> seconds
-    </p>
+  <div class="row">
+    <div class="col-md-6" id="canvascontainer"></div>
   </div>
-  <div id="gameDescription">
-    
-    <h3>Bird variables</h3>
-    <ul>
-      <li>bird.x - Bird X position (Defined between 0 and the game.width)</li>
-      <li>bird.y - Bird Y position (Defined between 0 and the game.height)</li>
-      <li>bird.velocity - Bird velocity (velocity in the Y position is -5 and Max 5)</li>
-      <li>bird.maxVelocity - Bird maximum velocity (5)</li>
-      <li>bird.minVelocity - Bird minimum velocity (-5)</li>
-      <li>bird.score - Actual bird score</li>
-      <li>birds.scoreSum - All birds sums</li>
-    </ul>
-    
-    <h3>Pipes variables</h3>
+  <div id="gameInfo" class="row" style="display:none;">
+    <div class="col-md-6">
+      <p>
+        speed:
+        <input id="speedSlider" type="range" min="1" max="10" value="1">
+        <span id="speed">1</span>
+        <br/> generation high score:
+        <span id="hs">0</span>
+        <br/> all time high score:
+        <span id="ahs">0</span>
+        <br/> steps:
+        <span id="stepsCount">0</span>
+        <br/> time spent:
+        <span id="timeSpent">0</span> seconds
+      </p>
+    </div>
+  </div>
+  <div class="row" style="display:none;" id="leaderboard">
+    <div class="col-md-6">
+      <h3 class="text-left">LEADERBOARD</h3>
+      <table class="table table-striped" id="highScoreTable">
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Name</th>
+            <th>High Score</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row" id="gameDescription">
+    <div class="col-md-6">
+
+      <h3>Bird variables</h3>
+      <ul>
+        <li>bird.x - Bird X position (Defined between 0 and the game.width)</li>
+        <li>bird.y - Bird Y position (Defined between 0 and the game.height)</li>
+        <li>bird.velocity - Bird velocity (velocity in the Y position is -5 and Max 5)</li>
+        <li>bird.maxVelocity - Bird maximum velocity (5)</li>
+        <li>bird.minVelocity - Bird minimum velocity (-5)</li>
+        <li>bird.score - Actual bird score</li>
+        <li>birds.scoreSum - All birds sums</li>
+      </ul>
+
+      <h3>Pipes variables</h3>
       <ul>
         <li>pipes.closest.x (Closest x pipe)</li>
         <li>pipes.closest.bottom (Closest pipe bottom entrance)</li>
@@ -52,45 +81,53 @@
         <li>pipes.closest.width (Closest pipe width)</li>
       </ul>
 
-    <h3>Game</h3>
-    <ul>
-      <li>game.height (Height size of game canvas)</li>
-      <li>game.width (Width size of game canvas)</li>
-    </ul>
+      <h3>Game</h3>
+      <ul>
+        <li>game.height (Height size of game canvas)</li>
+        <li>game.width (Width size of game canvas)</li>
+      </ul>
+    </div>
   </div>
 
-  <div id="NNParams">
-    <label>Neural Network</label><br/>
-    <label>Inputs</label>
-    <input type="range" id="inputLayers" min="1" max="10" step="1" placeholder="Input Layers"/>
-    <div id="inputList"></div>
-    <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers"/>
-    <input type="text" id="learningRate" placeholder="Learning Rate"/>
-    <p>FIXED Output layers: 2 (jump or do nothing)</p>
+  <div class="row" id="NNParams">
+    <div class="col-md-6">
+      <label>Neural Network</label>
+      <br/>
+      <label>Inputs</label>
+      <input type="range" id="inputLayers" min="1" max="10" step="1" placeholder="Input Layers" />
+      <div id="inputList"></div>
+      <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers" />
+      <input type="text" id="learningRate" placeholder="Learning Rate" />
+      <p>FIXED Output layers: 2 (jump or do nothing)</p>
+    </div>
   </div>
-  <div id="GAParams">
-    <label>Genetic Algorithm</label>
-    <input type="text" id="populationSize" placeholder="Species per generation"/>
-    <input type="text" id="mutationRate" placeholder="Mutation rate"/>
-    <input type="text" id="scoreFunction" placeholder="Score function"/>
-    <input type="text" id="fitnessExpression" placeholder="Fitness expression"/>
+  <div class="row" id="GAParams">
+    <div class="col-md-6">
+      <label>Genetic Algorithm</label>
+      <input type="text" id="populationSize" placeholder="Species per generation" />
+      <input type="text" id="mutationRate" placeholder="Mutation rate" />
+      <input type="text" id="scoreFunction" placeholder="Score function" />
+      <input type="text" id="fitnessExpression" placeholder="Fitness expression" />
+    </div>
   </div>
-  <div id="leaderboardParams">
-    <label>Name</label>
-    <input text="text" id="username" placeholder="Your AI name"/>
+  <div class="row" id="leaderboardParams">
+    <div class="col-md-6">
+      <label>Name</label>
+      <input text="text" id="username" placeholder="Your AI name" />
+    </div>
   </div>
   <div>
     <button id="startGame">Start</button>
   </div>
   <script>
-    $('#inputLayers').change(function(){
+    $('#inputLayers').change(function () {
       let amountInputLayers = $('#inputLayers').val();
       $('#inputList').html('');
-      for (let i = 0; i < amountInputLayers; i++){
+      for (let i = 0; i < amountInputLayers; i++) {
         $('#inputList').append(`<input type="text" id="input${i}" placeholder="Type your input variable"/>`);
       }
     });
-    $('#startGame').on('click', function(){
+    $('#startGame').on('click', function () {
       setParameters();
       let game = new p5(flappyBird);
     });

@@ -20,6 +20,7 @@ function setParameters(){
   $('#NNParams').hide();
   $('#GAParams').hide();
   $('#leaderboardParams').hide();
+  $('#startGame').hide();
 
   //  Neural Network inputs
   parameters.neuralNetwork.inputLayers = Number.parseInt($('#inputLayers').val());
@@ -44,6 +45,7 @@ function setParameters(){
   parameters.geneticAlgorithm.fitnessExpression = $('#fitnessExpression').val();
 
   $('#gameInfo').show();
+  $('#leaderboard').show();
 
   timeStart = new Date();
 
