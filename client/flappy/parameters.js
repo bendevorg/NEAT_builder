@@ -5,5 +5,5 @@ let objectToParameter = {
 };
 
 let objective = {
-    steps: 10000
+    steps: 10
 };

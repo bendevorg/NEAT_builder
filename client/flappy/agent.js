@@ -33,7 +33,7 @@ class Agent {
   show(game) {
     game.fill(255, 100);
     game.stroke(255);
-    game.ellipse(this.x, this.y, this.radius * 12, this.radius * 12);
+    game.ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
   }
 
   think(){
