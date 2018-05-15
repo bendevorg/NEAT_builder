@@ -4,7 +4,7 @@ class Agent {
 
       this.x = 64;
       this.y = game.height / 2;
-      this.r = 12;
+      this.radius = 12;
 
       // Gravity, lift and velocity
       this.gravity = 0.8;
@@ -33,7 +33,7 @@ class Agent {
   show(game) {
     game.fill(255, 100);
     game.stroke(255);
-    game.ellipse(this.x, this.y, this.r * 2, this.r * 2);
+    game.ellipse(this.x, this.y, this.radius * 12, this.radius * 12);
   }
 
   think(){

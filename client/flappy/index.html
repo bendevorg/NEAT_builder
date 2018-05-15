@@ -53,19 +53,26 @@
             <th>High Score</th>
             <th>Time</th>
           </tr>
+          <tr>
+            <td>1</td>
+            <td>Giba</td>
+            <td>5991</td>
+            <td>8902 seconds</td>
+          </tr>
         </thead>
         <tbody>
         </tbody>
       </table>
     </div>
   </div>
-  <div class="row" id="gameDescription">
-    <div class="col-md-6">
+  <div class="row" id="gameSetup">
+    <div class="col-md-6" id="gameDescription">
 
       <h3>Bird variables</h3>
       <ul>
         <li>bird.x - Bird X position (Defined between 0 and the game.width)</li>
         <li>bird.y - Bird Y position (Defined between 0 and the game.height)</li>
+        <li>bird.radius - Bird radius size</li>
         <li>bird.velocity - Bird velocity (velocity in the Y position is -5 and Max 5)</li>
         <li>bird.maxVelocity - Bird maximum velocity (5)</li>
         <li>bird.minVelocity - Bird minimum velocity (-5)</li>
@@ -79,6 +86,7 @@
         <li>pipes.closest.bottom (Closest pipe bottom entrance)</li>
         <li>pipes.closest.top (Closes pipe top entrance)</li>
         <li>pipes.closest.width (Closest pipe width)</li>
+        <li>pipes.closest.velocity (Closest pipe velocity (fixed at 6))</li>
       </ul>
 
       <h3>Game</h3>
@@ -86,43 +94,54 @@
         <li>game.height (Height size of game canvas)</li>
         <li>game.width (Width size of game canvas)</li>
       </ul>
-    </div>
-  </div>
 
-  <div class="row" id="NNParams">
-    <div class="col-md-6">
-      <label>Neural Network</label>
-      <br/>
-      <label>Inputs</label>
-      <input type="range" id="inputLayers" min="1" max="10" step="1" placeholder="Input Layers" />
-      <div id="inputList"></div>
-      <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers" />
-      <input type="text" id="learningRate" placeholder="Learning Rate" />
-      <p>FIXED Output layers: 2 (jump or do nothing)</p>
+      <h3>Objective</h3>
+      <ul>
+        <li>Reach the highest score within 1000 steps</li>
+      </ul>
     </div>
-  </div>
-  <div class="row" id="GAParams">
     <div class="col-md-6">
-      <label>Genetic Algorithm</label>
-      <input type="text" id="populationSize" placeholder="Species per generation" />
-      <input type="text" id="mutationRate" placeholder="Mutation rate" />
-      <input type="text" id="scoreFunction" placeholder="Score function" />
-      <input type="text" id="fitnessExpression" placeholder="Fitness expression" />
+      <div class="row" id="NNParams">
+        <div class="col-md-6">
+          <label>Neural Network</label>
+          <br/>
+          <label>Inputs: </label>
+          <span id="inputAmount">1</span>
+          <input type="range" id="inputLayers" min="1" max="10" step="1" value="1" placeholder="Input Layers" />
+          <div id="inputList">
+              <input type="text" id="input0" placeholder="Type your input variable"/>
+          </div>
+          <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers" />
+          <input type="text" id="learningRate" placeholder="Learning Rate" />
+          <p>FIXED Output layers: 2 (jump or do nothing)</p>
+        </div>
+      </div>
+      <div class="row" id="GAParams">
+        <div class="col-md-6">
+          <label>Genetic Algorithm</label>
+          <br/>
+          <input type="text" id="populationSize" placeholder="Species per generation" />
+          <input type="text" id="mutationRate" placeholder="Mutation rate" />
+          <!--<input type="text" id="scoreFunction" placeholder="Score function" />
+            <input type="text" id="fitnessExpression" placeholder="Fitness expression" />-->
+        </div>
+      </div>
+      <div class="row" id="leaderboardParams">
+        <div class="col-md-6">
+          <label>Name</label>
+          <input text="text" id="username" placeholder="Your AI name" />
+        </div>
+      </div>
+      <div>
+        <button id="startGame">Start</button>
+      </div>
     </div>
-  </div>
-  <div class="row" id="leaderboardParams">
-    <div class="col-md-6">
-      <label>Name</label>
-      <input text="text" id="username" placeholder="Your AI name" />
-    </div>
-  </div>
-  <div>
-    <button id="startGame">Start</button>
   </div>
   <script>
     $('#inputLayers').change(function () {
       let amountInputLayers = $('#inputLayers').val();
       $('#inputList').html('');
+      $('#inputAmount').html(amountInputLayers);
       for (let i = 0; i < amountInputLayers; i++) {
         $('#inputList').append(`<input type="text" id="input${i}" placeholder="Type your input variable"/>`);
       }

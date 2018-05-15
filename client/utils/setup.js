@@ -16,11 +16,7 @@ let parameters = {
 
 function setParameters(){
 
-  $('#gameDescription').hide();
-  $('#NNParams').hide();
-  $('#GAParams').hide();
-  $('#leaderboardParams').hide();
-  $('#startGame').hide();
+  $('#gameSetup').hide();
 
   //  Neural Network inputs
   parameters.neuralNetwork.inputLayers = Number.parseInt($('#inputLayers').val());
