@@ -19,7 +19,7 @@ class Pipe {
 
   // Did this pipe hit a bird?
   hits(bird) {
-    if ((bird.y - bird.r) < this.top || (bird.y + bird.r) > (game.height - this.bottom)) {
+    if ((bird.y - bird.radius) < this.top || (bird.y + bird.radius) > (game.height - this.bottom)) {
       if (bird.x > this.x && bird.x < this.x + this.w) {
         return true;
       }
