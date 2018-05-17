@@ -8,10 +8,6 @@ function mutate(x) {
   }
 }
 
-function setMutationRate(mutationRate_){
-  mutationRate = mutationRate_;
-}
-
 // Random gaussian variables. This function is not mine, is from p5.js
 let previous = false;
 let y2 = 0;

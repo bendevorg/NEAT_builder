@@ -31,7 +31,7 @@ function normalizeFitness(agents) {
   for (let i = 0; i < agents.length; i++) {
     sum += agents[i].score;
   }
-  //console.log(sum);
+
   // Divide by the sum
   for (let i = 0; i < agents.length; i++) {
     agents[i].fitness = agents[i].score / sum;
