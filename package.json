@@ -1,36 +1,41 @@
 {
-  "name": "neat_builder",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "NEAT_builder",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "node tools/startServer.js",
-    "prod": "npm run env_setup_production && npm run server_production",
-    "dev": "npm run env_setup_development && npm run server_development",
-    "env_setup_production": "node tools/setupEnv.js production",
-    "server_production": "node -r dotenv/config tools/startServer.js",
-    "env_setup_development": "node tools/setupEnv.js development",
-    "server_development": "nodemon tools/startServer.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/guiconti/NEAT_builder.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/guiconti/NEAT_builder/issues"
-  },
-  "homepage": "https://github.com/guiconti/NEAT_builder#readme",
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "dotenv": "^5.0.1",
-    "express": "^4.16.3",
-    "rollbar": "^2.3.9"
+    "vue": "^2.5.16"
   },
   "devDependencies": {
-    "morgan": "^1.9.0",
-    "nodemon": "^1.17.4"
-  }
+    "@vue/cli-plugin-babel": "^3.0.0-beta.10",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.10",
+    "@vue/cli-service": "^3.0.0-beta.10",
+    "vue-template-compiler": "^2.5.13"
+  },
+  "babel": {
+    "presets": [
+      "@vue/app"
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ]
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
