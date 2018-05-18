@@ -1,8 +1,8 @@
 class Block {
   constructor() {
 
-    this.width = 8;
-    this.height = 8
+    this.width = 40;
+    this.height = 40;
 
     this.x = game.width;
     this.y = game.height - this.height;
@@ -23,8 +23,8 @@ class Block {
   // Draw the pipe
   show(game) {
     game.stroke(255);
-    game.fill(200);
-    game.rect(this.x, this.y, this.weight, this.height);
+    game.fill(255);
+    game.rect(this.x, this.y, this.width, this.height);
   }
 
   // Update the pipe
