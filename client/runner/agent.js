@@ -10,7 +10,7 @@ class Agent {
 
       // Gravity, lift and velocity
       this.gravity = 0.8;
-      this.lift = -12;
+      this.lift = -25;
       this.velocity = 0;
 
       this.minVelocity = -5;
@@ -83,7 +83,9 @@ class Agent {
 
   // Jump up
   jump() {
-    this.velocity += this.lift;
+    if (this.onTheFloor()){
+      this.velocity += this.lift;
+    }
   }
 
   bottomTop() {
@@ -97,11 +99,8 @@ class Agent {
 
   // Update bird's position based on velocity, gravity, etc.
   update() {
-    
-    if (!this.onTheFloor()){
-      this.velocity += this.gravity;
-      this.y = this.y + this.velocity > game.height - this.height?game.height - this.height:this.y + this.velocity;
-    }
+    this.velocity += this.gravity;
+    this.y = this.y + this.velocity > game.height - this.height?game.height - this.height:this.y + this.velocity;
 
     // Every frame it is alive increases the score
     this.score++;

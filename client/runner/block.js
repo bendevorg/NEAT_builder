@@ -12,7 +12,7 @@ class Block {
 
   // Did this block hit an agent?
   hits(agent) {
-    return (this.x <= agent.x + agent.width && this.x + this.width >= agent.x + agent.width) && this.y + this.height > agent.y;
+    return (this.x <= agent.x + agent.width && this.x + this.width >= agent.x + agent.width) && this.y - this.height < agent.y;
   }
 
   // Draw the pipe
