@@ -71,9 +71,8 @@ function runner(pFive){
       // Running all the active agents
       for (let i = activeAgents.length - 1; i >= 0; i--) {
         let agent = activeAgents[i];
-        // Bird uses its brain!
-        //agent.think(blocks);
-        agent.jump();
+        // Agent uses its brain!
+        agent.think(blocks);
         agent.update();
 
         // Check all the blocks

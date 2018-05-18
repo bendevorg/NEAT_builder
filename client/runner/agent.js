@@ -10,7 +10,7 @@ class Agent {
 
       // Gravity, lift and velocity
       this.gravity = 0.8;
-      this.lift = -25;
+      this.lift = -13;
       this.velocity = 0;
 
       this.minVelocity = -5;
@@ -38,46 +38,36 @@ class Agent {
     game.rect(this.x, this.y, this.width, this.height);
   }
 
-  think(){
+  think(blocks){
 
-    // // First find the closest pipe
-    // let closest = null;
-    // let record = Infinity;
-    // for (let i = 0; i < pipes.length; i++) {
-    //   let diff = pipes[i].x - this.x;
-    //   if (diff > 0 && diff < record) {
-    //     record = diff;
-    //     closest = pipes[i];
-    //   }
-    // }
+    // First find the closest pipe
+    let closest = null;
+    let record = Infinity;
+    for (let i = 0; i < blocks.length; i++) {
+      let diff = blocks[i].x - this.x;
+      if (diff > 0 && diff < record) {
+        record = diff;
+        closest = blocks[i];
+      }
+    }
 
-    // if (closest != null) {
-    //   // Now create the inputs to the neural network
-    //   let inputs = [];
+    if (closest != null) {
+      // Now create the inputs to the neural network
+      let inputs = [];
 
-    //   let params = [this, closest, game];
+      let params = [this, closest, game];
 
-    //   for (let i = 0; i < parameters.neuralNetwork.inputs.length; i++){
-    //     inputs[i] = parameters.neuralNetwork.inputs[i](params);
-    //   }
-    //   // x position of closest pipe
-    //   //inputs[0] = closest.x / GAME_WIDTH; // map(closest.x, this.x, width, 0, 1);
-    //   // top of closest pipe opening
-    //   //inputs[1] = closest.top / game.height; //map(closest.top, 0, game.height, 0, 1);
-    //   // bottom of closest pipe opening
-    //   //inputs[2] = closest.bottom / game.height;// map(closest.bottom, 0, game.height, 0, 1);
-    //   // bird's y position
-    //   //inputs[3] = this.y / game.height; //map(this.y, 0, game.height, 0, 1);
-    //   // bird's y velocity
-    //   //inputs[4] = this.velocity / 5; //map(this.velocity, -5, 5, 0, 1);
+      for (let i = 0; i < parameters.neuralNetwork.inputs.length; i++){
+        inputs[i] = parameters.neuralNetwork.inputs[i](params);
+      }
 
-    //   // Get the outputs from the network
-    //   let action = this.brain.predict(inputs);
-    //   // Decide to jump or not!
-    //   if (action[1] > action[0]) {
-    //     this.up();
-    //   }
-    //}
+      // Get the outputs from the network
+      let action = this.brain.predict(inputs);
+      // Decide to jump or not!
+      if (action[1] > action[0]) {
+        this.jump();
+      }
+    }
 
   }
 
