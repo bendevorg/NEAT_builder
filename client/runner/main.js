@@ -75,19 +75,15 @@ function runner(pFive){
         //agent.think(blocks);
         agent.update();
 
-        // Check all the pipes
-        // for (let j = 0; j < pipes.length; j++) {
-        //   // It's hit a pipe
-        //   if (pipes[j].hits(activeAgents[i])) {
-        //     // Remove this agent
-        //     activeAgents.splice(i, 1);
-        //     break;
-        //   }
-        // }
-
-        // if (agent.bottomTop()) {
-        //   activeAgents.splice(i, 1);
-        // }
+        // Check all the blocks
+        for (let j = 0; j < blocks.length; j++) {
+          // It's hit a pipe
+          if (blocks[j].hits(activeAgents[i])) {
+            // Remove this agent
+            activeAgents.splice(i, 1);
+            break;
+          }
+        }
 
       }
 

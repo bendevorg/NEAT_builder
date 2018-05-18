@@ -10,14 +10,9 @@ class Block {
     this.speed = 6;
   }
 
-  // Did this pipe hit a bird?
-  hits(bird) {
-    if ((bird.y - bird.radius) < this.top || (bird.y + bird.radius) > (game.height - this.bottom)) {
-      if (bird.x > this.x && bird.x < this.x + this.w) {
-        return true;
-      }
-    }
-    return false;
+  // Did this block hit an agent?
+  hits(agent) {
+    return (this.x <= agent.x + agent.width && this.x + this.width >= agent.x + agent.width) && this.y + this.height > agent.y;
   }
 
   // Draw the pipe
