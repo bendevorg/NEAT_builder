@@ -13,8 +13,8 @@ class Agent {
       this.lift = -13;
       this.velocity = 0;
 
-      this.minVelocity = -5;
-      this.maxVelocity = 5;
+      this.minVelocity = -13;
+      this.maxVelocity = 13;
 
       this.brain = brain.copy();
       this.brain.mutate(mutate);

@@ -44,25 +44,24 @@
   <div class="row" id="gameSetup">
     <div class="col-md-6" id="gameDescription">
 
-      <h3>Bird variables</h3>
+      <h3>Player variables</h3>
       <ul>
-        <li>bird.x - Bird X position (Defined between 0 and the game.width)</li>
-        <li>bird.y - Bird Y position (Defined between 0 and the game.height)</li>
-        <li>bird.radius - Bird radius size</li>
-        <li>bird.velocity - Bird velocity (velocity in the Y position is -5 and Max 5)</li>
-        <li>bird.maxVelocity - Bird maximum velocity (5)</li>
-        <li>bird.minVelocity - Bird minimum velocity (-5)</li>
-        <li>bird.score - Actual bird score</li>
-        <li>birds.scoreSum - All birds sums</li>
+        <li>player.x - Player X position (Defined between 0 and the game.width)</li>
+        <li>player.y - Player Y position (Defined between 0 and the game.height)</li>
+        <li>player.width - Bird width size</li>
+        <li>player.height - Player height size</li>
+        <li>player.velocity - Bird velocity (velocity in the Y position is -5 and Max 5)</li>
+        <li>player.maxVelocity - Bird maximum velocity in Y axis (13)</li>
+        <li>player.minVelocity - Bird minimum velocity in Y axis (-13)</li>
       </ul>
 
-      <h3>Pipes variables</h3>
+      <h3>Blocks variables</h3>
       <ul>
-        <li>pipes.closest.x (Closest x pipe)</li>
-        <li>pipes.closest.bottom (Closest pipe bottom entrance)</li>
-        <li>pipes.closest.top (Closes pipe top entrance)</li>
-        <li>pipes.closest.width (Closest pipe width)</li>
-        <li>pipes.closest.velocity (Closest pipe velocity (fixed at 6))</li>
+        <li>Blocks.closest.x - X of the closest block</li>
+        <li>Blocks.closest.y - Y of the closest block</li>
+        <li>Blocks.closest.width - width of the closest block</li>
+        <li>Blocks.closest.height - height of the closest block</li>
+        <li>Blocks.closest.velocity - velocity of the closest block (fixed at 6)</li>
       </ul>
 
       <h3>Game</h3>
@@ -132,7 +131,7 @@
   <script>
     let apiUrl = window.location.protocol + '//' + window.location.hostname + ':3340';
     $(document).ready(function() {
-      retrieveLeaderboard(1);
+      retrieveLeaderboard('5ed58066-788a-4eba-87ce-6f4cb262913b');
     });
     $('#inputLayers').change(function () {
       let amountInputLayers = $('#inputLayers').val();
