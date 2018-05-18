@@ -130,8 +130,9 @@
   </div>
   <script>
     let apiUrl = window.location.protocol + '//' + window.location.hostname + ':3340';
+    let gameId = 'f7ca4cb4-a121-42c7-a03f-980fdbafa608';
     $(document).ready(function() {
-      retrieveLeaderboard('f7ca4cb4-a121-42c7-a03f-980fdbafa608');
+      retrieveLeaderboard(gameId);
     });
     $('#inputLayers').change(function () {
       let amountInputLayers = $('#inputLayers').val();

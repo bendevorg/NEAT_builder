@@ -101,7 +101,7 @@ function flappyBird(pFive){
       updateHighscore();
 
       //  Check for leadboard goal
-      checkGoal(highScore);
+      checkGoal(highScore, gameId);
     }
 
     // Update DOM Elements
