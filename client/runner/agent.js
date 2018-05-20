@@ -10,7 +10,7 @@ class Agent {
 
       // Gravity, lift and velocity
       this.gravity = 0.8;
-      this.lift = -13;
+      this.lift = -12;
       this.velocity = 0;
 
       this.minVelocity = -13;
@@ -73,9 +73,8 @@ class Agent {
 
   // Jump up
   jump() {
-    if (this.onTheFloor()){
+    if (this.onTheFloor())
       this.velocity += this.lift;
-    }
   }
 
   bottomTop() {
@@ -91,6 +90,8 @@ class Agent {
   update() {
     this.velocity += this.gravity;
     this.y = this.y + this.velocity > game.height - this.height?game.height - this.height:this.y + this.velocity;
+    if (this.y == game.height - this.height && this.velocity > 0)
+      this.velocity = 0;
 
     // Every frame it is alive increases the score
     this.score++;
