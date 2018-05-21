@@ -5,14 +5,20 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    inputTotal: [
-      { id: '1', name: 'user 1',},
-      { id: '2', name: 'user 2',},
+    birdInput: [
+      { varname:'bird.x', description: 'Bird X position (Defined between 0 and the game.width)' },
+      { varname:'bird.y', description: 'Bird Y position (Defined between 0 and the game.height)' },
+      { varname:'bird.radius', description: 'Bird radius size' },
+      { varname:'bird.velocity', description: 'Bird velocity (velocity in the Y position is -5 and Max 5)' },
+      { varname:'bird.maxVelocity', description: 'Bird maximum velocity (5)' },
+      { varname:'bird.minVelocity', description: 'Bird minimum velocity (-5)' },
+      { varname:'bird.score', description: 'Actual bird score' },
+      { varname:'birds.scoreSum', description: 'All birds sums' },
     ],
   },
   getters: {
-    getInputTotal: state => {
-      return state.inputTotal
+    getBirdInput: state => {
+      return state.birdInput
     }
   },
   mutations: {

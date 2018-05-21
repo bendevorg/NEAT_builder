@@ -2,14 +2,9 @@
   <div class="mb-1 box-shadow" id="gameDescription">
       <h3>Bird variables</h3>
       <ul>
-        <li>bird.x - Bird X position (Defined between 0 and the game.width)</li>
-        <li>bird.y - Bird Y position (Defined between 0 and the game.height)</li>
-        <li>bird.radius - Bird radius size</li>
-        <li>bird.velocity - Bird velocity (velocity in the Y position is -5 and Max 5)</li>
-        <li>bird.maxVelocity - Bird maximum velocity (5)</li>
-        <li>bird.minVelocity - Bird minimum velocity (-5)</li>
-        <li>bird.score - Actual bird score</li>
-        <li>birds.scoreSum - All birds sums</li>
+        <li v-for="birdVar in birdInput" :key="birdVar.index">
+          {{ birdVar.varname }} - {{ birdVar.description }}
+        </li>
       </ul>
 
       <h3>Pipes variables</h3>
@@ -61,8 +56,8 @@ export default {
     msg: String
   },
   computed: {
-    inputTotal () {
-      return this.$store.getters.getInputTotal
+    birdInput () {
+      return this.$store.getters.getBirdInput
     }
   },
 }
