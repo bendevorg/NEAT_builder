@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-1 box-shadow" id="gameDescription">
+  <div class="mb-12 box-shadow" id="gameDescription">
       <h3>Bird variables</h3>
       <ul>
         <li v-for="el in birdInput" :key="el.index">
@@ -16,22 +16,21 @@
 
       <h3>Game variables</h3>
       <ul>
-        <li>game.height (Height size of game canvas)</li>
-        <li>game.width (Width size of game canvas)</li>
+        <li v-for="el in gameInput" :key="el.index">
+          {{ el.varname }} - {{ el.description }}
+        </li>
       </ul>
 
       <h3>Objective</h3>
       <ul>
         <li>Reach the highest score within 1000 steps</li>
       </ul>
-    
   </div>
-
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Instructions',
   props: {
     msg: String
   },
@@ -41,6 +40,9 @@ export default {
     },
     pipeInput () {
       return this.$store.getters.getPipeInput
+    },
+    gameInput () {
+      return this.$store.getters.getGameInput
     }
   },
 }

@@ -22,6 +22,10 @@ export const store = new Vuex.Store({
       { varname: 'pipes.closest.width', description: 'Closest pipe width' },
       { varname: 'pipes.closest.velocity', description: 'Closest pipe velocity (fixed at 6)' },
     ],
+    gameInput: [
+      { varname: 'game.height', description: 'Height size of game canvas' },
+      { varname: 'game.width', description: 'Width size of game canvas' }
+    ]
   },
   getters: {
     getBirdInput: state => {
@@ -29,7 +33,10 @@ export const store = new Vuex.Store({
     },
     getPipeInput: state => {
       return state.pipeInput
-    }
+    },
+    getGameInput: state =>{
+      return state.gameInput
+    },
   },
   mutations: {
     changeHolder(state, payload){
