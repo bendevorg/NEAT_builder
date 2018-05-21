@@ -5,11 +5,14 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    placeHolder: 0,
+    inputTotal: [
+      { id: '1', name: 'user 1',},
+      { id: '2', name: 'user 2',},
+    ],
   },
   getters: {
-    getHolder: state => {
-      return state.placeHolder
+    getInputTotal: state => {
+      return state.inputTotal
     }
   },
   mutations: {

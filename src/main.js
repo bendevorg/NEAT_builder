@@ -5,10 +5,12 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router';
 import { routes } from './routes';
 import { store } from './store/store';
+// import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(Vuex);
+// Vue.use(BootstrapVue);
 Vue.http.options.root = 'http://localhost:3339/api';
 
 const router = new VueRouter({
