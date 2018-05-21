@@ -14,7 +14,7 @@
         </li>
       </ul>
 
-      <h3>Game</h3>
+      <h3>Game variables</h3>
       <ul>
         <li>game.height (Height size of game canvas)</li>
         <li>game.width (Width size of game canvas)</li>
