@@ -15,10 +15,20 @@ export const store = new Vuex.Store({
       { varname:'bird.score', description: 'Actual bird score' },
       { varname:'birds.scoreSum', description: 'All birds sums' },
     ],
+    pipeInput:[
+      { varname: 'pipes.closest.x', description: 'Closest x pipe' },
+      { varname: 'pipes.closest.bottom', description: 'Closest pipe bottom entrance' },
+      { varname: 'pipes.closest.top', description: 'Closes pipe top entrance' },
+      { varname: 'pipes.closest.width', description: 'Closest pipe width' },
+      { varname: 'pipes.closest.velocity', description: 'Closest pipe velocity (fixed at 6)' },
+    ],
   },
   getters: {
     getBirdInput: state => {
       return state.birdInput
+    },
+    getPipeInput: state => {
+      return state.pipeInput
     }
   },
   mutations: {

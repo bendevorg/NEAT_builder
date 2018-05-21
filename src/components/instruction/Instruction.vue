@@ -2,18 +2,16 @@
   <div class="mb-1 box-shadow" id="gameDescription">
       <h3>Bird variables</h3>
       <ul>
-        <li v-for="birdVar in birdInput" :key="birdVar.index">
-          {{ birdVar.varname }} - {{ birdVar.description }}
+        <li v-for="el in birdInput" :key="el.index">
+          {{ el.varname }} - {{ el.description }}
         </li>
       </ul>
 
       <h3>Pipes variables</h3>
       <ul>
-        <li>pipes.closest.x (Closest x pipe)</li>
-        <li>pipes.closest.bottom (Closest pipe bottom entrance)</li>
-        <li>pipes.closest.top (Closes pipe top entrance)</li>
-        <li>pipes.closest.width (Closest pipe width)</li>
-        <li>pipes.closest.velocity (Closest pipe velocity (fixed at 6))</li>
+        <li v-for="el in pipeInput" :key="el.index">
+          {{ el.varname }} - {{ el.description }}
+        </li>
       </ul>
 
       <h3>Game</h3>
@@ -28,24 +26,6 @@
       </ul>
     
   </div>
-  <!-- <script>
-    let apiUrl = window.location.protocol + '//' + window.location.hostname + ':3340';
-    $(document).ready(function() {
-      retrieveLeaderboard(1);
-    });
-    $('#inputLayers').change(function () {
-      let amountInputLayers = $('#inputLayers').val();
-      $('#inputList').html('');
-      $('#inputAmount').html(amountInputLayers);
-      for (let i = 0; i < amountInputLayers; i++) {
-        $('#inputList').append(`<input type="text" id="input${i}" placeholder="Type your input variable"/>`);
-      }
-    });
-    $('#startGame').on('click', function () {
-      setParameters();
-      let game = new p5(flappyBird);
-    });
-  </script> -->
 
 </template>
 
@@ -58,6 +38,9 @@ export default {
   computed: {
     birdInput () {
       return this.$store.getters.getBirdInput
+    },
+    pipeInput () {
+      return this.$store.getters.getPipeInput
     }
   },
 }
