@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
+    // TODO: GET this from an API
     gameInstructions: [
       {
         name: 'Bird',
@@ -39,15 +40,26 @@ export const store = new Vuex.Store({
     ],
     neuralNetwork: {
       variableInputAmount: 1
+    },
+    // Everything down from here is temporary... i don`t know how to handle these yet
+    gameId: 'f7ca4cb4-a121-42c7-a03f-980fdbafa608',
+    backend: {
+      host: 'http://localhost:3340/api'
     }
   },
   getters: {
     gameInstructions: state => {
-      return state.gameInstructions
+      return state.gameInstructions;
     },
     getVariableInputAmount: state => {
-      return state.neuralNetwork.variableInputAmount
+      return state.neuralNetwork.variableInputAmount;
     },
+    backendHost: state => {
+      return state.backend.host;
+    },
+    gameId: state => {
+      return state.gameId;
+    }
   },
   mutations: {
     changeHolder(state, payload) {

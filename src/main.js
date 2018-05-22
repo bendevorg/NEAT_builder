@@ -12,7 +12,6 @@ Vue.use(VueResource);
 Vue.use(Vuex);
 // Vue.use(BootstrapVue);
 Vue.http.options.root = 'http://localhost:3339/api';
-
 const router = new VueRouter({
   routes,
   mode: 'history'

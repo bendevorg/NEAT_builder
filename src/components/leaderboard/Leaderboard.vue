@@ -9,6 +9,11 @@
             <th>High Score</th>
             <th>Time</th>
           </tr>
+          <tr v-for="entry in getEntries" :key="entry.index">
+            <th>{{entry.name}}</th>
+            <th>{{entry.score}}</th>
+            <th>{{entry.time}}</th>
+          </tr>
         </thead>
         <tbody>
         </tbody>
@@ -18,17 +23,36 @@
 </template>
 
 <script>
+import API from '../../utils/API.js';
 import Entry from './Entry.vue';
 
 export default {
   name: 'Leaderboard',
+  data: () => {
+    return {
+      entries: []
+    }
+  },
   props: {
     msg: String
   },
   computed: {
+    getEntries(){
+      return this.entries
+    }
   },
   components: {
     Entry
+  },
+  mounted() {
+    API
+      .get('/leaderboard/' + this.$store.getters.gameId)
+      .then(response => {
+        this.entries = response.data.msg
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
 </script>
