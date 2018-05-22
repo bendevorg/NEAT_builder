@@ -43,9 +43,9 @@
           <br/>
           <label>Inputs: </label>
           <span id="inputCounter">{{inputAmount}}</span>
-          <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="inputAmount" @input="changeInputs" placeholder="Input Layers" />
+          <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="inputAmount" @input="changeVariableInputAmount" placeholder="Input Layers" />
           <div id="inputList">
-            <input type="text" v-for="index in getInputAmount" :key="index" placeholder="Type your input variable"/>
+            <app-variable-input/>
           </div>
           <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers" />
           <input type="text" id="learningRate" placeholder="Learning Rate" />
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import VariableInput from './VariableInput.vue';
+
 export default {
   name: "HelloWorld",
   props: {
@@ -74,27 +76,23 @@ export default {
   },
   data() {
     return {
-      inputAmount: 5,
-      items: [
-        {message: 'a', id: 0}
-      ]
+      inputAmount: 1
     };
   },
   computed: {
     inputTotal() {
       return this.$store.getters.getInputTotal;
-    },
-    getInputAmount() {
-      return parseInt(this.inputAmount);
     }
   },
   methods: {
-    changeInputs(){
-      if (this.items.length > this.inputAmount)
-        this.items.pop();
-      else 
-        this.items.push({message: 'a', id: this.inputAmount});
-    }
+    changeVariableInputAmount(){
+      this.$store.commit('changeVariableInputAmount', {
+        variableInputAmount: this.inputAmount
+      });
+    }  
+  },
+  components: {
+    appVariableInput: VariableInput
   }
 };
 </script>
