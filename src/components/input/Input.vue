@@ -45,7 +45,7 @@
           <span id="inputCounter">{{inputAmount}}</span>
           <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="inputAmount" @input="changeInputs" placeholder="Input Layers" />
           <div id="inputList">
-              <input type="text" id="input0" placeholder="Type your input variable"/>
+            <input type="text" v-for="index in getInputAmount" :key="index" placeholder="Type your input variable"/>
           </div>
           <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers" />
           <input type="text" id="learningRate" placeholder="Learning Rate" />
@@ -74,17 +74,26 @@ export default {
   },
   data() {
     return {
-      inputAmount: 1
+      inputAmount: 5,
+      items: [
+        {message: 'a', id: 0}
+      ]
     };
   },
   computed: {
     inputTotal() {
       return this.$store.getters.getInputTotal;
+    },
+    getInputAmount() {
+      return parseInt(this.inputAmount);
     }
   },
   methods: {
     changeInputs(){
-      console.log(this.inputAmount);
+      if (this.items.length > this.inputAmount)
+        this.items.pop();
+      else 
+        this.items.push({message: 'a', id: this.inputAmount});
     }
   }
 };
