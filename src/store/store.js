@@ -42,6 +42,10 @@ export const store = new Vuex.Store({
     getGameInput: state => {
       return state.gameVariable.gameInput
     },
+    getTotalInput: state =>{
+      console.log (state.gameVariable)
+      return state.gameVariable
+    },
     getVariableInputAmount: state => {
       return state.neuralNetwork.variableInputAmount
     },

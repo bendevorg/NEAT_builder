@@ -5,6 +5,16 @@
       <b-form-select v-model="selected" :options="options" class="mb-3" size="sm" />
       <div>Selected: <strong>{{ selected }}</strong></div>
     </div>
+
+    <div>
+      <h2>Total Inputs</h2>
+      <ul>
+        <li v-for="input in totalInput" :key="input.index">
+          {{ input }}
+        </li>
+      </ul>
+    </div>
+
     <div id="gameInfo" class="row" style="display:none;">
       <div class="col-md-6">
         <p>
@@ -67,8 +77,8 @@ export default {
     };
   },
   computed: {
-    inputTotal() {
-      return this.$store.getters.getInputTotal;
+    totalInput() {
+      return this.$store.getters.getTotalInput;
     }
   },
   methods: {
