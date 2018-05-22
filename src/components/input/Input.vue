@@ -1,13 +1,13 @@
 <template>
   <div class="hello">
-      <h1>total</h1>  
-      <p>{{ inputTotal }}</p>
-      <!-- eslint-disable-next-line -->
-      <ul>
-        <li v-for="input in inputTotal" :key="input.index">
-          {{ input.name }}
-        </li>
-      </ul>
+    <h1>total</h1>  
+    <p>{{ inputTotal }}</p>
+    <!-- eslint-disable-next-line -->
+    <ul>
+      <li v-for="input in inputTotal" :key="input.index">
+        {{ input.name }}
+      </li>
+    </ul>
   <div class="row">
     <div class="col-md-6" id="canvascontainer"></div>
   </div>
@@ -42,8 +42,8 @@
           <label>Neural Network</label>
           <br/>
           <label>Inputs: </label>
-          <span id="inputAmount">1</span>
-          <input type="range" id="inputLayers" min="1" max="10" step="1" value="1" placeholder="Input Layers" />
+          <span id="inputCounter">{{inputAmount}}</span>
+          <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="inputAmount" @input="changeInputs" placeholder="Input Layers" />
           <div id="inputList">
               <input type="text" id="input0" placeholder="Type your input variable"/>
           </div>
@@ -68,28 +68,26 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
     msg: String
   },
-  data () {
+  data() {
     return {
-      selected: null,
-      options: [
-        { value: null, text: 'Please select an option' },
-        { value: 'a', text: 'This is First option' },
-        { value: 'b', text: 'Selected Option' },
-        { value: {'C': '3PO'}, text: 'This is an option with object value' },
-        { value: 'd', text: 'This one is disabled', disabled: true }
-      ]
-    }
+      inputAmount: 1
+    };
   },
   computed: {
-    inputTotal () {
-      return this.$store.getters.getInputTotal
+    inputTotal() {
+      return this.$store.getters.getInputTotal;
     }
   },
-}
+  methods: {
+    changeInputs(){
+      console.log(this.inputAmount);
+    }
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
