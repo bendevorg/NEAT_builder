@@ -1,8 +1,5 @@
 <template>
   <div class="hello">
-    <h1>total</h1>  
-    <p>{{ inputTotal }}</p>
-    <!-- eslint-disable-next-line -->
     <ul>
       <li v-for="input in inputTotal" :key="input.index">
         {{ input.name }}
