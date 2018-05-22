@@ -1,66 +1,61 @@
 <template>
-  <div class="col-md-6">
-    <div>
-      <b-form-select v-model="selected" :options="options" class="mb-3" />
-      <b-form-select v-model="selected" :options="options" class="mb-3" size="sm" />
-      <div>Selected: <strong>{{ selected }}</strong></div>
-    </div>
-
-    <div>
-      <h2>Total Inputs</h2>
-      <ul>
-        <li v-for="input in totalInput" :key="input.index">
-          {{ input }}
-        </li>
-      </ul>
-    </div>
-
-    <div id="gameInfo" class="row" style="display:none;">
+      <!--
       <div class="col-md-6">
-        <p>
-          speed:
-          <input id="speedSlider" type="range" min="1" max="10" value="1">
-          <span id="speed">1</span>
-          <br/> generation high score:
-          <span id="hs">0</span>
-          <br/> all time high score:
-          <span id="ahs">0</span>
-          <br/> steps:
-          <span id="stepsCount">0</span>
-          <br/> time spent:
-          <span id="timeSpent">0</span> seconds
-        </p>
+        <div>
+          <b-form-select v-model="selected" :options="options" class="mb-3" />
+          <b-form-select v-model="selected" :options="options" class="mb-3" size="sm" />
+          <div>Selected: <strong>{{ selected }}</strong></div>
+        </div>
+
+        <div>
+          <h2>Total Inputs</h2>
+          <ul>
+            <li v-for="input in totalInput" :key="input.index">
+              {{ input }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      -->
+  <div class="col-md-6">
+    <div class="row" id="NNParams">
+      <div class="col-md-6">
+        <label>Neural Network</label>
+        <br/>
+        <label>Inputs: </label>
+        <span id="inputCounter">{{ inputAmount }}</span>
+        <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="inputAmount" @input="changeVariableInputAmount" placeholder="Input Layers" />
+        <div id="inputList">
+          <app-variable-input/>
+        </div>
+        <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers" />
+        <input type="text" id="learningRate" placeholder="Learning Rate" />
+        <p>FIXED Output layers: 2 (jump or do nothing)</p>
       </div>
     </div>
-    <div class="row" id="gameSetup">
-
+    <div class="row" id="GAParams">
       <div class="col-md-6">
-        <div class="row" id="NNParams">
-          <div class="col-md-6">
-            <label>Neural Network</label>
-            <br/>
-            <label>Inputs: </label>
-            <span id="inputCounter">{{ inputAmount }}</span>
-            <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="inputAmount" @input="changeVariableInputAmount" placeholder="Input Layers" />
-            <div id="inputList">
-              <app-variable-input/>
-            </div>
-            <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers" />
-            <input type="text" id="learningRate" placeholder="Learning Rate" />
-            <p>FIXED Output layers: 2 (jump or do nothing)</p>
-          </div>
+        <label>Genetic Algorithm</label>
+        <br/>
+        <input type="text" id="populationSize" placeholder="Species per generation" />
+        <input type="text" id="mutationRate" placeholder="Mutation rate" />
+      </div>
+    </div>
+    <div>
+      <div class="row" id="leaderboardParams">
+        <div class="col-md-6">
+          <label>Name</label>
+          <input text="text" id="username" placeholder="Your AI name" />
         </div>
-        <div class="row" id="GAParams">
-          <div>
-            <label>Genetic Algorithm</label>
-            <br/>
-            <input type="text" id="populationSize" placeholder="Species per generation" />
-            <input type="text" id="mutationRate" placeholder="Mutation rate" />
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <button id="startGame">Start</button>
         </div>
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>

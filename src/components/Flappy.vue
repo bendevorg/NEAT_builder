@@ -30,26 +30,25 @@
     </div>
   </div>
   <div class="row" id="gameSetup">
-    <div class="col-md-6" id="gameDescription">
-      <app-instruction></app-instruction>
-    </div>
-    <div class="row" id="NNParams">
-      <div class="col-md-6">
-      <app-input></app-input>
-      </div>
-      <div class="row" id="GAParams">
-
-      </div>
-      <div class="row" id="leaderboardParams">
+      <div id="gameInfo" class="row" style="display:none;">
         <div class="col-md-6">
-          <label>Name</label>
-          <input text="text" id="username" placeholder="Your AI name" />
+          <p>
+            speed:
+            <input id="speedSlider" type="range" min="1" max="10" value="1">
+            <span id="speed">1</span>
+            <br/> generation high score:
+            <span id="hs">0</span>
+            <br/> all time high score:
+            <span id="ahs">0</span>
+            <br/> steps:
+            <span id="stepsCount">0</span>
+            <br/> time spent:
+            <span id="timeSpent">0</span> seconds
+          </p>
         </div>
       </div>
-      <div>
-        <button id="startGame">Start</button>
-      </div>
-    </div>
+      <app-instruction></app-instruction>
+      <app-input></app-input>
   </div>
   <div class="row" id="leaderboard">
     <div class="col-md-6">
@@ -90,35 +89,35 @@
 </template>
 
 <script>
-import Instruction from './instruction/Instruction.vue'
-import Input from './input/Input.vue'
+import Instruction from "./instruction/Instruction.vue";
+import Input from "./input/Input.vue";
 export default {
-  name: 'Flappy',
-  data () {
+  name: "Flappy",
+  data() {
     return {
       selected: null,
       options: [
-        { value: null, text: 'Please select an option' },
-        { value: 'a', text: 'This is First option' },
-        { value: 'b', text: 'Selected Option' },
-        { value: {'C': '3PO'}, text: 'This is an option with object value' },
-        { value: 'd', text: 'This one is disabled', disabled: true }
+        { value: null, text: "Please select an option" },
+        { value: "a", text: "This is First option" },
+        { value: "b", text: "Selected Option" },
+        { value: { C: "3PO" }, text: "This is an option with object value" },
+        { value: "d", text: "This one is disabled", disabled: true }
       ]
-    }
+    };
   },
   props: {
     msg: String
   },
   computed: {
-    inputTotal () {
-      return this.$store.getters.getInputTotal
+    inputTotal() {
+      return this.$store.getters.getInputTotal;
     }
   },
-  components:{
+  components: {
     AppInstruction: Instruction,
-    AppInput: Input,
+    AppInput: Input
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

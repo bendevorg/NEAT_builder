@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-12 box-shadow" id="gameDescription">
+  <div class="col-md-6" id="gameDescription">
     <div v-for="instruction in getInstructions" :key="instruction.index">
       <h3>{{instruction.name}}</h3>
       <ul>
