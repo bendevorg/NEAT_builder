@@ -30,42 +30,27 @@
     </div>
   </div>
   <div class="row" id="gameSetup">
-      <div id="gameInfo" class="row" style="display:none;">
-        <div class="col-md-6">
-          <p>
-            speed:
-            <input id="speedSlider" type="range" min="1" max="10" value="1">
-            <span id="speed">1</span>
-            <br/> generation high score:
-            <span id="hs">0</span>
-            <br/> all time high score:
-            <span id="ahs">0</span>
-            <br/> steps:
-            <span id="stepsCount">0</span>
-            <br/> time spent:
-            <span id="timeSpent">0</span> seconds
-          </p>
-        </div>
+    <div id="gameInfo" class="row" style="display:none;">
+      <div class="col-md-6">
+        <p>
+          speed:
+          <input id="speedSlider" type="range" min="1" max="10" value="1">
+          <span id="speed">1</span>
+          <br/> generation high score:
+          <span id="hs">0</span>
+          <br/> all time high score:
+          <span id="ahs">0</span>
+          <br/> steps:
+          <span id="stepsCount">0</span>
+          <br/> time spent:
+          <span id="timeSpent">0</span> seconds
+        </p>
       </div>
-      <app-instruction></app-instruction>
-      <app-input></app-input>
-  </div>
-  <div class="row" id="leaderboard">
-    <div class="col-md-6">
-      <h3 class="text-left">LEADERBOARD</h3>
-      <table class="table table-striped" id="highScoreTable">
-        <thead id="leaderboardTable"> 
-          <tr>
-            <th>Name</th>
-            <th>High Score</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
     </div>
+    <app-instruction/>
+    <app-input/>
   </div>
+  <app-leaderboard/>
   <!-- <script>
     let apiUrl = window.location.protocol + '//' + window.location.hostname + ':3340';
     $(document).ready(function() {
@@ -84,13 +69,15 @@
       let game = new p5(flappyBird);
     });
   </script> -->
-
+  
   </div>
 </template>
 
 <script>
 import Instruction from "./instruction/Instruction.vue";
 import Input from "./input/Input.vue";
+import Leaderboard from './leaderboard/Leaderboard.vue';
+
 export default {
   name: "Flappy",
   data() {
@@ -115,7 +102,8 @@ export default {
   },
   components: {
     AppInstruction: Instruction,
-    AppInput: Input
+    AppInput: Input,
+    AppLeaderboard: Leaderboard
   }
 };
 </script>
