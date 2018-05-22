@@ -1,50 +1,28 @@
 <template>
   <div class="mb-12 box-shadow" id="gameDescription">
-      <h3>Bird variables</h3>
+    <div v-for="instruction in getInstructions" :key="instruction.index">
+      <h3>{{instruction.name}}</h3>
       <ul>
-        <li v-for="el in birdInput" :key="el.index">
-          {{ el.varname }} - {{ el.description }}
+        <li v-for="item in instruction.items" :key="item.index">
+          {{ item.name }} - {{ item.description }}
         </li>
       </ul>
-
-      <h3>Pipes variables</h3>
-      <ul>
-        <li v-for="el in pipeInput" :key="el.index">
-          {{ el.varname }} - {{ el.description }}
-        </li>
-      </ul>
-
-      <h3>Game variables</h3>
-      <ul>
-        <li v-for="el in gameInput" :key="el.index">
-          {{ el.varname }} - {{ el.description }}
-        </li>
-      </ul>
-
-      <h3>Objective</h3>
-      <ul>
-        <li>Reach the highest score within 1000 steps</li>
-      </ul>
+    </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'Instructions',
   props: {
     msg: String
   },
   computed: {
-    birdInput () {
-      return this.$store.getters.getBirdInput
-    },
-    pipeInput () {
-      return this.$store.getters.getPipeInput
-    },
-    gameInput () {
-      return this.$store.getters.getGameInput
+    getInstructions(){
+      return this.$store.getters.gameInstructions;
     }
-  },
+  }
 }
 </script>
 
