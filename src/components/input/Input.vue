@@ -30,7 +30,7 @@
             <label>Neural Network</label>
             <br/>
             <label>Inputs: </label>
-            <span id="inputCounter">{{inputAmount}}</span>
+            <span id="inputCounter">{{ inputAmount }}</span>
             <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="inputAmount" @input="changeVariableInputAmount" placeholder="Input Layers" />
             <div id="inputList">
               <app-variable-input/>
