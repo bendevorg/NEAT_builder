@@ -27,13 +27,13 @@ function sendScore(score, gameId){
   });
 }
 
-function checkGoal(highScore){
+function checkGoal(highScore, gameId){
   steps += 0.01;
   let currentTime = new Date();
   timeSpent += (currentTime - timeStart) * speedSlider.value();
   timeStart = currentTime;
   if (!objectiveReached && steps >= objective.steps){
-    sendScore(highScore, 1);
+    sendScore(highScore, gameId);
     objectiveReached = true;
   }
 }

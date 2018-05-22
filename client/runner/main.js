@@ -2,9 +2,9 @@
 let activeAgents = [];
 // All agents for any given population
 let allAgents = [];
-// Pipes
-let pipes = [];
-// A frame counter to determine when to add a pipe
+
+let blocks = [];
+// A frame counter to determine when to add a block
 let counter = 0;
 
 // Interface elements
@@ -27,7 +27,7 @@ let game = {
 
 let userInputs = [];
 
-function flappyBird(pFive){
+function runner(pFive){
 
   pFive.setup = () => {
     let canvas = pFive.createCanvas(game.width, game.height);
@@ -61,39 +61,35 @@ function flappyBird(pFive){
     for (let n = 0; n < cycles; n++) {
 
       // Show all the pipes
-      for (let i = pipes.length - 1; i >= 0; i--) {
-        pipes[i].update();
-        if (pipes[i].offscreen()) {
-          pipes.splice(i, 1);
+      for (let i = blocks.length - 1; i >= 0; i--) {
+        blocks[i].update();
+        if (blocks[i].offscreen()) {
+          blocks.splice(i, 1);
         }
       }
 
       // Running all the active agents
       for (let i = activeAgents.length - 1; i >= 0; i--) {
         let agent = activeAgents[i];
-        // Bird uses its brain!
-        agent.think(pipes);
+        // Agent uses its brain!
+        agent.think(blocks);
         agent.update();
 
-        // Check all the pipes
-        for (let j = 0; j < pipes.length; j++) {
+        // Check all the blocks
+        for (let j = 0; j < blocks.length; j++) {
           // It's hit a pipe
-          if (pipes[j].hits(activeAgents[i])) {
+          if (blocks[j].hits(activeAgents[i])) {
             // Remove this agent
             activeAgents.splice(i, 1);
             break;
           }
         }
 
-        if (agent.bottomTop()) {
-          activeAgents.splice(i, 1);
-        }
-
       }
 
       // Add a new pipe every so often
       if (counter % 75 == 0) {
-        pipes.push(new Pipe());
+        blocks.push(new Block());
       }
       counter++;
 
@@ -111,8 +107,8 @@ function flappyBird(pFive){
     timeSpentSpan.html(Math.floor(timeSpent/1000));
 
     // Draw everything!
-    for (let i = 0; i < pipes.length; i++) {
-      pipes[i].show(pFive);
+    for (let i = 0; i < blocks.length; i++) {
+      blocks[i].show(pFive);
     }
 
     for (let i = 0; i < activeAgents.length; i++) {
@@ -143,8 +139,8 @@ function updateHighscore(){
 // Start the game over
 function resetGame() {
   counter = 0;
-  pipes = [];
+  blocks = [];
 }
 
 if (typeof module !== 'undefined')
-  module.exports = flappyBird;
+  module.exports = runner;
