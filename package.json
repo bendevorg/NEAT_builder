@@ -1,10 +1,9 @@
 {
   "name": "neatbuilder",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "dev1": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
-    "build1": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "vuedev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
+    "vuebuild": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -17,6 +16,16 @@
     "server_development": "nodemon tools/startServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guiconti/NEAT_builder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guiconti/NEAT_builder/issues"
+  },
+  "homepage": "https://github.com/guiconti/NEAT_builder#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "bootstrap-vue": "^2.0.0-rc.11",
