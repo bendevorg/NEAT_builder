@@ -25,7 +25,10 @@ export const store = new Vuex.Store({
     gameInput: [
       { varname: 'game.height', description: 'Height size of game canvas' },
       { varname: 'game.width', description: 'Width size of game canvas' }
-    ]
+    ],
+    neuralNetwork: {
+      variableInputAmount: 1
+    }
   },
   getters: {
     getBirdInput: state => {
@@ -34,13 +37,19 @@ export const store = new Vuex.Store({
     getPipeInput: state => {
       return state.pipeInput
     },
-    getGameInput: state =>{
+    getGameInput: state => {
       return state.gameInput
+    },
+    getVariableInputAmount: state => {
+      return state.neuralNetwork.variableInputAmount
     },
   },
   mutations: {
     changeHolder(state, payload){
       state.placeHolder = payload.placeHolder
+    },
+    changeVariableInputAmount(state, payload){
+      state.neuralNetwork.variableInputAmount = payload.variableInputAmount;
     }
   }
 });
