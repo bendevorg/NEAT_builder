@@ -38,6 +38,13 @@ export const store = new Vuex.Store({
         ]
       }
     ],
+    gameInfo:{
+      speed: 1,
+      generationHighScore: 0,
+      allTimeHighScore: 0,
+      steps: 0,
+      timeSpent: 0
+    },
     // Everything down from here is temporary... i don`t know how to handle these yet
     gameId: 'f7ca4cb4-a121-42c7-a03f-980fdbafa608',
     backend: {
