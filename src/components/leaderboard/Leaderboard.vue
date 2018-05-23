@@ -24,7 +24,6 @@
 
 <script>
 import API from '../../utils/API.js';
-import Entry from './Entry.vue';
 
 export default {
   name: 'Leaderboard',
@@ -40,9 +39,6 @@ export default {
     getEntries(){
       return this.entries
     }
-  },
-  components: {
-    Entry
   },
   mounted() {
     API

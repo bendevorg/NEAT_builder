@@ -1,21 +1,19 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <Flappy msg="Welcome to Your Vue.js App"/>
+    <Game msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-import Flappy from "./components/Flappy.vue";
+import Game from "./components/Game.vue";
 
 export default {
   name: "app",
-  data: function() {
-  },
   methods: {
   },
   components: {
-    Flappy
+    Game
   }
 };
 </script>

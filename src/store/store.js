@@ -38,13 +38,26 @@ export const store = new Vuex.Store({
         ]
       }
     ],
-    neuralNetwork: {
-      variableInputAmount: 1
-    },
     // Everything down from here is temporary... i don`t know how to handle these yet
     gameId: 'f7ca4cb4-a121-42c7-a03f-980fdbafa608',
     backend: {
       host: 'http://localhost:3340/api'
+    },
+    game: {
+      width: 600,
+      height: 400
+    },
+    genetic: {
+      population: 500,
+      mutationRate: 0.1
+    },
+    neuralNetwork: {
+      inputLayers: 1,
+      hiddenLayers: 4,
+      learningRate: 0.1,
+      inputs: [
+        new Function('parameters', 'return parameters[0].x / parameters[1].x')
+      ]
     }
   },
   getters: {
@@ -52,13 +65,22 @@ export const store = new Vuex.Store({
       return state.gameInstructions;
     },
     getVariableInputAmount: state => {
-      return state.neuralNetwork.variableInputAmount;
+      return state.neuralNetwork.inputLayers;
     },
     backendHost: state => {
       return state.backend.host;
     },
     gameId: state => {
       return state.gameId;
+    },
+    gameParameters: state => {
+      return state.game;
+    },
+    geneticParameters: state => {
+      return state.genetic;
+    },
+    neuralNetworkParameters: state => {
+      return state.neuralNetwork;
     }
   },
   mutations: {
@@ -66,7 +88,7 @@ export const store = new Vuex.Store({
       state.placeHolder = payload.placeHolder
     },
     changeVariableInputAmount(state, payload) {
-      state.neuralNetwork.variableInputAmount = payload.variableInputAmount;
+      state.neuralNetwork.inputLayers = payload.variableInputAmount;
     }
   }
 });
