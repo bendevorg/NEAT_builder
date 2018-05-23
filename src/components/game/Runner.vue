@@ -1,6 +1,8 @@
 <template>
-  <div class="row">
-    <div class="col-md-6" id="canvascontainer"></div>
+  <div>
+    <div class="row">
+      <div class="col-md-6" id="canvascontainer"></div>
+    </div>
     <app-info/>
   </div>
 </template>
@@ -8,7 +10,9 @@
 <script>
 import Info from './Info.vue';
 import Agent from '../../games/runner/agent.js';
+import Block from '../../games/runner/block.js';
 import GA from '../../utils/GeneticAlgorithm/GeneticAlgorithm.js'
+import utils from '../../utils/utils.js';
 
 export default {
   name: "Runner",
@@ -32,6 +36,12 @@ export default {
 
     let activeAgents = [];
     let allAgents = [];
+    let allTimeHighScore = 0;
+    let generationHighScore = 0;
+
+    let blocks = [];
+    let counter = 0;
+    let timeStart = new Date();
 
     this.game = this.$store.getters.gameParameters;
     this.genetic = this.$store.getters.geneticParameters;
@@ -41,33 +51,21 @@ export default {
         let canvas = pFive.createCanvas(this.game.width, this.game.height);
         canvas.parent('canvascontainer');
 
-        // Access the interface elements
-        let speedSlider = pFive.select('#speedSlider');
-        let speedSpan = pFive.select('#speed');
-        let highScoreSpan = pFive.select('#hs');
-        let allTimeHighScoreSpan = pFive.select('#ahs');
-        let stepsSpan = pFive.select('#stepsCount');
-        let timeSpentSpan = pFive.select('#timeSpent');
-
         // Create a population
         for (let i = 0; i < this.genetic.population; i++) {
           let agent = new Agent();
           activeAgents[i] = agent;
           allAgents[i] = agent;
         }
-        GA.nextGeneration(activeAgents, allAgents);
+        let {newActiveAgents, newAllAgents} = GA.nextGeneration(activeAgents, allAgents);
+        activeAgents = newActiveAgents;
+        allAgents = newAllAgents;
       }
 
       pFive.draw = () => {
         pFive.background(0);
-
-        // Should we speed up cycles per frame
-        let cycles = speedSlider.value();
-        speedSpan.html(cycles);
-
         // How many times to advance the pFive
-        for (let n = 0; n < cycles; n++) {
-
+        for (let n = 0; n < this.$store.getters.speed; n++) {
           // Show all the pipes
           for (let i = blocks.length - 1; i >= 0; i--) {
             blocks[i].update();
@@ -75,14 +73,12 @@ export default {
               blocks.splice(i, 1);
             }
           }
-
           // Running all the active agents
           for (let i = activeAgents.length - 1; i >= 0; i--) {
             let agent = activeAgents[i];
             // Agent uses its brain!
             agent.think(blocks);
             agent.update();
-
             // Check all the blocks
             for (let j = 0; j < blocks.length; j++) {
               // It's hit a pipe
@@ -102,17 +98,28 @@ export default {
           counter++;
 
           // Update High score
-          updateHighscore();
+          utils.updateHighScore(activeAgents);
 
           //  Check for leadboard goal
-          checkGoal(highScore, gameId);
+          if (utils.goalReached()){
+            console.log('Goal reached');
+          }
         }
 
+        let currentTime = new Date();
+        let timeSpent = parseFloat(this.$store.getters.timeSpent);
+        console.log('Antes: ' + timeSpent);
+        //console.log(parseInt(this.$store.getters.speed));
+        timeSpent += ((currentTime - timeStart) * parseInt(this.$store.getters.speed))/1000;
+        console.log('Depois ' + timeSpent);
+        //console.log(this.$store.getters.timeSpent);
+        timeStart = currentTime;
+
         // Update DOM Elements
-        highScoreSpan.html(generationHighScore);
-        allTimeHighScoreSpan.html(highScore);
-        stepsSpan.html(Math.floor(steps));
-        timeSpentSpan.html(Math.floor(timeSpent/1000));
+        this.$store.commit('changeProgression', {
+          steps: parseFloat(this.$store.getters.steps) + 0.1,
+          timeSpent: timeSpent
+        });
 
         // Draw everything!
         for (let i = 0; i < blocks.length; i++) {
@@ -124,8 +131,12 @@ export default {
         }
         // If we're out of agents go to the next generation
         if (activeAgents.length == 0) {
-          resetGame();
-          GA.nextGeneration(activeAgents, allAgents);
+          // Reset game
+          counter = 0;
+          blocks = [];
+          let {newActiveAgents, newAllAgents} = GA.nextGeneration(activeAgents, allAgents);
+          activeAgents = newActiveAgents;
+          allAgents = newAllAgents;
         }
       }
     }

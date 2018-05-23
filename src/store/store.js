@@ -43,7 +43,8 @@ export const store = new Vuex.Store({
       generationHighScore: 0,
       allTimeHighScore: 0,
       steps: 0,
-      timeSpent: 0
+      timeSpent: 0,
+      goal: 1000
     },
     // Everything down from here is temporary... i don`t know how to handle these yet
     gameId: 'f7ca4cb4-a121-42c7-a03f-980fdbafa608',
@@ -88,6 +89,24 @@ export const store = new Vuex.Store({
     },
     neuralNetworkParameters: state => {
       return state.neuralNetwork;
+    },
+    speed: state => {
+      return state.gameInfo.speed;
+    },
+    generationHighScore: state => {
+      return state.gameInfo.generationHighScore;
+    },
+    allTimeHighScore: state => {
+      return state.gameInfo.allTimeHighScore;
+    },
+    steps: state => {
+      return state.gameInfo.steps;
+    },
+    timeSpent: state => {
+      return state.gameInfo.timeSpent;
+    },
+    goal: state => {
+      return state.gameInfo.goal;
     }
   },
   mutations: {
@@ -96,6 +115,17 @@ export const store = new Vuex.Store({
     },
     changeVariableInputAmount(state, payload) {
       state.neuralNetwork.inputLayers = payload.variableInputAmount;
+    },
+    changeSpeed(state, payload) {
+      state.gameInfo.speed = payload.speed;
+    },
+    changeScore(state, payload) {
+      state.gameInfo.generationHighScore = payload.generationHighScore;
+      state.gameInfo.allTimeHighScore = payload.allTimeHighScore;
+    },
+    changeProgression(state, payload) {
+      state.gameInfo.steps = payload.steps;
+      state.gameInfo.timeSpent = payload.timeSpent;
     }
   }
 });

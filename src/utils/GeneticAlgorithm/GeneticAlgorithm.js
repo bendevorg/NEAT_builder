@@ -6,6 +6,10 @@ function nextGeneration(activeAgents, allAgents, reset = false) {
   activeAgents = generate(allAgents);
   // Copy those agents to another array
   allAgents = activeAgents.slice();
+  return {
+    newActiveAgents: activeAgents,
+    newAllAgents: allAgents
+  };
 }
 
 // Generate a new population of agents

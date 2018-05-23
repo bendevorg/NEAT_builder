@@ -1,6 +1,8 @@
+import {store} from '../../store/store.js';
+
 class Block {
   constructor() {
-
+    let game = store.getters.gameParameters;
     this.width = 40;
     this.height = 40;
 
@@ -36,3 +38,5 @@ class Block {
     }
   }
 }
+
+export default Block;

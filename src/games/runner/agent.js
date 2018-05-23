@@ -4,30 +4,30 @@ import {store} from '../../store/store.js';
 
 class Agent {
   constructor(brain){
-    let game = store.getters.gameParameters;
     let parameters = store.getters.neuralNetworkParameters;
+
     if (brain instanceof NeuralNetwork){
-
-      this.width = 40;
-      this.height = 40;
-
-      this.x = this.width / 2;
-      this.y = game.height - this.height;
-
-      // Gravity, lift and velocity
-      this.gravity = 0.8;
-      this.lift = -12;
-      this.velocity = 0;
-
-      this.minVelocity = -13;
-      this.maxVelocity = 13;
-
       this.brain = brain.copy();
       this.brain.mutate(mutate);
     } else {
       this.brain = new NeuralNetwork(parameters.inputLayers, parameters.hiddenLayers, 2);
       this.brain.setLearningRate(parameters.learningRate);
     }
+
+    this.game = store.getters.gameParameters;
+    this.width = 40;
+    this.height = 40;
+
+    this.x = this.width / 2;
+    this.y = this.game.height - this.height;
+
+    // Gravity, lift and velocity
+    this.gravity = 0.8;
+    this.lift = -12;
+    this.velocity = 0;
+
+    this.minVelocity = -13;
+    this.maxVelocity = 13;
 
     this.score = 0;
     this.fitness = 0;
@@ -45,7 +45,6 @@ class Agent {
   }
 
   think(blocks){
-
     // First find the closest pipe
     let closest = null;
     let record = Infinity;
@@ -61,7 +60,7 @@ class Agent {
       // Now create the inputs to the neural network
       let inputs = [];
 
-      let params = [this, closest, game];
+      let params = [this, closest, this.game];
       let parameters = store.getters.neuralNetworkParameters;
 
       for (let i = 0; i < parameters.inputs.length; i++){
@@ -90,14 +89,14 @@ class Agent {
   }
 
   onTheFloor(){
-    return this.y >= game.height - this.height;
+    return this.y >= this.game.height - this.height;
   }
 
   // Update bird's position based on velocity, gravity, etc.
   update() {
     this.velocity += this.gravity;
-    this.y = this.y + this.velocity > game.height - this.height?game.height - this.height:this.y + this.velocity;
-    if (this.y == game.height - this.height && this.velocity > 0)
+    this.y = this.y + this.velocity > this.game.height - this.height?this.game.height - this.height:this.y + this.velocity;
+    if (this.y == this.game.height - this.height && this.velocity > 0)
       this.velocity = 0;
 
     // Every frame it is alive increases the score

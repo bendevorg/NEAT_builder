@@ -1,18 +1,18 @@
 <template>
-  <div id="gameInfo" class="row" style="display:none;">
+  <div id="gameInfo" class="row">
     <div class="col-md-6">
       <p>
         speed:
-        <input id="speedSlider" type="range" min="1" max="10" value="1">
-        <span id="speed">1</span>
+        <input id="speedSlider" type="range" min="1" max="10" value="1" v-model="speed" @input="changeSpeed">
+        <span id="speed">{{speed}}</span>
         <br/> generation high score:
-        <span id="hs">0</span>
+        <span id="generationHighScore">{{getGenerationHighScore}}</span>
         <br/> all time high score:
-        <span id="ahs">0</span>
+        <span id="allTimeHighScore">{{getAllTimeHighScore}}</span>
         <br/> steps:
-        <span id="stepsCount">0</span>
+        <span id="stepsCount">{{getSteps}}</span>
         <br/> time spent:
-        <span id="timeSpent">0</span> seconds
+        <span id="timeSpent">{{getTimeSpent}}</span> seconds
       </p>
     </div>
   </div>
@@ -22,12 +22,34 @@
 
 export default {
   name: 'GameInfo',
+  data () {
+    return {
+      speed: 1,
+    };
+  },
   props: {
     msg: String
   },
   computed: {
+    getGenerationHighScore() {
+      return this.$store.getters.generationHighScore;
+    },
+    getAllTimeHighScore() {
+      return this.$store.getters.allTimeHighScore;
+    },
+    getSteps() {
+      return parseInt(this.$store.getters.steps);
+    },
+    getTimeSpent() {
+      return parseInt(this.$store.getters.timeSpent);
+    },
   },
-  components: {
+  methods: {
+    changeSpeed(){
+      this.$store.commit('changeSpeed', {
+        speed: this.speed
+      });
+    }
   }
 }
 </script>
