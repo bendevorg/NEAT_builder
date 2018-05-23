@@ -21,7 +21,19 @@ function goalReached(){
   return store.getters.steps >= store.getters.goal;
 }
 
+function sendLeaderboardEntry(entryInfo){
+  API
+    .post('/leaderboard/' + store.getters.gameId + '/new')
+    .then(response => {
+
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 export default {
   updateHighScore,
-  goalReached
+  goalReached,
+  sendLeaderboardEntry
 }

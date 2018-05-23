@@ -43,6 +43,8 @@ export default {
     let counter = 0;
     let timeStart = new Date();
 
+    let entrySent = false;
+
     this.game = this.$store.getters.gameParameters;
     this.genetic = this.$store.getters.geneticParameters;
     this.neuralNetwork = this.$store.getters.neuralNetworkParameters;
@@ -88,7 +90,6 @@ export default {
                 break;
               }
             }
-
           }
 
           // Add a new pipe every so often
@@ -101,18 +102,20 @@ export default {
           utils.updateHighScore(activeAgents);
 
           //  Check for leadboard goal
-          if (utils.goalReached()){
-            console.log('Goal reached');
+          if (!entrySent && utils.goalReached()){
+            entrySent = true;
+            let entryInfo = {
+              name: 'Teste',
+              score: parseInt(this.$store.getters.allTimeHighScore),
+              time: parseInt(this.$store.getters.timeSpent)
+            };
+            utils.sendLeaderboardEntry(entryInfo);
           }
         }
 
         let currentTime = new Date();
         let timeSpent = parseFloat(this.$store.getters.timeSpent);
-        console.log('Antes: ' + timeSpent);
-        //console.log(parseInt(this.$store.getters.speed));
         timeSpent += ((currentTime - timeStart) * parseInt(this.$store.getters.speed))/1000;
-        console.log('Depois ' + timeSpent);
-        //console.log(this.$store.getters.timeSpent);
         timeStart = currentTime;
 
         // Update DOM Elements
