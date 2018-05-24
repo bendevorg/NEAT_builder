@@ -50,7 +50,7 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <button id="startGame">Start</button>
+          <button @click="startGame">Start</button>
         </div>
       </div>
     </div>
@@ -80,6 +80,11 @@ export default {
     changeVariableInputAmount(){
       this.$store.commit('changeVariableInputAmount', {
         variableInputAmount: this.inputAmount
+      });
+    },
+    startGame(){
+      this.$store.commit('changeGameName', {
+        name: 'AppRunner'
       });
     }  
   },

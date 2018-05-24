@@ -39,6 +39,7 @@ export const store = new Vuex.Store({
       }
     ],
     gameInfo:{
+      name: '',
       speed: 1,
       generationHighScore: 0,
       allTimeHighScore: 0,
@@ -107,6 +108,9 @@ export const store = new Vuex.Store({
     },
     goal: state => {
       return state.gameInfo.goal;
+    },
+    gameName: state => {
+      return state.gameInfo.name;
     }
   },
   mutations: {
@@ -126,6 +130,9 @@ export const store = new Vuex.Store({
     changeProgression(state, payload) {
       state.gameInfo.steps = payload.steps;
       state.gameInfo.timeSpent = payload.timeSpent;
+    },
+    changeGameName(state, payload){
+      state.gameInfo.name = payload.name
     }
   }
 });

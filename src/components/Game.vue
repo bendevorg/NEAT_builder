@@ -8,7 +8,7 @@
           {{ input.name }}
         </li>
       </ul>
-  <app-runner/>
+  <component v-bind:is="currentGame"></component>
   <div class="row" id="gameSetup">
     <app-instruction/>
     <app-input/>
@@ -32,18 +32,19 @@ import Runner from './game/Runner.vue';
 
 export default {
   name: "Game",
-  data() {
-    return {
-      game: null
-    };
-  },
   props: {
     msg: String
   },
   computed: {
     inputTotal() {
       return this.$store.getters.getInputTotal;
-    }
+    },
+    currentGame(){
+      return this.$store.getters.gameName;
+    },
+    getGenerationHighScore() {
+      return this.$store.getters.generationHighScore;
+    },
   },
   components: {
     AppInstruction: Instruction,
@@ -51,7 +52,7 @@ export default {
     AppLeaderboard: Leaderboard,
     AppRunner: Runner
   },
-  mounted() {
+  methods: {
   }
 };
 </script>
