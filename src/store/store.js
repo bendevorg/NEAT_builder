@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
     game: {
       id: 'f7ca4cb4-a121-42c7-a03f-980fdbafa608',
       name: '',
+      running: false,
       // TODO: Get this from an API
       instructions: [
         {
@@ -90,6 +91,9 @@ export const store = new Vuex.Store({
     gameId: state => {
       return state.game.id;
     },
+    gameRunning: state => {
+      return state.game.running;
+    },
     gameCanvas: state => {
       return state.game.canvas;
     },
@@ -133,6 +137,9 @@ export const store = new Vuex.Store({
   mutations: {
     changeGameName(state, payload){
       state.game.name = payload;
+    },
+    changeGameRunning(state, payload) {
+      state.game.running = payload;
     },
     changePlayerName(state, payload){
       state.player.name = payload;

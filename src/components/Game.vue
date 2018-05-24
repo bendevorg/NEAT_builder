@@ -2,8 +2,8 @@
   <div class="game">
     <component v-bind:is="currentGame"></component>
     <div class="row" id="gameSetup">
-      <app-instruction/>
-      <app-input/>
+      <app-instruction  v-if="!gameRunning"/>
+      <app-input v-if="!gameRunning"/>
     </div>
     <app-leaderboard/>
   </div>
@@ -23,6 +23,9 @@ export default {
   computed: {
     currentGame(){
       return this.$store.getters.gameName;
+    },
+    gameRunning: function(){
+      return this.$store.getters.gameRunning;
     }
   },
   components: {
