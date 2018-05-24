@@ -38,6 +38,27 @@ export const store = new Vuex.Store({
         ]
       }
     ],
+    _game: {
+      info: {
+        speed: 1,
+        generationHighScore: 0,
+        allTimeHighScore: 0,
+        steps: 0,
+        timeSpent: 0,
+      },
+      parameters: {
+        goal: 1000,
+        inputs: {  
+          'player': 'params[0]',
+          'blocks.closest': 'params[1]',
+          'game': 'params[2]'
+        }
+      },
+      canvas: {
+
+      },
+      id: 'f7ca4cb4-a121-42c7-a03f-980fdbafa608'
+    },
     gameInfo:{
       name: '',
       speed: 1,
@@ -83,6 +104,9 @@ export const store = new Vuex.Store({
     },
     neuralNetwork: state => {
       return state.neuralNetwork;
+    },
+    inputParameters: state => {
+      return state._game.parameters.inputs;
     },
     speed: state => {
       return state.gameInfo.speed;

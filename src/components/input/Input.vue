@@ -26,7 +26,7 @@
         <span id="inputCounter">{{ neuralNetwork.inputLayers }}</span>
         <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="neuralNetwork.inputLayers" @input="changeInputLayersAmount" placeholder="Input Layers" />
         <div id="inputList">
-          <input type="text" v-for="index in getInputLayers" :key="index" placeholder="Type your input variable"/>
+          <input type="text" v-for="index in getInputLayers" :key="index" v-model="neuralNetwork.inputs[index-1]" placeholder="Type your input variable"/>
         </div>
         <input type="text" name="Hidden Layers" v-model="neuralNetwork.hiddenLayers" placeholder="Hidden Layers" />
         <input type="text" name="Learning Rate" v-model="neuralNetwork.learningRate" placeholder="Learning Rate" />
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import formatInputs from '../../utils/formatInputs.js';
 
 export default {
   name: "HelloWorld",
@@ -68,7 +69,7 @@ export default {
   data() {
     return {
       neuralNetwork: {
-        inputLayers: 5,
+        inputLayers: 1,
         inputs: [],
         hiddenLayers: null,
         learningRate: null,
@@ -90,9 +91,7 @@ export default {
     },
     startGame(){
       //  Temp
-      this.neuralNetwork.inputs = [
-        new Function('parameters', 'return parameters[0].x / parameters[1].x')
-      ];
+      this.neuralNetwork.inputs = formatInputs(this.neuralNetwork.inputs);
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
       this.$store.commit('changeGenetic', this.genetic);
       this.$store.commit('changeGameName', {
