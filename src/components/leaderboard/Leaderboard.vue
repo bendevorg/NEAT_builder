@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     getEntries(){
-      return this.entries
+      return this.entries;
     }
   },
   mounted() {

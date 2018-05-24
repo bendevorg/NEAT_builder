@@ -45,7 +45,7 @@
       <div class="row" id="leaderboardParams">
         <div class="col-md-6">
           <label>Name</label>
-          <input text="text" id="username" placeholder="Your AI name" />
+          <input text="text" v-model="player.name" placeholder="Your AI name" />
         </div>
       </div>
       <div class="row">
@@ -77,6 +77,9 @@ export default {
       genetic: {
         population: null,
         mutationRate: null
+      },
+      player: {
+        name: ''
       }
     };
   },
@@ -94,9 +97,8 @@ export default {
       this.neuralNetwork.inputs = formatInputs(this.neuralNetwork.inputs);
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
       this.$store.commit('changeGenetic', this.genetic);
-      this.$store.commit('changeGameName', {
-        name: 'AppRunner'
-      });
+      this.$store.commit('changePlayerName', this.player.name);
+      this.$store.commit('changeGameName', 'AppRunner');
     }  
   }
 };

@@ -46,9 +46,7 @@ export default {
   },
   methods: {
     changeSpeed(){
-      this.$store.commit('changeSpeed', {
-        speed: this.speed
-      });
+      this.$store.commit('changeSpeed', this.speed);
     }
   }
 }

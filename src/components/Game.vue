@@ -1,26 +1,11 @@
 <template>
-  <div class="hello">
-      <h1>total</h1>  
-      <p>{{ inputTotal }}</p>
-      <!-- eslint-disable-next-line -->
-      <ul>
-        <li v-for="input in inputTotal" :key="input.index">
-          {{ input.name }}
-        </li>
-      </ul>
-  <component v-bind:is="currentGame"></component>
-  <div class="row" id="gameSetup">
-    <app-instruction/>
-    <app-input/>
-  </div>
-  <app-leaderboard/>
-  <!-- <script>
-    $('#startGame').on('click', function () {
-      setParameters();
-      let game = new p5(flappyBird);
-    });
-  </script> -->
-  
+  <div class="game">
+    <component v-bind:is="currentGame"></component>
+    <div class="row" id="gameSetup">
+      <app-instruction/>
+      <app-input/>
+    </div>
+    <app-leaderboard/>
   </div>
 </template>
 
@@ -36,23 +21,15 @@ export default {
     msg: String
   },
   computed: {
-    inputTotal() {
-      return this.$store.getters.getInputTotal;
-    },
     currentGame(){
       return this.$store.getters.gameName;
-    },
-    getGenerationHighScore() {
-      return this.$store.getters.generationHighScore;
-    },
+    }
   },
   components: {
     AppInstruction: Instruction,
     AppInput: Input,
     AppLeaderboard: Leaderboard,
     AppRunner: Runner
-  },
-  methods: {
   }
 };
 </script>

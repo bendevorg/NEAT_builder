@@ -2,12 +2,13 @@ import {store} from '../../store/store.js';
 
 class Block {
   constructor() {
-    let game = store.getters.gameParameters;
+    let canvas = store.getters.gameCanvas;
+    
     this.width = 40;
     this.height = 40;
 
-    this.x = game.width;
-    this.y = game.height - this.height;
+    this.x = canvas.width;
+    this.y = canvas.height - this.height;
     
     this.speed = 6;
   }

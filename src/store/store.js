@@ -5,40 +5,49 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    // TODO: GET this from an API
-    gameInstructions: [
-      {
-        name: 'Bird',
-        items: [
-          { name: 'bird.x', description: 'Bird X position (Defined between 0 and the game.width)' },
-          { name: 'bird.y', description: 'Bird Y position (Defined between 0 and the game.height)' },
-          { name: 'bird.radius', description: 'Bird radius size' },
-          { name: 'bird.velocity', description: 'Bird velocity (velocity in the Y position is -5 and Max 5)' },
-          { name: 'bird.maxVelocity', description: 'Bird maximum velocity (5)' },
-          { name: 'bird.minVelocity', description: 'Bird minimum velocity (-5)' },
-          { name: 'bird.score', description: 'Actual bird score' },
-          { name: 'birds.scoreSum', description: 'All birds sums' }
-        ]
-      },
-      {
-        name: 'Pipe',
-        items: [
-          { name: 'pipes.closest.x', description: 'Closest x pipe' },
-          { name: 'pipes.closest.bottom', description: 'Closest pipe bottom entrance' },
-          { name: 'pipes.closest.top', description: 'Closes pipe top entrance' },
-          { name: 'pipes.closest.width', description: 'Closest pipe width' },
-          { name: 'pipes.closest.velocity', description: 'Closest pipe velocity (fixed at 6)' },
-        ]
-      },
-      {
-        name: 'Game',
-        items: [
-          { name: 'game.height', description: 'Height size of game canvas' },
-          { name: 'game.width', description: 'Width size of game canvas' }
-        ]
-      }
-    ],
-    _game: {
+    game: {
+      id: 'f7ca4cb4-a121-42c7-a03f-980fdbafa608',
+      name: '',
+      // TODO: Get this from an API
+      instructions: [
+        {
+          name: 'Player',
+          items: [
+            { name: 'player.x', description: 'Player X position (Defined between 0 and the game.width)' },
+            { name: 'player.y', description: 'Player Y position (Defined between 0 and the game.height)' },
+            { name: 'player.width', description: 'Player width size' },
+            { name: 'player.height', description: 'Player height size' },
+            { name: 'player.velocity', description: 'Player velocity (velocity in the Y position is -13 and Max 13)' },
+            { name: 'player.maxVelocity', description: 'Player maximum velocity in Y axis (13)' },
+            { name: 'player.minVelocity ', description: 'Player minimum velocity in Y axis (-13)' },
+          ]
+        },
+        {
+          name: 'Blocks',
+          items: [
+            { name: 'blocks.closest.x', description: 'X of the closest block' },
+            { name: 'blocks.closest.y', description: 'Y of the closest block' },
+            { name: 'blocks.closest.width', description: 'width of the closest block' },
+            { name: 'blocks.closest.height', description: 'height of the closest block' },
+            { name: 'blocks.closest.velocity', description: 'velocity of the closest block (fixed at 6)' },
+          ]
+        },
+        {
+          name: 'Game',
+          items: [
+            { name: 'game.height', description: 'Height size of game canvas' },
+            { name: 'game.width', description: 'Width size of game canvas' }
+          ]
+        },
+        {
+          name: 'Objective',
+          items: [
+            { name: 'Goal', description: 'Reach the highest score within 1000 steps' }
+          ]
+        }
+      ],
+      // TODO: Get this from an API
+      goal: 1000,
       info: {
         speed: 1,
         generationHighScore: 0,
@@ -47,7 +56,7 @@ export const store = new Vuex.Store({
         timeSpent: 0,
       },
       parameters: {
-        goal: 1000,
+        // TODO: Get this from an API
         inputs: {  
           'player': 'params[0]',
           'blocks.closest': 'params[1]',
@@ -55,49 +64,46 @@ export const store = new Vuex.Store({
         }
       },
       canvas: {
-
-      },
-      id: 'f7ca4cb4-a121-42c7-a03f-980fdbafa608'
+        // TODO: Get this from an API
+        width: 600,
+        height: 400
+      }, 
     },
-    gameInfo:{
-      name: '',
-      speed: 1,
-      generationHighScore: 0,
-      allTimeHighScore: 0,
-      steps: 0,
-      timeSpent: 0,
-      goal: 1000
-    },
-    // Everything down from here is temporary... i don`t know how to handle these yet
-    gameId: 'f7ca4cb4-a121-42c7-a03f-980fdbafa608',
-    backend: {
-      host: 'http://localhost:3340/api'
-    },
-    game: {
-      width: 600,
-      height: 400
+    player: {
+      name: ''
     },
     genetic: {
     },
     neuralNetwork: {
       inputLayers: 1
-    }
+    },
+    // Everything down from here is temporary... i don`t know how to handle these yet
+    backend: {
+      host: 'http://localhost:3340/api'
+    },
   },
   getters: {
+    //  Game getters
     gameInstructions: state => {
-      return state.gameInstructions;
+      return state.game.instructions;
     },
-    getInputLayers: state => {
+    gameId: state => {
+      return state.game.id;
+    },
+    gameCanvas: state => {
+      return state.game.canvas;
+    },
+    gameName: state => {
+      return state.game.name;
+    },
+    inputParameters: state => {
+      return state.game.parameters.inputs;
+    },
+    inputLayers: state => {
       return state.neuralNetwork.inputLayers;
     },
     backendHost: state => {
       return state.backend.host;
-    },
-    gameId: state => {
-      return state.gameId;
-    },
-    gameParameters: state => {
-      return state.game;
     },
     genetic: state => {
       return state.genetic;
@@ -105,48 +111,42 @@ export const store = new Vuex.Store({
     neuralNetwork: state => {
       return state.neuralNetwork;
     },
-    inputParameters: state => {
-      return state._game.parameters.inputs;
-    },
     speed: state => {
-      return state.gameInfo.speed;
+      return state.game.info.speed;
     },
     generationHighScore: state => {
-      return state.gameInfo.generationHighScore;
+      return state.game.info.generationHighScore;
     },
     allTimeHighScore: state => {
-      return state.gameInfo.allTimeHighScore;
+      return state.game.info.allTimeHighScore;
     },
     steps: state => {
-      return state.gameInfo.steps;
+      return state.game.info.steps;
     },
     timeSpent: state => {
-      return state.gameInfo.timeSpent;
+      return state.game.info.timeSpent;
     },
     goal: state => {
-      return state.gameInfo.goal;
+      return state.game.info.goal;
     },
-    gameName: state => {
-      return state.gameInfo.name;
-    }
   },
   mutations: {
-    changeHolder(state, payload) {
-      state.placeHolder = payload.placeHolder
+    changeGameName(state, payload){
+      state.game.name = payload;
+    },
+    changePlayerName(state, payload){
+      state.player.name = payload;
     },
     changeSpeed(state, payload) {
-      state.gameInfo.speed = payload.speed;
+      state.game.info.speed = payload;
     },
     changeScore(state, payload) {
-      state.gameInfo.generationHighScore = payload.generationHighScore;
-      state.gameInfo.allTimeHighScore = payload.allTimeHighScore;
+      state.game.info.generationHighScore = payload.generationHighScore;
+      state.game.info.allTimeHighScore = payload.allTimeHighScore;
     },
     changeProgression(state, payload) {
-      state.gameInfo.steps = payload.steps;
-      state.gameInfo.timeSpent = payload.timeSpent;
-    },
-    changeGameName(state, payload){
-      state.gameInfo.name = payload.name
+      state.game.info.steps = payload.steps;
+      state.game.info.timeSpent = payload.timeSpent;
     },
     changeNeuralNetwork(state, payload){
       state.neuralNetwork = {

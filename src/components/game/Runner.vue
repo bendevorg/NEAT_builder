@@ -19,15 +19,13 @@ export default {
   data(){
     return {
       script: null,
-      game: null,
+      gameCanvas: null,
       genetic: null,
       neuralNetwork: null
     };
   },
   props: {
     msg: String
-  },
-  computed: {
   },
   components: {
     AppInfo: Info
@@ -45,13 +43,13 @@ export default {
 
     let entrySent = false;
 
-    this.game = this.$store.getters.gameParameters;
+    this.gameCanvas = this.$store.getters.gameCanvas;
     this.genetic = this.$store.getters.genetic;
     this.neuralNetwork = this.$store.getters.neuralNetwork;
 
     this.script = pFive => {
       pFive.setup = () => {
-        let canvas = pFive.createCanvas(this.game.width, this.game.height);
+        let canvas = pFive.createCanvas(this.gameCanvas.width, this.gameCanvas.height);
         canvas.parent('canvascontainer');
 
         // Create a population

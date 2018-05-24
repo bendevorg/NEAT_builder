@@ -14,12 +14,12 @@ class Agent {
       this.brain.setLearningRate(parameters.learningRate);
     }
 
-    this.game = store.getters.gameParameters;
+    this.canvas = store.getters.gameCanvas;
     this.width = 40;
     this.height = 40;
 
     this.x = this.width / 2;
-    this.y = this.game.height - this.height;
+    this.y = this.canvas.height - this.height;
 
     // Gravity, lift and velocity
     this.gravity = 0.8;
@@ -89,14 +89,14 @@ class Agent {
   }
 
   onTheFloor(){
-    return this.y >= this.game.height - this.height;
+    return this.y >= this.canvas.height - this.height;
   }
 
   // Update bird's position based on velocity, gravity, etc.
   update() {
     this.velocity += this.gravity;
-    this.y = this.y + this.velocity > this.game.height - this.height?this.game.height - this.height:this.y + this.velocity;
-    if (this.y == this.game.height - this.height && this.velocity > 0)
+    this.y = this.y + this.velocity > this.canvas.height - this.height?this.canvas.height - this.height:this.y + this.velocity;
+    if (this.y == this.canvas.height - this.height && this.velocity > 0)
       this.velocity = 0;
 
     // Every frame it is alive increases the score
