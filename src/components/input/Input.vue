@@ -26,7 +26,7 @@
         <span id="inputCounter">{{ neuralNetwork.inputLayers }}</span>
         <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="neuralNetwork.inputLayers" @input="changeInputLayersAmount" placeholder="Input Layers" />
         <div id="inputList">
-          <app-variable-input/>
+          <input type="text" v-for="index in getInputLayers" :key="index" placeholder="Type your input variable"/>
         </div>
         <input type="text" name="Hidden Layers" v-model="neuralNetwork.hiddenLayers" placeholder="Hidden Layers" />
         <input type="text" name="Learning Rate" v-model="neuralNetwork.learningRate" placeholder="Learning Rate" />
@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import VariableInput from './VariableInput.vue';
 
 export default {
   name: "HelloWorld",
@@ -68,9 +67,8 @@ export default {
   },
   data() {
     return {
-      inputAmount: 1,
       neuralNetwork: {
-        inputLayers: 1,
+        inputLayers: 5,
         inputs: [],
         hiddenLayers: null,
         learningRate: null,
@@ -82,8 +80,8 @@ export default {
     };
   },
   computed: {
-    totalInput() {
-      return this.$store.getters.getTotalInput;
+    getInputLayers() {
+      return parseInt(this.neuralNetwork.inputLayers);
     }
   },
   methods: {
@@ -101,9 +99,6 @@ export default {
         name: 'AppRunner'
       });
     }  
-  },
-  components: {
-    appVariableInput: VariableInput
   }
 };
 </script>
