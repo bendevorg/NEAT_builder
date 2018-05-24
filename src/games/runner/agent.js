@@ -4,7 +4,7 @@ import {store} from '../../store/store.js';
 
 class Agent {
   constructor(brain){
-    let parameters = store.getters.neuralNetworkParameters;
+    let parameters = store.getters.neuralNetwork;
 
     if (brain instanceof NeuralNetwork){
       this.brain = brain.copy();
@@ -61,7 +61,7 @@ class Agent {
       let inputs = [];
 
       let params = [this, closest, this.game];
-      let parameters = store.getters.neuralNetworkParameters;
+      let parameters = store.getters.neuralNetwork;
 
       for (let i = 0; i < parameters.inputs.length; i++){
         inputs[i] = parameters.inputs[i](params);

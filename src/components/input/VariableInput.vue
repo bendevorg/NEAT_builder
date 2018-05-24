@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" v-for="index in getInputAmount" :key="index" placeholder="Type your input variable"/>
+    <input type="text" v-for="index in getInputLayers" :key="index" placeholder="Type your input variable"/>
   </div>
 </template>
 
@@ -10,14 +10,9 @@ export default {
   props: {
     msg: String
   },
-  data() {
-    return {
-      inputAmount: 5
-    };
-  },
   computed: {
-    getInputAmount() {
-      return parseInt(this.$store.getters.getVariableInputAmount);
+    getInputLayers() {
+      return parseInt(this.$store.getters.getInputLayers);
     }
   }
 };

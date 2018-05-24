@@ -23,13 +23,13 @@
         <label>Neural Network</label>
         <br/>
         <label>Inputs: </label>
-        <span id="inputCounter">{{ inputAmount }}</span>
-        <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="inputAmount" @input="changeVariableInputAmount" placeholder="Input Layers" />
+        <span id="inputCounter">{{ neuralNetwork.inputLayers }}</span>
+        <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="neuralNetwork.inputLayers" @input="changeInputLayersAmount" placeholder="Input Layers" />
         <div id="inputList">
           <app-variable-input/>
         </div>
-        <input type="text" name="Hidden Layers" id="hiddenLayers" placeholder="Hidden Layers" />
-        <input type="text" id="learningRate" placeholder="Learning Rate" />
+        <input type="text" name="Hidden Layers" v-model="neuralNetwork.hiddenLayers" placeholder="Hidden Layers" />
+        <input type="text" name="Learning Rate" v-model="neuralNetwork.learningRate" placeholder="Learning Rate" />
         <p>FIXED Output layers: 2 (jump or do nothing)</p>
       </div>
     </div>
@@ -37,8 +37,8 @@
       <div class="col-md-6">
         <label>Genetic Algorithm</label>
         <br/>
-        <input type="text" id="populationSize" placeholder="Species per generation" />
-        <input type="text" id="mutationRate" placeholder="Mutation rate" />
+        <input type="text" v-model="genetic.population"  placeholder="Species per generation" />
+        <input type="text" v-model="genetic.mutationRate"  placeholder="Mutation rate" />
       </div>
     </div>
     <div>
@@ -68,7 +68,17 @@ export default {
   },
   data() {
     return {
-      inputAmount: 1
+      inputAmount: 1,
+      neuralNetwork: {
+        inputLayers: 1,
+        inputs: [],
+        hiddenLayers: null,
+        learningRate: null,
+      },
+      genetic: {
+        population: null,
+        mutationRate: null
+      }
     };
   },
   computed: {
@@ -77,12 +87,16 @@ export default {
     }
   },
   methods: {
-    changeVariableInputAmount(){
-      this.$store.commit('changeVariableInputAmount', {
-        variableInputAmount: this.inputAmount
-      });
+    changeInputLayersAmount(){
+      this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
     },
     startGame(){
+      //  Temp
+      this.neuralNetwork.inputs = [
+        new Function('parameters', 'return parameters[0].x / parameters[1].x')
+      ];
+      this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
+      this.$store.commit('changeGenetic', this.genetic);
       this.$store.commit('changeGameName', {
         name: 'AppRunner'
       });

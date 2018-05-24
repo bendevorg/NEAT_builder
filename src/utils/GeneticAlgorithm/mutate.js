@@ -1,7 +1,7 @@
 import {store} from '../../store/store.js';
 
 function mutate(x) {
-  let parameters = store.getters.geneticParameters;
+  let parameters = store.getters.genetic;
   if (Math.random() < parameters.mutationRate ) {
     let offset = randomGaussian() * 0.5;
     let newX = x + offset;

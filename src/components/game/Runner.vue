@@ -46,8 +46,10 @@ export default {
     let entrySent = false;
 
     this.game = this.$store.getters.gameParameters;
-    this.genetic = this.$store.getters.geneticParameters;
-    this.neuralNetwork = this.$store.getters.neuralNetworkParameters;
+    this.genetic = this.$store.getters.genetic;
+    this.neuralNetwork = this.$store.getters.neuralNetwork;
+    console.log(this.genetic);
+    console.log(this.neuralNetwork)
     this.script = pFive => {
       pFive.setup = () => {
         let canvas = pFive.createCanvas(this.game.width, this.game.height);

@@ -57,23 +57,16 @@ export const store = new Vuex.Store({
       height: 400
     },
     genetic: {
-      population: 500,
-      mutationRate: 0.1
     },
     neuralNetwork: {
-      inputLayers: 1,
-      hiddenLayers: 4,
-      learningRate: 0.1,
-      inputs: [
-        new Function('parameters', 'return parameters[0].x / parameters[1].x')
-      ]
+      inputLayers: 1
     }
   },
   getters: {
     gameInstructions: state => {
       return state.gameInstructions;
     },
-    getVariableInputAmount: state => {
+    getInputLayers: state => {
       return state.neuralNetwork.inputLayers;
     },
     backendHost: state => {
@@ -85,10 +78,10 @@ export const store = new Vuex.Store({
     gameParameters: state => {
       return state.game;
     },
-    geneticParameters: state => {
+    genetic: state => {
       return state.genetic;
     },
-    neuralNetworkParameters: state => {
+    neuralNetwork: state => {
       return state.neuralNetwork;
     },
     speed: state => {
@@ -117,9 +110,6 @@ export const store = new Vuex.Store({
     changeHolder(state, payload) {
       state.placeHolder = payload.placeHolder
     },
-    changeVariableInputAmount(state, payload) {
-      state.neuralNetwork.inputLayers = payload.variableInputAmount;
-    },
     changeSpeed(state, payload) {
       state.gameInfo.speed = payload.speed;
     },
@@ -133,6 +123,20 @@ export const store = new Vuex.Store({
     },
     changeGameName(state, payload){
       state.gameInfo.name = payload.name
+    },
+    changeNeuralNetwork(state, payload){
+      state.neuralNetwork = {
+        inputLayers: parseInt(payload.inputLayers),
+        hiddenLayers : parseInt(payload.hiddenLayers),
+        learningRate: parseFloat(payload.learningRate),
+        inputs: payload.inputs
+      };
+    },
+    changeGenetic(state, payload) {
+      state.genetic = {
+        population: parseInt(payload.population),
+        mutationRate: parseFloat(payload.mutationRate)
+      };
     }
   }
 });
