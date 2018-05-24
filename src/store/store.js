@@ -111,6 +111,9 @@ export const store = new Vuex.Store({
     neuralNetwork: state => {
       return state.neuralNetwork;
     },
+    goal: state => {
+      return state.game.goal;
+    },
     speed: state => {
       return state.game.info.speed;
     },
@@ -125,9 +128,6 @@ export const store = new Vuex.Store({
     },
     timeSpent: state => {
       return state.game.info.timeSpent;
-    },
-    goal: state => {
-      return state.game.info.goal;
     },
   },
   mutations: {

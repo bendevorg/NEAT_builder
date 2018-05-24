@@ -17,13 +17,12 @@ function updateHighScore(activeAgents) {
 }
 
 function goalReached(){
-  let steps = store.getters.steps;
   return store.getters.steps >= store.getters.goal;
 }
 
 function sendLeaderboardEntry(entryInfo){
   API
-    .post('/leaderboard/' + store.getters.gameId + '/new')
+    .post('/leaderboard/' + store.getters.gameId + '/new', entryInfo)
     .then(response => {
 
     })
