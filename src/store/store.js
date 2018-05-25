@@ -80,7 +80,7 @@ export const store = new Vuex.Store({
     },
     // Everything down from here is temporary... i don`t know how to handle these yet
     backend: {
-      host: 'http://localhost:3340/api'
+      host: process.env.BACKEND_HOST
     },
   },
   getters: {
