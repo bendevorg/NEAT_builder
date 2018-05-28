@@ -78,9 +78,14 @@ export default {
             agent.think(foods[i]);
             agent.update();
             // Check all the blocks
-            if (foods[i].hits(agent)){
+            if (agent.hit()){
+              activeAgents.splice(i, 1);
+              foods.splice(i, 1);
+              break;
+            } else if (foods[i].hits(agent)){
+              agent.score++;
               foods[i] = new Food();
-            }
+            }            
           }
 
           // Update High score
@@ -124,6 +129,9 @@ export default {
           let {newActiveAgents, newAllAgents} = GA.nextGeneration(activeAgents, allAgents);
           activeAgents = newActiveAgents;
           allAgents = newAllAgents;
+          for (let i = 0; i < activeAgents.length; i++){
+            foods[i] = new Food(activeAgents[i].red, activeAgents[i].green, activeAgents[i].blue);
+          }
         }
       }
     }

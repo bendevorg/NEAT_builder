@@ -78,7 +78,21 @@ class Agent {
     // Get the outputs from the network
     let actions = this.brain.predict(inputs);
     //this.turn(actions.indexOf(Math.max(...actions)));
-    this.turn(2);
+    this.turn(0);
+  }
+
+  hit(){
+    let hitWall = this.body[this.body.length - 1].x >= this.canvas.width || this.body[this.body.length - 1].y >= this.canvas.height;
+    let hitItself = false;
+    if (!hitWall){
+      for (let i = 0; i < this.body.length - 1; i++){
+        if (this.body[i].x == this.body[this.body.length - 1].x && this.body[i].y == this.body[this.body.length - 1].y){
+          hitItself = true;
+          break;
+        }
+      }
+    }
+    return hitWall || hitItself;
   }
 
   // Do nothing, turn left or turn right
@@ -106,8 +120,8 @@ class Agent {
   // Update bird's position based on velocity, gravity, etc.
   update() {
     for (let i = 0; i < this.body.length - 1; i++){
-      this.body[i].x = this.body[i+1].x;
-      this.body[i].y = this.body[i+1].y;
+      this.body[i].x = this.body[i + 1].x;
+      this.body[i].y = this.body[i + 1].y;
     }
     switch(this.direction){
       case DIRECTIONS.UP:
@@ -123,7 +137,6 @@ class Agent {
         this.body[this.body.length - 1].x -= this.width;
         break;
     }
-    console.log(this.body);
 
     // Every frame it is alive increases the score
     //this.score++;
