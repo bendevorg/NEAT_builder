@@ -14,6 +14,7 @@ import Instruction from "./instruction/Instruction.vue";
 import Input from "./input/Input.vue";
 import Leaderboard from './leaderboard/Leaderboard.vue';
 import Runner from './game/Runner.vue';
+import Snake from './game/Snake.vue';
 
 export default {
   name: "Game",
@@ -32,7 +33,8 @@ export default {
     AppInstruction: Instruction,
     AppInput: Input,
     AppLeaderboard: Leaderboard,
-    AppRunner: Runner
+    AppRunner: Runner,
+    AppSnake: Snake
   }
 };
 </script>

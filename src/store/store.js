@@ -21,7 +21,8 @@ export const store = new Vuex.Store({
         // TODO: Get this from an API
         inputs: {  
           'player': 'params[0]',
-          'blocks.closest': 'params[1]',
+          //'blocks.closest': 'params[1]',
+          'food:': 'params[1]',
           'game': 'params[2]'
         }
       },
