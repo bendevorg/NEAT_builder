@@ -12,16 +12,32 @@
 </template>
 
 <script>
+import API from '../../utils/API.js';
 
 export default {
   name: 'Instructions',
   props: {
     msg: String
   },
+  data: () => {
+    return {
+      instructions: []
+    }
+  },
   computed: {
     getInstructions(){
-      return this.$store.getters.gameInstructions;
+      return this.instructions;
     }
+  },
+  mounted() {
+    API
+      .get(`/game/ ${this.$store.getters.gameId} /instructions`)
+      .then(response => {
+        this.instructions = response.data.msg
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
 </script>
