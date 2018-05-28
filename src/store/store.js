@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex);
-console.log(process.env);
 export const store = new Vuex.Store({
   state: {
     game: {
