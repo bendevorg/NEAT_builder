@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex);
-
+console.log(process.env);
 export const store = new Vuex.Store({
   state: {
     game: {
@@ -39,11 +39,7 @@ export const store = new Vuex.Store({
     },
     neuralNetwork: {
       inputLayers: 1
-    },
-    // Everything down from here is temporary... i don`t know how to handle these yet
-    backend: {
-      host: process.env.BACKEND_HOST
-    },
+    }
   },
   getters: {
     //  Game getters
@@ -59,14 +55,14 @@ export const store = new Vuex.Store({
     gameName: state => {
       return state.game.name;
     },
+    playerName: state => {
+      return state.player.name;
+    },
     inputParameters: state => {
       return state.game.parameters.inputs;
     },
     inputLayers: state => {
       return state.neuralNetwork.inputLayers;
-    },
-    backendHost: state => {
-      return state.backend.host;
     },
     genetic: state => {
       return state.genetic;

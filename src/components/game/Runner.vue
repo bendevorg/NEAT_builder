@@ -104,7 +104,7 @@ export default {
           if (!entrySent && utils.goalReached()){
             entrySent = true;
             let entryInfo = {
-              name: 'Teste',
+              name: this.$store.getters.playerName,
               score: parseInt(this.$store.getters.allTimeHighScore),
               time: parseInt(this.$store.getters.timeSpent)
             };
