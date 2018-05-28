@@ -31,6 +31,17 @@ class Agent {
 
     this.score = 0;
     this.fitness = 0;
+
+    this.red = Math.floor(Math.random() * 255);
+    this.green = Math.floor(Math.random() * 255);
+    this.blue = Math.floor(Math.random() * 255);
+
+    while (Math.abs(this.red - this.green - this.blue) < 40) {
+      this.red = Math.floor(Math.random() * 255);
+      this.green = Math.floor(Math.random() * 255);
+      this.blue = Math.floor(Math.random() * 255);
+    }
+
   }
 
   copy(){
@@ -39,8 +50,8 @@ class Agent {
 
   // Display the bird
   show(game) {
-    game.fill(255);
-    game.stroke(255);
+    game.fill(this.red, this.green, this.blue, 70);
+    game.noStroke();
     game.rect(this.x, this.y, this.width, this.height);
   }
 
