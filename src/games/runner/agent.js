@@ -60,7 +60,7 @@ class Agent {
       // Now create the inputs to the neural network
       let inputs = [];
 
-      let params = [this, closest, this.game];
+      let params = [this, closest, this.canvas];
       let parameters = store.getters.neuralNetwork;
 
       for (let i = 0; i < parameters.inputs.length; i++){

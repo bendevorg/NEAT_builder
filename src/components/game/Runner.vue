@@ -39,6 +39,9 @@ export default {
 
     let blocks = [];
     let counter = 0;
+    let max = 75;
+    let min = 30;
+    let randomCounter = Math.floor(Math.random() * (max - min) + min);
     let timeStart = new Date();
 
     let entrySent = false;
@@ -92,8 +95,10 @@ export default {
           }
 
           // Add a new pipe every so often
-          if (counter % 75 == 0) {
+          if (counter % randomCounter == 0) {
             blocks.push(new Block());
+            randomCounter = Math.floor(Math.random() * (max - min) + min);
+            counter = 0;
           }
           counter++;
 

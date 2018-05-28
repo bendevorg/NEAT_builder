@@ -8,14 +8,19 @@ class Block {
     this.height = 40;
 
     this.x = canvas.width;
+
     this.y = canvas.height - this.height;
-    
+    if (Math.random() >= 0.5)
+      this.y -= this.height + 10;
+
     this.speed = 6;
   }
 
   // Did this block hit an agent?
   hits(agent) {
-    return (this.x <= agent.x + agent.width && this.x + this.width >= agent.x + agent.width) && this.y - this.height < agent.y;
+    return (this.x <= agent.x + agent.width && this.x + this.width >= agent.x + agent.width) && 
+      ((this.y - this.height < agent.y - agent.height && this.y > agent.y - agent.height) || 
+      (this.y - this.height < agent.y && this.y >= agent.y));
   }
 
   // Draw the pipe
