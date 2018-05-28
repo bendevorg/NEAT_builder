@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
       name: '',
       running: false,
       // TODO: Get this from an API
-      goal: 500,
+      goal: 1000,
       info: {
         speed: 1,
         generationHighScore: 0,

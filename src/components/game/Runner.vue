@@ -68,8 +68,9 @@ export default {
 
       pFive.draw = () => {
         pFive.background(0);
+        let speed = parseInt(this.$store.getters.speed);
         // How many times to advance the pFive
-        for (let n = 0; n < this.$store.getters.speed; n++) {
+        for (let n = 0; n < speed; n++) {
           // Show all the pipes
           for (let i = blocks.length - 1; i >= 0; i--) {
             blocks[i].update();
@@ -119,12 +120,12 @@ export default {
 
         let currentTime = new Date();
         let timeSpent = parseFloat(this.$store.getters.timeSpent);
-        timeSpent += ((currentTime - timeStart) * parseInt(this.$store.getters.speed))/1000;
+        timeSpent += ((currentTime - timeStart) * speed)/1000;
         timeStart = currentTime;
 
         // Update DOM Elements
         this.$store.commit('changeProgression', {
-          steps: parseFloat(this.$store.getters.steps) + 0.1,
+          steps: parseFloat(this.$store.getters.steps) + (0.1 * speed),
           timeSpent: timeSpent
         });
 
