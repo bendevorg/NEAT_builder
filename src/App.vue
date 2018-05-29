@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-
-    <Game msg="Welcome to Your Vue.js App"/>
+    <router-view name="menu-top"/>
+    <router-view name="right-compo"/>
+    <router-view></router-view>
+    <!-- <Game msg="Welcome to Your Vue.js App"/> -->
+    <router-view name="foot-compo"/>
   </div>
 </template>
 
