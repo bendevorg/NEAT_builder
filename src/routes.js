@@ -1,11 +1,17 @@
-// import Form from './components/Shared/Formbox.vue';
+import Gameover from './components/Shared/Gameover.vue';
+import Navmenu from './components/Shared/Navmenu.vue';
+import Gamebox from './components/game/Gamebox.vue';
 
 export const routes = [
-    // {path: '/signin', name: 'signin', components:{
-    //   default: Signin,
-    //   'header-top': Header
-    // }},
+    {path: '/', name: 'Default', components:{
+        'menu-top': Navmenu,
+        default: Gamebox,
+    }},
+    {path: '/gameover', name: 'Gameover', components:{
+        'menu-top': Navmenu,
+        default: Gameover,
+    }},
 
-    // { path: '/redirect-me', redirect: { name: 'home' } },
-    // { path: '*', redirect: '/signin' }
+// { path: '/redirect-me', redirect: { name: 'home' } },
+// { path: '*', redirect: '/signin' }
 ];

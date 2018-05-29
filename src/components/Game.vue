@@ -1,5 +1,8 @@
 <template>
   <div class="game">
+    <router-view name="menu-top"></router-view>
+    <img src="../assets/logo.png">
+    <router-view/>
     <component v-bind:is="currentGame"></component>
     <div class="row" id="gameSetup">
       <app-instruction  v-if="!gameRunning"/>
@@ -17,6 +20,7 @@ import Instruction from "./instruction/Instruction.vue";
 import Input from "./input/Input.vue";
 import Leaderboard from './leaderboard/Leaderboard.vue';
 import Runner from './game/Runner.vue';
+import Gameover from './Shared/Gameover.vue';
 
 export default {
   name: "Game",
@@ -41,7 +45,8 @@ export default {
     AppInstruction: Instruction,
     AppInput: Input,
     AppLeaderboard: Leaderboard,
-    AppRunner: Runner
+    AppRunner: Runner,
+    AppGameover: Gameover
   }
 };
 </script>
