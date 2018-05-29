@@ -8,14 +8,14 @@ import Content from './components/Shared/Content.vue';
 
 export const routes = [
     {path: '/', name: 'Default', components:{
-        'menu-top': Navmenu,
-        default: Content,
-        'foot-compo': Footer
+        // 'menu-top': Navmenu,
+        default: Game,
+        // 'foot-compo': Footer
     }},
     {path: '/gameover', name: 'Gameover', components:{
         default: Gameover,
-        'menu-top': Navmenu,
-        'right-compo': Leaderboard
+        // 'menu-top': Navmenu,
+        // 'right-compo': Leaderboard
     }},
 
 // { path: '/redirect-me', redirect: { name: 'home' } },
