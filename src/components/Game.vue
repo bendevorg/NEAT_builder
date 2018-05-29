@@ -1,8 +1,10 @@
 <template>
   <div class="game">
-    <router-view name="menu-top"></router-view>
     <img src="../assets/logo.png">
+    <router-view name="menu-top"></router-view>
     <router-view/>
+    <router-view name="right-compo"></router-view>
+
     <component v-bind:is="currentGame"></component>
     <div class="row" id="gameSetup">
       <app-instruction  v-if="!gameRunning"/>
