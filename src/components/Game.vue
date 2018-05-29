@@ -1,16 +1,22 @@
 <template>
-  <div class="game">
-    <img src="../assets/logo.png">
-    <component v-bind:is="currentGame"></component>
-    <div class="row" id="gameSetup">
-      <app-instruction  v-if="!gameRunning"/>
-      <app-input v-if="!gameRunning"/>
-    </div>
-    <div>
-      <button @click="changeGameRunning()">Toggle game</button>
-    </div>
-    <app-leaderboard/>
-  </div>
+  <v-app>
+    <v-flex xs12 sm6 offset-sm3>
+      <v-card>
+        <div class="game">
+          <img src="../assets/logo.png">
+          <component v-bind:is="currentGame"></component>
+          <div class="row" id="gameSetup">
+            <app-instruction  v-if="!gameRunning"/>
+            <app-input v-if="!gameRunning"/>
+          </div>
+          <div>
+            <button @click="changeGameRunning()">Toggle game</button>
+          </div>
+          <app-leaderboard/>
+        </div>
+      </v-card>
+    </v-flex>
+  </v-app>
 </template>
 
 <script>

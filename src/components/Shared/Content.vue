@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <main>
     <v-content>
       <v-container fluid fill-height>
         <v-layout
@@ -18,5 +19,6 @@
         </v-layout>
       </v-container>
     </v-content>
+    </main>
   </v-app>
 </template>
