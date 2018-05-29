@@ -36,7 +36,6 @@ export default {
       console.log(this.$store.getters.gameRunning)
       this.$store.commit('changeGameRunning', !this.$store.getters.gameRunning);
     }
-
   },
   components: {
     AppInstruction: Instruction,
