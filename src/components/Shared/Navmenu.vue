@@ -29,10 +29,13 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Application</v-toolbar-title>
     </v-toolbar>
+    <app-content/>
   </v-app>
 </template>
 
 <script>
+import Content from "./Content.vue";
+
 export default {
   data () {
     return {
@@ -48,6 +51,9 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js'
     }
+  },
+  components:{
+    appContent: Content,
   },
   name: 'App'
 }
