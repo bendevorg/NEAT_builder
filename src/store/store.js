@@ -5,7 +5,10 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     game: {
-      id: '8fa50d71-e64a-4142-80dc-459d6cc6d3ad',
+      // Runner
+      //id: '8fa50d71-e64a-4142-80dc-459d6cc6d3ad',
+      // Snake
+      id: '6cee4b62-53dd-4f5c-882a-56ae6589352f',
       name: '',
       running: false,
       // TODO: Get this from an API
@@ -20,15 +23,17 @@ export const store = new Vuex.Store({
       parameters: {
         // TODO: Get this from an API
         inputs: {  
-          'player': 'params[0]',
-          'blocks.closest': 'params[1]',
-          'game': 'params[2]'
+          'player.head': 'params[0]',
+          'player': 'params[1]',
+          //'blocks.closest': 'params[1]',
+          'food': 'params[2]',
+          'game': 'params[3]'
         }
       },
       canvas: {
         // TODO: Get this from an API
-        width: 600,
-        height: 400
+        width: 300,
+        height: 200
       }, 
     },
     player: {

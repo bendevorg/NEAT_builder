@@ -1,22 +1,4 @@
 <template>
-      <!--
-      <div class="col-md-6">
-        <div>
-          <b-form-select v-model="selected" :options="options" class="mb-3" />
-          <b-form-select v-model="selected" :options="options" class="mb-3" size="sm" />
-          <div>Selected: <strong>{{ selected }}</strong></div>
-        </div>
-
-        <div>
-          <h2>Total Inputs</h2>
-          <ul>
-            <li v-for="input in totalInput" :key="input.index">
-              {{ input }}
-            </li>
-          </ul>
-        </div>
-      </div>
-      -->
   <div class="col-md-6">
     <div class="row" id="NNParams">
       <div class="col-md-6">
@@ -99,7 +81,7 @@ export default {
       this.$store.commit('changeGenetic', this.genetic);
       this.$store.commit('changePlayerName', this.player.name);
       this.$store.commit('changeGameRunning', true);
-      this.$store.commit('changeGameName', 'AppRunner');
+      this.$store.commit('changeGameName', 'AppSnake');
     }  
   }
 };

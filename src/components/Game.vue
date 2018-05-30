@@ -22,6 +22,7 @@ import Input from "./input/Input.vue";
 import Leaderboard from './leaderboard/Leaderboard.vue';
 import Runner from './game/Runner.vue';
 import Gameover from './Shared/Gameover.vue';
+import Snake from './game/Snake.vue';
 
 export default {
   name: "Game",
@@ -41,7 +42,8 @@ export default {
     AppInput: Input,
     AppLeaderboard: Leaderboard,
     AppRunner: Runner,
-    AppGameover: Gameover
+    AppGameover: Gameover,
+    AppSnake: Snake
   }
 };
 </script>
