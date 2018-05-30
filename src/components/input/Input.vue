@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import formatInputs from '../../utils/formatInputs.js';
+import formatInputs from '../../utils/formatInputs';
 
 export default {
   name: 'Input',
