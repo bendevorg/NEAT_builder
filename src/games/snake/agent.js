@@ -1,6 +1,7 @@
 import NeuralNetwork from '../../utils/neural_network/NeuralNetwork.js';
 import mutate from '../../utils/GeneticAlgorithm/mutate.js';
 import {store} from '../../store/store.js';
+import { timingSafeEqual } from 'crypto';
 
 const DIRECTIONS = {
   UP: 0,
@@ -24,6 +25,9 @@ class Agent {
     this.canvas = store.getters.gameCanvas;
     this.width = 20;
     this.height = 20;
+
+    this.hunger = 0;
+    this.maxHunger = 25;
 
     this.body = [{
       x: 1 * this.width,
@@ -58,7 +62,7 @@ class Agent {
   // Display the bird
   show(game) {
     this.body.forEach(point => {
-      game.fill(this.red, this.green, this.blue, 70);
+      game.fill(this.red, this.green, this.blue, 100);
       game.noStroke();
       game.rect(point.x, point.y, this.width, this.height);
     });
@@ -67,8 +71,9 @@ class Agent {
   think(food){
     // Now create the inputs to the neural network
     let inputs = [];
+    let head = this.body[this.body.length - 1];
 
-    let params = [this, food, this.canvas];
+    let params = [head, this, food, this.canvas];
     let parameters = store.getters.neuralNetwork;
 
     for (let i = 0; i < parameters.inputs.length; i++){
@@ -77,14 +82,14 @@ class Agent {
 
     // Get the outputs from the network
     let actions = this.brain.predict(inputs);
-    //this.turn(actions.indexOf(Math.max(...actions)));
-    this.turn(0);
+    this.turn(actions.indexOf(Math.max(...actions)));
   }
 
-  hit(){
+  isDead(){
+    let starved = this.hunger >= this.maxHunger;
     let hitWall = this.body[this.body.length - 1].x >= this.canvas.width || this.body[this.body.length - 1].y >= this.canvas.height;
     let hitItself = false;
-    if (!hitWall){
+    if (!hitWall && !starved){
       for (let i = 0; i < this.body.length - 1; i++){
         if (this.body[i].x == this.body[this.body.length - 1].x && this.body[i].y == this.body[this.body.length - 1].y){
           hitItself = true;
@@ -92,7 +97,7 @@ class Agent {
         }
       }
     }
-    return hitWall || hitItself;
+    return starved || hitWall || hitItself;
   }
 
   // Do nothing, turn left or turn right

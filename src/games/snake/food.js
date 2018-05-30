@@ -25,7 +25,7 @@ class Food {
 
   // Draw the pipe
   show(game) {
-    game.fill(this.red, this.green, this.blue, 70);
+    game.fill(this.red, this.green, this.blue, 100);
     game.noStroke();
     game.rect(this.x, this.y, this.width, this.height);
   }

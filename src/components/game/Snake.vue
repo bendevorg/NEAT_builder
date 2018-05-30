@@ -58,7 +58,7 @@ export default {
           let agent = new Agent();
           activeAgents[i] = agent;
           allAgents[i] = agent;
-          foods[i] = new Food(agent.red, agent.green, agent.blue);
+          foods[i] = new Food(activeAgents[i].red, activeAgents[i].green, activeAgents[i].blue);
         }
         let {newActiveAgents, newAllAgents} = GA.nextGeneration(activeAgents, allAgents);
         activeAgents = newActiveAgents;
@@ -78,14 +78,17 @@ export default {
             agent.think(foods[i]);
             agent.update();
             // Check all the blocks
-            if (agent.hit()){
+            if (agent.isDead()){
               activeAgents.splice(i, 1);
               foods.splice(i, 1);
-              break;
-            } else if (foods[i].hits(agent)){
-              agent.score++;
-              foods[i] = new Food();
-            }            
+            } else {
+              agent.hunger += 0.1;
+              if(foods[i].hits(agent)){
+                agent.score++;
+                agent.hunger += agent.maxHunger;
+                foods[i] = new Food();
+              }
+            }      
           }
 
           // Update High score
