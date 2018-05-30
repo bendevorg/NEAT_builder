@@ -44,7 +44,7 @@
 import formatInputs from '../../utils/formatInputs.js';
 
 export default {
-  name: "HelloWorld",
+  name: 'Input',
   props: {
     msg: String
   },
@@ -54,7 +54,7 @@ export default {
         inputLayers: 1,
         inputs: [],
         hiddenLayers: null,
-        learningRate: null,
+        learningRate: null
       },
       genetic: {
         population: null,
@@ -67,14 +67,14 @@ export default {
   },
   computed: {
     getInputLayers() {
-      return parseInt(this.neuralNetwork.inputLayers);
+      return parseInt(this.neuralNetwork.inputLayers, 10);
     }
   },
   methods: {
-    changeInputLayersAmount(){
+    changeInputLayersAmount() {
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
     },
-    startGame(){
+    startGame() {
       //  Temp
       this.neuralNetwork.inputs = formatInputs(this.neuralNetwork.inputs);
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
@@ -82,7 +82,7 @@ export default {
       this.$store.commit('changePlayerName', this.player.name);
       this.$store.commit('changeGameRunning', true);
       this.$store.commit('changeGameName', 'AppSnake');
-    }  
+    }
   }
 };
 </script>
