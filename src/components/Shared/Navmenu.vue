@@ -1,3 +1,4 @@
+
 <template>
 
   <v-app id="inspire">
@@ -7,20 +8,12 @@
       app
     >
       <v-list dense>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile v-for="game in getGames" :key="game.index">
           <v-list-tile-action>
             <v-icon>contact_mail</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title><router-link to="/gameover">Game over</router-link></v-list-tile-title>
+            <router-link :to="'/games/' + game.name">{{game.name}}</router-link>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -34,25 +27,30 @@
 </template>
 
 <script>
-import Content from "./Content.vue";
+import Content from "./Content.vue"
+import API from '../../utils/API.js';
 
 export default {
   data() {
     return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [
-        {
-          icon: "bubble_chart",
-          title: "Inspire"
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: "Vuetify.js"
+      games: [], 
+      drawer: false
     };
+  },
+  computed: {
+    getGames(){
+      return this.games;
+    }
+  },
+  beforeCreate() {
+    API
+      .get('/games')
+      .then(games => {
+        this.games = games.data.msg;
+      })
+      .catch(err => {
+        console.log('Errow')
+      });
   },
   components: {
     appContent: Content
