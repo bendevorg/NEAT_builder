@@ -6,25 +6,28 @@
 </template>
 
 <script>
-import Game from "./components/Game.vue";
+import Game from './components/Game.vue';
 
 export default {
-  name: "app",
-  methods: {
-  },
+  name: 'app',
+  methods: {},
   components: {
     Game
   }
 };
 </script>
 
-<style>
+<style lang="stylus" scoped>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: #2c3e50;
-  margin-top: 60px;
+
+  img {
+    display: block;
+    margin: auto;
+  }
 }
 </style>
