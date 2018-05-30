@@ -20,7 +20,7 @@
             <v-icon>contact_mail</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Contact</v-list-tile-title>
+            <v-list-tile-title><router-link to="/gameover">Game over</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -37,24 +37,26 @@
 import Content from "./Content.vue";
 
 export default {
-  data () {
+  data() {
     return {
       clipped: false,
       drawer: true,
       fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
+      items: [
+        {
+          icon: "bubble_chart",
+          title: "Inspire"
+        }
+      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
-    }
+      title: "Vuetify.js"
+    };
   },
-  components:{
-    appContent: Content,
+  components: {
+    appContent: Content
   },
-  name: 'App'
-}
+  name: "Navmenu"
+};
 </script>

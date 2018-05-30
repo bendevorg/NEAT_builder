@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <app-navmenu/>
   <main>
-    <router-view></router-view>
+    <router-view/>
+    <app-navmenu/>
   </main>
   </v-app>
 </template>
@@ -12,27 +12,16 @@ import Navmenu from "./components/Shared/Navmenu.vue";
 
 export default {
   name: "app",
-  data () {
+  data() {
     return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
+      title: "Vuetify.js"
+    };
   },
-  methods: {
-  },
+  methods: {},
   components: {
     appNavmenu: Navmenu
   },
-  name: 'App'
+  name: "App"
 };
 </script>
 

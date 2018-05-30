@@ -9,9 +9,6 @@
             <app-instruction  v-if="!gameRunning"/>
             <app-input v-if="!gameRunning"/>
           </div>
-          <div>
-            <button @click="changeGameRunning()">Toggle game</button>
-          </div>
           <app-leaderboard/>
         </div>
       </v-card>
@@ -37,12 +34,6 @@ export default {
     },
     gameRunning: function(){
       return this.$store.getters.gameRunning;
-    },
-  },
-  methods:{
-    changeGameRunning: function(){
-      console.log(this.$store.getters.gameRunning)
-      this.$store.commit('changeGameRunning', !this.$store.getters.gameRunning);
     }
   },
   components: {
