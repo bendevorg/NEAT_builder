@@ -1,33 +1,69 @@
 <template>
   <div class="col-md-6">
-    <div class="row" id="NNParams">
+    <div 
+      id="NNParams" 
+      class="row">
       <div class="col-md-6">
         <label>Neural Network</label>
-        <br/>
+        <br>
         <label>Inputs: </label>
         <span id="inputCounter">{{ neuralNetwork.inputLayers }}</span>
-        <input type="range" id="inputLayers" min="1" max="10" step="1" v-model="neuralNetwork.inputLayers" @input="changeInputLayersAmount" placeholder="Input Layers" />
+        <input 
+          id="inputLayers" 
+          v-model="neuralNetwork.inputLayers" 
+          type="range" 
+          min="1" 
+          max="10" 
+          step="1" 
+          placeholder="Input Layers" 
+          @input="changeInputLayersAmount" >
         <div id="inputList">
-          <input type="text" v-for="index in getInputLayers" :key="index" v-model="neuralNetwork.inputs[index-1]" placeholder="Type your input variable"/>
+          <input 
+            v-for="index in getInputLayers" 
+            :key="index" 
+            v-model="neuralNetwork.inputs[index-1]" 
+            type="text" 
+            placeholder="Type your input variable">
         </div>
-        <input type="text" name="Hidden Layers" v-model="neuralNetwork.hiddenLayers" placeholder="Hidden Layers" />
-        <input type="text" name="Learning Rate" v-model="neuralNetwork.learningRate" placeholder="Learning Rate" />
+        <input 
+          v-model="neuralNetwork.hiddenLayers" 
+          type="text" 
+          name="Hidden Layers" 
+          placeholder="Hidden Layers" >
+        <input 
+          v-model="neuralNetwork.learningRate" 
+          type="text" 
+          name="Learning Rate" 
+          placeholder="Learning Rate" >
         <p>FIXED Output layers: 2 (jump or do nothing)</p>
       </div>
     </div>
-    <div class="row" id="GAParams">
+    <div 
+      id="GAParams" 
+      class="row">
       <div class="col-md-6">
         <label>Genetic Algorithm</label>
-        <br/>
-        <input type="text" v-model="genetic.population"  placeholder="Species per generation" />
-        <input type="text" v-model="genetic.mutationRate"  placeholder="Mutation rate" />
+        <br>
+        <input 
+          v-model="genetic.population" 
+          type="text" 
+          placeholder="Species per generation" >
+        <input 
+          v-model="genetic.mutationRate" 
+          type="text" 
+          placeholder="Mutation rate" >
       </div>
     </div>
     <div>
-      <div class="row" id="leaderboardParams">
+      <div 
+        id="leaderboardParams" 
+        class="row">
         <div class="col-md-6">
           <label>Name</label>
-          <input text="text" v-model="player.name" placeholder="Your AI name" />
+          <input 
+            v-model="player.name" 
+            text="text" 
+            placeholder="Your AI name" >
         </div>
       </div>
       <div class="row">
@@ -44,17 +80,14 @@
 import formatInputs from '../../../utils/formatInputs.js';
 
 export default {
-  name: "HelloWorld",
-  props: {
-    msg: String
-  },
+  name: 'Input',
   data() {
     return {
       neuralNetwork: {
         inputLayers: 1,
         inputs: [],
         hiddenLayers: null,
-        learningRate: null,
+        learningRate: null
       },
       genetic: {
         population: null,
@@ -67,15 +100,14 @@ export default {
   },
   computed: {
     getInputLayers() {
-      return parseInt(this.neuralNetwork.inputLayers);
+      return parseInt(this.neuralNetwork.inputLayers, 10);
     }
   },
   methods: {
-    changeInputLayersAmount(){
+    changeInputLayersAmount() {
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
     },
-    startGame(){
-      //  Temp
+    startGame() {
       this.neuralNetwork.inputs = formatInputs(this.neuralNetwork.inputs);
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
       this.$store.commit('changeGenetic', this.genetic);

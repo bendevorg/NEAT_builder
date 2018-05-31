@@ -56,14 +56,22 @@ export default {
 };
 </script>
 
+<<<<<<< HEAD
 
 <style>
+=======
+<style lang="stylus" scoped>
+>>>>>>> af7282a39acc577cb2d3ddeb3f58275894bb81f0
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: #2c3e50;
-  margin-top: 60px;
+
+  img {
+    display: block;
+    margin: auto;
+  }
 }
 </style>
