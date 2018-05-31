@@ -1,5 +1,5 @@
 import Content from './components/Shared/Content.vue';
-import Game from './components/Game.vue';
+import Game from './components/game/Game.vue';
 
 export const routes = [
   {

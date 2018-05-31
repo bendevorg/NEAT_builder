@@ -25,9 +25,9 @@
 import Instruction from './instruction/Instruction.vue';
 import Input from './input/Input.vue';
 import Leaderboard from './leaderboard/Leaderboard.vue';
-import Gameover from './Shared/Gameover.vue';
-import Runner from './game/Runner.vue';
-import Snake from './game/Snake.vue';
+import Gameover from '../Shared/Gameover.vue';
+import Runner from './games/Runner.vue';
+import Snake from './games/Snake.vue';
 
 export default {
   name: 'Game',

@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import Info from './Info.vue';
-import Agent from '../../games/runner/agent.js';
-import Block from '../../games/runner/block.js';
-import GA from '../../utils/GeneticAlgorithm/GeneticAlgorithm.js'
-import utils from '../../utils/utils.js';
+import Info from '../info/Info.vue';
+import Agent from '../../../games/snake/agent.js';
+import Food from '../../../games/snake/food.js';
+import GA from '../../../utils/GeneticAlgorithm/GeneticAlgorithm.js'
+import utils from '../../../utils/utils.js';
 
 export default {
-  name: "Runner",
+  name: "Snake",
   data(){
     return {
       script: null,
@@ -37,11 +37,8 @@ export default {
     let allTimeHighScore = 0;
     let generationHighScore = 0;
 
-    let blocks = [];
-    let counter = 0;
-    let max = 75;
-    let min = 30;
-    let randomCounter = Math.floor(Math.random() * (max - min) + min);
+    let foods = [];
+
     let timeStart = new Date();
 
     let entrySent = false;
@@ -52,6 +49,7 @@ export default {
 
     this.script = pFive => {
       pFive.setup = () => {
+        pFive.frameRate(10);
         let canvas = pFive.createCanvas(this.gameCanvas.width, this.gameCanvas.height);
         canvas.parent('canvascontainer');
 
@@ -60,6 +58,7 @@ export default {
           let agent = new Agent();
           activeAgents[i] = agent;
           allAgents[i] = agent;
+          foods[i] = new Food(activeAgents[i].red, activeAgents[i].green, activeAgents[i].blue);
         }
         let {newActiveAgents, newAllAgents} = GA.nextGeneration(activeAgents, allAgents);
         activeAgents = newActiveAgents;
@@ -71,37 +70,26 @@ export default {
         let speed = parseInt(this.$store.getters.speed);
         // How many times to advance the pFive
         for (let n = 0; n < speed; n++) {
-          // Show all the pipes
-          for (let i = blocks.length - 1; i >= 0; i--) {
-            blocks[i].update();
-            if (blocks[i].offscreen()) {
-              blocks.splice(i, 1);
-            }
-          }
+
           // Running all the active agents
           for (let i = activeAgents.length - 1; i >= 0; i--) {
             let agent = activeAgents[i];
             // Agent uses its brain!
-            agent.think(blocks);
+            agent.think(foods[i]);
             agent.update();
             // Check all the blocks
-            for (let j = 0; j < blocks.length; j++) {
-              // It's hit a pipe
-              if (blocks[j].hits(activeAgents[i])) {
-                // Remove this agent
-                activeAgents.splice(i, 1);
-                break;
+            if (agent.isDead()){
+              activeAgents.splice(i, 1);
+              foods.splice(i, 1);
+            } else {
+              agent.hunger += 0.1;
+              if(foods[i].hits(agent)){
+                agent.score++;
+                agent.hunger += agent.maxHunger;
+                foods[i] = new Food();
               }
-            }
+            }      
           }
-
-          // Add a new pipe every so often
-          if (counter % randomCounter == 0) {
-            blocks.push(new Block());
-            randomCounter = Math.floor(Math.random() * (max - min) + min);
-            counter = 0;
-          }
-          counter++;
 
           // Update High score
           utils.updateHighScore(activeAgents);
@@ -130,8 +118,8 @@ export default {
         });
 
         // Draw everything!
-        for (let i = 0; i < blocks.length; i++) {
-          blocks[i].show(pFive);
+        for (let i = 0; i < foods.length; i++) {
+          foods[i].show(pFive);
         }
 
         for (let i = 0; i < activeAgents.length; i++) {
@@ -140,11 +128,13 @@ export default {
         // If we're out of agents go to the next generation
         if (activeAgents.length == 0) {
           // Reset game
-          counter = 0;
-          blocks = [];
+          foods = [];
           let {newActiveAgents, newAllAgents} = GA.nextGeneration(activeAgents, allAgents);
           activeAgents = newActiveAgents;
           allAgents = newAllAgents;
+          for (let i = 0; i < activeAgents.length; i++){
+            foods[i] = new Food(activeAgents[i].red, activeAgents[i].green, activeAgents[i].blue);
+          }
         }
       }
     }

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import API from '../../utils/API.js';
+import API from '../../../utils/API.js';
 
 export default {
   name: 'Leaderboard',
