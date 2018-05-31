@@ -1,11 +1,21 @@
-// import Form from './components/Shared/Formbox.vue';
+import Content from './components/Shared/Content.vue';
+import Game from './components/game/Game.vue';
 
 export const routes = [
-    // {path: '/signin', name: 'signin', components:{
-    //   default: Signin,
-    //   'header-top': Header
-    // }},
-
-    // { path: '/redirect-me', redirect: { name: 'home' } },
-    // { path: '*', redirect: '/signin' }
+  {
+    path: '/',
+    name: 'Default',
+    components: {
+      // 'menu-top': Navmenu,
+      default: Content,
+      // 'foot-compo': Footer
+    }
+  },
+  {
+    path: '/games/:gameName',
+    name: 'Game',
+    components: {
+      default: Game
+    }
+  }
 ];

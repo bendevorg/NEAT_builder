@@ -4,15 +4,11 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
+    games: [],
     game: {
-      // Runner
-      //id: '8fa50d71-e64a-4142-80dc-459d6cc6d3ad',
-      // Snake
-      id: '6cee4b62-53dd-4f5c-882a-56ae6589352f',
+      id: '',
       name: '',
       running: false,
-      // TODO: Get this from an API
-      goal: 1000,
       info: {
         speed: 1,
         generationHighScore: 0,
@@ -20,6 +16,8 @@ export const store = new Vuex.Store({
         steps: 0,
         timeSpent: 0,
       },
+      // TODO: Get this from an API
+      goal: 1000,
       parameters: {
         // TODO: Get this from an API
         inputs: {  
@@ -47,6 +45,9 @@ export const store = new Vuex.Store({
   },
   getters: {
     //  Game getters
+    games: state => {
+      return state.games;
+    },
     gameId: state => {
       return state.game.id;
     },
@@ -94,6 +95,12 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
+    changeGames(state, payload){
+      state.games = payload;
+    },
+    changeGameId(state, payload){
+      state.game.id = payload;
+    },
     changeGameName(state, payload){
       state.game.name = payload;
     },

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import API from '../../utils/API.js';
+import API from '../../../utils/API.js';
 
 export default {
   name: 'Leaderboard',
@@ -35,20 +35,19 @@ export default {
   props: {
     msg: String
   },
-  computed: {
+  asyncComputed: {
     getEntries(){
-      return this.entries;
+      return API
+        .get('/leaderboard/' + this.$store.getters.gameId)
+        .then(response => {
+          this.entries = response.data.msg;
+          return this.entries;
+        })
+        .catch(err => {
+          console.log(err);
+          return [];
+        });
     }
-  },
-  mounted() {
-    API
-      .get('/leaderboard/' + this.$store.getters.gameId)
-      .then(response => {
-        this.entries = response.data.msg
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 }
 </script>

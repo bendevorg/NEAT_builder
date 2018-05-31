@@ -1,22 +1,61 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <Game msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+  <main>
+    <div class="loading" v-if="loading">
+      Loading...
+    </div>
+    <div v-if="error" class="error">
+      {{ error }}
+    </div>
+    <div v-if="post">
+      <router-view/>
+      <app-navmenu/>
+    </div>
+  </main>
+  </v-app>
 </template>
 
 <script>
-import Game from "./components/Game.vue";
+import Navmenu from './components/Shared/Navmenu.vue';
+import API from './utils/API.js';
 
 export default {
-  name: "app",
-  methods: {
+  name: 'app',
+  data() {
+    return {
+      loading: true,
+      error: null,
+      post: null
+    };
   },
+  methods: {},
   components: {
-    Game
-  }
+    appNavmenu: Navmenu
+  },
+  created(){
+    this.fetchData();
+  },
+  methods: {
+    fetchData(){
+      this.error = this.post = null;
+      this.loading = true;
+      API
+        .get('/games')
+        .then(games => {
+          this.$store.commit('changeGames', games.data.msg);
+          this.loading = false;
+          this.post = true;
+        })
+        .catch(error => {
+          console.log('Errow');
+          this.error = error;
+        });
+    }
+  },
+  name: "App"
 };
 </script>
+
 
 <style>
 #app {
