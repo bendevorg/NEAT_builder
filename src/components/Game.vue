@@ -1,11 +1,17 @@
 <template>
   <v-app>
     <v-flex xs12 sm6 offset-sm3>
-      <v-card>
+      <div class="loading" v-if="loading">
+        Loading...
+      </div>
+      <div v-if="error" class="error">
+        {{ error }}
+      </div>
+      <v-card v-if="post">
         <div class="game">
-          <component v-bind:is="currentGame"></component>
+          <component v-bind:is="currentGame" v-if="gameRunning"></component>
           <div class="row" id="gameSetup">
-            <app-instruction  v-if="!gameRunning"/>
+            <app-instruction v-if="!gameRunning"/>
             <app-input v-if="!gameRunning"/>
           </div>
           <app-leaderboard/>
@@ -25,13 +31,19 @@ import Snake from './game/Snake.vue';
 
 export default {
   name: 'Game',
-  props: {
-    gameName: String
+  data(){
+    return {
+      loading: true,
+      error: false,
+      post: false
+    };
   },
   computed: {
     currentGame(){
-      console.log(this.gameName);
-      return this.gameName;
+      return `App${this.$route.params.gameName}`;
+    },
+    getGames(){
+      return this.$store.getters.game;
     },
     gameRunning: function(){
       return this.$store.getters.gameRunning;
@@ -45,8 +57,17 @@ export default {
     AppRunner: Runner,
     AppSnake: Snake
   },
-  mounted() {
-    console.log(this.gameName);
+  created() {
+    this.$store.commit('changeGameName', this.$route.params.gameName);
+    let games = this.$store.getters.games;
+    let game = games.find(game => {
+      if (game.name == this.$store.getters.gameName)
+        return game.id;
+      return false;
+    });
+    this.$store.commit('changeGameId', game.id);
+    this.loading = false;
+    this.post = true;
   }
 };
 </script>

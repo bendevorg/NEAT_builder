@@ -33,24 +33,13 @@ import API from '../../utils/API.js';
 export default {
   data() {
     return {
-      games: [], 
       drawer: false
     };
   },
   computed: {
-    getGames(){
-      return this.games;
+    getGames() {
+      return this.$store.getters.games;
     }
-  },
-  beforeCreate() {
-    API
-      .get('/games')
-      .then(games => {
-        this.games = games.data.msg;
-      })
-      .catch(err => {
-        console.log('Errow')
-      });
   },
   components: {
     appContent: Content

@@ -81,7 +81,6 @@ export default {
       this.$store.commit('changeGenetic', this.genetic);
       this.$store.commit('changePlayerName', this.player.name);
       this.$store.commit('changeGameRunning', true);
-      this.$store.commit('changeGameName', 'AppSnake');
     }  
   }
 };

@@ -16,9 +16,6 @@ export const routes = [
     name: 'Game',
     components: {
       default: Game
-    },
-    props: {
-      gameName: 'Aeaeaeaeaeae'
     }
   }
 ];

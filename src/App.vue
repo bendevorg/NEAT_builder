@@ -1,25 +1,56 @@
 <template>
   <v-app>
   <main>
-    <router-view/>
-    <app-navmenu/>
+    <div class="loading" v-if="loading">
+      Loading...
+    </div>
+    <div v-if="error" class="error">
+      {{ error }}
+    </div>
+    <div v-if="post">
+      <router-view/>
+      <app-navmenu/>
+    </div>
   </main>
   </v-app>
 </template>
 
 <script>
-import Navmenu from "./components/Shared/Navmenu.vue";
+import Navmenu from './components/Shared/Navmenu.vue';
+import API from './utils/API.js';
 
 export default {
-  name: "app",
+  name: 'app',
   data() {
     return {
-      title: "Vuetify.js"
+      loading: true,
+      error: null,
+      post: null
     };
   },
   methods: {},
   components: {
     appNavmenu: Navmenu
+  },
+  created(){
+    this.fetchData();
+  },
+  methods: {
+    fetchData(){
+      this.error = this.post = null;
+      this.loading = true;
+      API
+        .get('/games')
+        .then(games => {
+          this.$store.commit('changeGames', games.data.msg);
+          this.loading = false;
+          this.post = true;
+        })
+        .catch(error => {
+          console.log('Errow');
+          this.error = error;
+        });
+    }
   },
   name: "App"
 };
