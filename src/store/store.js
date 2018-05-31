@@ -9,8 +9,6 @@ export const store = new Vuex.Store({
       id: '',
       name: '',
       running: false,
-      // TODO: Get this from an API
-      goal: 1000,
       info: {
         speed: 1,
         generationHighScore: 0,
@@ -18,6 +16,8 @@ export const store = new Vuex.Store({
         steps: 0,
         timeSpent: 0,
       },
+      // TODO: Get this from an API
+      goal: 1000,
       parameters: {
         // TODO: Get this from an API
         inputs: {  

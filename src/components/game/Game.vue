@@ -49,6 +49,11 @@ export default {
       return this.$store.getters.gameRunning;
     }
   },
+  beforeRouteUpdate (to, from, next) {
+    this.$store.commit('changeGameName', to.params.gameName);
+    this.updateGame();
+    next();
+  },
   components: {
     AppInstruction: Instruction,
     AppInput: Input,
@@ -59,15 +64,21 @@ export default {
   },
   created() {
     this.$store.commit('changeGameName', this.$route.params.gameName);
-    let games = this.$store.getters.games;
-    let game = games.find(game => {
-      if (game.name == this.$store.getters.gameName)
-        return game.id;
-      return false;
-    });
-    this.$store.commit('changeGameId', game.id);
-    this.loading = false;
-    this.post = true;
+    this.updateGame();
+  },
+  methods:{
+    updateGame(){
+      this.loading = true;
+      this.post = this.error = null;
+      let games = this.$store.getters.games;
+      let game = games.find(game => {
+        return game.name == this.$store.getters.gameName;
+      });
+      this.$store.commit('changeGameId', game.id);
+      this.loading = false;
+      this.post = true;
+
+    }
   }
 };
 </script>
