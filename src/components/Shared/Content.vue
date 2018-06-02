@@ -7,14 +7,10 @@
           justify-center
           align-center
         >
-          <v-flex text-xs-center>
-            <v-tooltip left>
-              <v-btn icon large :href="source" target="_blank" slot="activator">
-                <v-icon large>code</v-icon>
-              </v-btn>
-              <span>Source</span>
-              <h1>AAHH</h1>
-            </v-tooltip>
+          <v-flex text-xs-center sm6 pa-5>
+            <v-card>
+              <h1>お客さんはようこそ</h1>
+            </v-card>
           </v-flex>
         </v-layout>
       </v-container>
