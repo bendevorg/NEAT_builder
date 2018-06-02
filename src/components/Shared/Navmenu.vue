@@ -10,7 +10,7 @@
       <v-list dense>
         <v-list-tile v-for="game in getGames" :key="game.index">
           <v-list-tile-action>
-            <v-icon>contact_mail</v-icon>
+            <v-icon left>label</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <router-link :to="'/games/' + game.name">{{game.name}}</router-link>
