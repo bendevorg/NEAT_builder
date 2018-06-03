@@ -1,21 +1,19 @@
 <template>
   <v-app>
-    <main>
-      <div 
-        v-if="loading" 
-        class="loading">
-        Loading...
-      </div>
-      <div 
-        v-if="error" 
-        class="error">
-        {{ error }}
-      </div>
-      <div v-if="post">
-        <router-view/>
-        <app-navmenu/>
-      </div>
-    </main>
+    <div 
+      v-if="loading" 
+      class="loading">
+      Loading...
+    </div>
+    <div 
+      v-if="error" 
+      class="error">
+      {{ error }}
+    </div>
+    <div v-if="post">
+      <app-navmenu/>
+      <router-view/>
+    </div>
   </v-app>
 </template>
 

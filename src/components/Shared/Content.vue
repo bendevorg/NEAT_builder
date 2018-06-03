@@ -1,20 +1,21 @@
 <template>
-  <v-app>
-    <main>
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout
-          justify-center
-          align-center
-        >
-          <v-flex text-xs-center sm6 pa-5>
-            <v-card>
-              <h1>お客さんはようこそ</h1>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
-    </main>
-  </v-app>
+  <v-content>
+    <v-container 
+      fluid 
+      fill-height>
+      <v-layout
+        justify-center
+        align-center
+      >
+        <v-flex 
+          text-xs-center 
+          sm6 
+          pa-5>
+          <v-card>
+            <h1>お客さんはようこそ</h1>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-content>
 </template>

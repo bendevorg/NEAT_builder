@@ -1,36 +1,42 @@
-
 <template>
-
-  <v-app id="inspire">
+  <div class="navmenu">
     <v-navigation-drawer
-      fixed
       v-model="drawer"
+      fixed
       app
     >
       <v-list dense>
-        <v-list-tile v-for="game in getGames" :key="game.index">
+        <v-list-tile 
+          v-for="game in getGames" 
+          :key="game.index">
           <v-list-tile-action>
             <v-icon left>label</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <router-link :to="'/games/' + game.name">{{game.name}}</router-link>
+            <router-link :to="'/games/' + game.name">{{ game.name }}</router-link>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    <v-toolbar 
+      color="indigo" 
+      dark 
+      fixed 
+      app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
       <v-toolbar-title>Application</v-toolbar-title>
     </v-toolbar>
-    <app-content/>
-  </v-app>
+  </div>
 </template>
 
 <script>
-import Content from "./Content.vue"
-import API from '../../utils/API.js';
+import Content from './Content';
 
 export default {
+  name: 'Navmenu',
+  components: {
+    appContent: Content
+  },
   data() {
     return {
       drawer: false
@@ -40,10 +46,6 @@ export default {
     getGames() {
       return this.$store.getters.games;
     }
-  },
-  components: {
-    appContent: Content
-  },
-  name: "Navmenu"
+  }
 };
 </script>
