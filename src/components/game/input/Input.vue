@@ -4,7 +4,7 @@
       id="NNParams" 
       class="row">
       <div class="col-md-6">
-        <label>Neural Network</label>
+        <v-subheader>Neural Network</v-subheader>
         <v-slider 
           v-model="neuralNetwork.inputLayers" 
           :label="`Inputs: ${neuralNetwork.inputLayers}`" 
@@ -15,58 +15,79 @@
           @input="changeInputLayersAmount"
         />
         <div id="inputList">
-          <input 
+          <v-text-field 
             v-for="index in getInputLayers" 
             :key="index" 
             v-model="neuralNetwork.inputs[index-1]" 
-            type="text" 
-            placeholder="Type your input variable">
+            :label="`Input ${index}`"
+            single-line
+          />
         </div>
-        <input 
+        <v-text-field 
           v-model="neuralNetwork.hiddenLayers" 
-          type="text" 
+          type="number" 
           name="Hidden Layers" 
-          placeholder="Hidden Layers" >
-        <input 
+          label="Hidden layers"
+          placeholder="5"
+        />
+        <v-text-field 
           v-model="neuralNetwork.learningRate" 
-          type="text" 
+          type="number" 
           name="Learning Rate" 
-          placeholder="Learning Rate" >
+          label="Learning rate"
+          min="0"
+          max="1"
+          step="0.1"
+          placeholder="0.2"
+        />
+        <!-- <v-text-field 
+          label="Output Layers"
+          value="2"
+          disabled
+          readonly
+        /> -->
         <p>FIXED Output layers: 2 (jump or do nothing)</p>
       </div>
     </div>
+
+    <v-divider/>
+    
     <div 
       id="GAParams" 
       class="row">
       <div class="col-md-6">
-        <label>Genetic Algorithm</label>
-        <br>
-        <input 
+        <v-subheader>Genetic Algorithm</v-subheader>
+        <v-text-field 
           v-model="genetic.population" 
-          type="text" 
-          placeholder="Species per generation" >
-        <input 
+          type="number" 
+          label="Species per generation"
+          placeholder="500"
+        />
+        <v-text-field 
           v-model="genetic.mutationRate" 
-          type="text" 
-          placeholder="Mutation rate" >
+          type="number" 
+          label="Mutation rate"
+          placeholder="0.01"
+        />
       </div>
     </div>
-    <div>
-      <div 
-        id="leaderboardParams" 
-        class="row">
-        <div class="col-md-6">
-          <label>Name</label>
-          <input 
-            v-model="player.name" 
-            text="text" 
-            placeholder="Your AI name" >
-        </div>
+
+    <div 
+      id="leaderboardParams" 
+      class="row">
+      <div class="col-md-6">
+        <v-text-field 
+          v-model="player.name" 
+          label="Your AI name"
+        />
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <button @click="startGame">Start</button>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <v-btn 
+          block
+          color="primary" 
+          @click="startGame">Start</v-btn>
       </div>
     </div>
   </div>
@@ -115,20 +136,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style lang="stylus" scoped>
+
 </style>
+
