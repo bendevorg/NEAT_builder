@@ -5,18 +5,15 @@
       class="row">
       <div class="col-md-6">
         <label>Neural Network</label>
-        <br>
-        <label>Inputs: </label>
-        <span id="inputCounter">{{ neuralNetwork.inputLayers }}</span>
-        <input 
-          id="inputLayers" 
+        <v-slider 
           v-model="neuralNetwork.inputLayers" 
-          type="range" 
-          min="1" 
-          max="10" 
-          step="1" 
-          placeholder="Input Layers" 
-          @input="changeInputLayersAmount" >
+          :label="`Inputs: ${neuralNetwork.inputLayers}`" 
+          thumb-label
+          ticks
+          min="1"
+          max="10"
+          @input="changeInputLayersAmount"
+        />
         <div id="inputList">
           <input 
             v-for="index in getInputLayers" 
@@ -77,7 +74,7 @@
 </template>
 
 <script>
-import formatInputs from '../../../utils/formatInputs.js';
+import formatInputs from '../../../utils/formatInputs';
 
 export default {
   name: 'Input',
