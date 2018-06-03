@@ -1,16 +1,16 @@
-import Vue from 'vue'
-import VueResource from 'vue-resource'
-import App from './App.vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import VueResource from 'vue-resource';
+import 'vuetify/dist/vuetify.min.css';
+import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import AsyncComputed from 'vue-async-computed';
-import { routes } from './routes';
+import Vuetify from 'vuetify';
+import App from './App.vue';
+import routes from './routes';
 import { store } from './store/store';
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
 // import BootstrapVue from 'bootstrap-vue'
- 
-Vue.use(Vuetify)
+
+Vue.use(Vuetify);
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(Vuex);
@@ -22,9 +22,10 @@ const router = new VueRouter({
   mode: 'history'
 });
 
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,
   router,
   render: h => h(App)
-})
+});

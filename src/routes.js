@@ -1,13 +1,13 @@
 import Content from './components/Shared/Content.vue';
 import Game from './components/game/Game.vue';
 
-export const routes = [
+const routes = [
   {
     path: '/',
     name: 'Default',
     components: {
       // 'menu-top': Navmenu,
-      default: Content,
+      default: Content
       // 'foot-compo': Footer
     }
   },
@@ -19,3 +19,5 @@ export const routes = [
     }
   }
 ];
+
+export default routes;
