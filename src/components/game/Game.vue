@@ -1,33 +1,37 @@
 <template>
-  <v-flex 
-    xs12 
-    sm6 
-    offset-sm3>
-    <div 
-      v-if="loading" 
-      class="loading">
-      Loading...
-    </div>
-    <div 
-      v-if="error" 
-      class="error">
-      {{ error }}
-    </div>
-    <v-card v-if="post">
-      <div class="game">
-        <component 
-          v-if="gameRunning" 
-          :is="currentGame"/>
+  <v-content>
+    <v-container>
+      <v-flex 
+        xs12 
+        sm6 
+        offset-sm3>
         <div 
-          id="gameSetup" 
-          class="row">
-          <app-instruction v-if="!gameRunning"/>
-          <app-input v-if="!gameRunning"/>
+          v-if="loading" 
+          class="loading">
+          Loading...
         </div>
-        <app-leaderboard/>
-      </div>
-    </v-card>
-  </v-flex>
+        <div 
+          v-if="error" 
+          class="error">
+          {{ error }}
+        </div>
+        <v-card v-if="post">
+          <div class="game">
+            <component 
+              v-if="gameRunning" 
+              :is="currentGame"/>
+            <div 
+              id="gameSetup" 
+              class="row">
+              <app-instruction v-if="!gameRunning"/>
+              <app-input v-if="!gameRunning"/>
+            </div>
+            <app-leaderboard/>
+          </div>
+        </v-card>
+      </v-flex>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
