@@ -8,12 +8,15 @@
       <v-list dense>
         <v-list-tile 
           v-for="game in getGames" 
-          :key="game.index">
+          :key="game.index"
+          :to="{path: `/games/${game.name}`}">
           <v-list-tile-action>
             <v-icon left>label</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <router-link :to="'/games/' + game.name">{{ game.name }}</router-link>
+            <v-list-tile-title>
+              {{ game.name }}
+            </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -24,7 +27,7 @@
       fixed 
       app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>NEAT Builder</v-toolbar-title>
     </v-toolbar>
   </div>
 </template>
