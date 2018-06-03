@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Navmenu from './components/Shared/Navmenu.vue';
+import Navmenu from './components/Shared/Navmenu';
 import API from './utils/API';
 
 export default {
