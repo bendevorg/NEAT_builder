@@ -1,26 +1,33 @@
 <template>
   <v-app>
-  <main>
-    <div class="loading" v-if="loading">
-      Loading...
-    </div>
-    <div v-if="error" class="error">
-      {{ error }}
-    </div>
-    <div v-if="post">
-      <router-view/>
-      <app-navmenu/>
-    </div>
-  </main>
+    <main>
+      <div 
+        v-if="loading" 
+        class="loading">
+        Loading...
+      </div>
+      <div 
+        v-if="error" 
+        class="error">
+        {{ error }}
+      </div>
+      <div v-if="post">
+        <router-view/>
+        <app-navmenu/>
+      </div>
+    </main>
   </v-app>
 </template>
 
 <script>
 import Navmenu from './components/Shared/Navmenu.vue';
-import API from './utils/API.js';
+import API from './utils/API';
 
 export default {
-  name: 'app',
+  name: 'App',
+  components: {
+    appNavmenu: Navmenu
+  },
   data() {
     return {
       loading: true,
@@ -28,19 +35,14 @@ export default {
       post: null
     };
   },
-  methods: {},
-  components: {
-    appNavmenu: Navmenu
-  },
-  created(){
+  created() {
     this.fetchData();
   },
   methods: {
-    fetchData(){
+    fetchData() {
       this.error = this.post = null;
       this.loading = true;
-      API
-        .get('/games')
+      API.get('/games')
         .then(games => {
           this.$store.commit('changeGames', games.data.msg);
           this.loading = false;
@@ -51,17 +53,11 @@ export default {
           this.error = error;
         });
     }
-  },
-  name: "App"
+  }
 };
 </script>
 
-<<<<<<< HEAD
-
-<style>
-=======
 <style lang="stylus" scoped>
->>>>>>> af7282a39acc577cb2d3ddeb3f58275894bb81f0
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
