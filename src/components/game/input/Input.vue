@@ -1,56 +1,53 @@
 <template>
-  <div class="col-md-6">
-    <div 
-      id="NNParams" 
-      class="row">
-      <div class="col-md-6">
-        <v-subheader>Neural Network</v-subheader>
-        <v-slider 
-          v-model="neuralNetwork.inputLayers" 
-          :label="`Inputs: ${neuralNetwork.inputLayers}`" 
-          thumb-label
-          ticks
-          min="1"
-          max="10"
-          @input="changeInputLayersAmount"
+  <div>
+    <div id="NNParams">
+      <v-subheader>Neural Network</v-subheader>
+      <v-slider 
+        v-model="neuralNetwork.inputLayers" 
+        :label="`Inputs: ${neuralNetwork.inputLayers}`" 
+        thumb-label
+        ticks
+        min="1"
+        max="10"
+        @input="changeInputLayersAmount"
+      />
+      <div id="inputList">
+        <v-text-field 
+          v-for="index in getInputLayers" 
+          :key="index" 
+          v-model="neuralNetwork.inputs[index-1]" 
+          :label="`Input ${index}`"
+          single-line
         />
-        <div id="inputList">
-          <v-text-field 
-            v-for="index in getInputLayers" 
-            :key="index" 
-            v-model="neuralNetwork.inputs[index-1]" 
-            :label="`Input ${index}`"
-            single-line
-          />
-        </div>
-        
-        <v-flex d-flex>
-          <v-text-field 
-            v-model="neuralNetwork.hiddenLayers" 
-            type="number" 
-            name="Hidden Layers" 
-            label="Hidden layers"
-            placeholder="5"
-          />
-          <v-text-field 
-            v-model="neuralNetwork.learningRate" 
-            type="number" 
-            name="Learning Rate" 
-            label="Learning rate"
-            min="0"
-            max="1"
-            step="0.1"
-            placeholder="0.2"
-          />
-        </v-flex>
-        <!-- <v-text-field 
-          label="Output Layers"
-          value="2"
-          disabled
-          readonly
-        /> -->
-        <p>FIXED Output layers: 2 (jump or do nothing)</p>
       </div>
+    
+      <v-flex d-flex>
+        <v-text-field 
+          v-model="neuralNetwork.hiddenLayers" 
+          type="number" 
+          name="Hidden Layers" 
+          label="Hidden layers"
+          placeholder="5"
+        />
+        <v-text-field 
+          v-model="neuralNetwork.learningRate" 
+          type="number" 
+          name="Learning Rate" 
+          label="Learning rate"
+          min="0"
+          max="1"
+          step="0.1"
+          placeholder="0.2"
+        />
+      </v-flex>
+      <!-- <v-text-field 
+      label="Output Layers"
+      value="2"
+      disabled
+      readonly
+    /> -->
+      <p>FIXED Output layers: 2 (jump or do nothing)</p>
+    
     </div>
 
     <v-divider/>
