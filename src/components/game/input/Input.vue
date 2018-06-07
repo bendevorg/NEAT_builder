@@ -114,9 +114,8 @@ export default {
   },
   computed: {
     getInputLayers() {
-      localStorage.setItem('inputQt', this.neuralNetwork.inputLayers)
       return parseInt(this.neuralNetwork.inputLayers, 10);
-    },
+    }
   },
   created() {
     if (localStorage.getItem('inputQt') > 0){
@@ -133,6 +132,9 @@ export default {
       this.$store.commit('changeGenetic', this.genetic);
       this.$store.commit('changePlayerName', this.player.name);
       this.$store.commit('changeGameRunning', true);
+      this.saveInputLayers();
+    },
+    saveInputLayers(){
       localStorage.setItem('inputQt', this.neuralNetwork.inputLayers)
     },
   }
