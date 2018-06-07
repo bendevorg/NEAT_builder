@@ -114,7 +114,13 @@ export default {
   },
   computed: {
     getInputLayers() {
+      localStorage.setItem('inputQt', this.neuralNetwork.inputLayers)
       return parseInt(this.neuralNetwork.inputLayers, 10);
+    },
+  },
+  created() {
+    if (localStorage.getItem('inputQt') > 0){
+      this.neuralNetwork.inputLayers = localStorage.getItem('inputQt');
     }
   },
   methods: {
@@ -127,7 +133,8 @@ export default {
       this.$store.commit('changeGenetic', this.genetic);
       this.$store.commit('changePlayerName', this.player.name);
       this.$store.commit('changeGameRunning', true);
-    }  
+      localStorage.setItem('inputQt', this.neuralNetwork.inputLayers)
+    },
   }
 };
 </script>
