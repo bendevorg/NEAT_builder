@@ -1,7 +1,7 @@
 <template>
   <div id="gameDescription">
     <div 
-      v-for="instruction in getInstructions" 
+      v-for="instruction in instructions" 
       :key="instruction.index">
       <h3>{{ instruction.name }}</h3>
       <ul>
@@ -23,19 +23,16 @@ export default {
   data: () => ({
     instructions: []
   }),
-  computed: {
+  asyncComputed: {
     getInstructions() {
-      return this.instructions;
+      API.get(`/games/${this.$store.getters.gameId}/instructions`)
+        .then(response => {
+          this.instructions = response.data.msg;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
-  },
-  mounted() {
-    API.get(`/games/${this.$store.getters.gameId}/instructions`)
-      .then(response => {
-        this.instructions = response.data.msg;
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 };
 </script>
