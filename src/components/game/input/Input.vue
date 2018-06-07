@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-flex>
     <div id="NNParams">
       <v-subheader>Neural Network</v-subheader>
       <v-slider 
@@ -12,15 +12,20 @@
         @input="changeInputLayersAmount"
       />
       <div id="inputList">
-        <v-text-field 
+        <v-flex 
           v-for="index in getInputLayers" 
-          :key="index" 
-          v-model="neuralNetwork.inputs[index-1]" 
-          :label="`Input ${index}`"
-          single-line
-        />
+          :key="index"
+          d-flex 
+          xs6 
+        >
+          <v-text-field 
+            v-model="neuralNetwork.inputs[index-1]" 
+            :label="`Input ${index}`"
+            single-line
+          />
+        </v-flex>
       </div>
-    
+
       <v-flex d-flex>
         <v-text-field 
           v-model="neuralNetwork.hiddenLayers" 
@@ -40,60 +45,49 @@
           placeholder="0.2"
         />
       </v-flex>
-      <!-- <v-text-field 
-      label="Output Layers"
-      value="2"
-      disabled
-      readonly
-    /> -->
       <p>FIXED Output layers: 2 (jump or do nothing)</p>
-    
+
+      <v-divider/>
     </div>
 
-    <v-divider/>
-    
-    <div 
-      id="GAParams" 
-      class="row">
-      <div class="col-md-6">
-        <v-subheader>Genetic Algorithm</v-subheader>
-        <v-flex d-flex>
-          <v-text-field 
-            v-model="genetic.population" 
-            type="number" 
-            label="Species per generation"
-            placeholder="500"
-          />
-          <v-text-field 
-            v-model="genetic.mutationRate" 
-            type="number" 
-            label="Mutation rate"
-            placeholder="0.01"
-          />
-        </v-flex>
-      </div>
+
+    <div id="GAParams">
+      <v-subheader>Genetic Algorithm</v-subheader>
+      <v-flex d-flex>
+        <v-text-field 
+          v-model="genetic.population" 
+          type="number" 
+          label="Species per generation"
+          placeholder="500"
+        />
+        <v-text-field 
+          v-model="genetic.mutationRate" 
+          type="number" 
+          label="Mutation rate"
+          placeholder="0.01"
+        />
+      </v-flex>
     </div>
 
     <div 
-      id="leaderboardParams" 
-      class="row">
-      <div class="col-md-6">
+      id="leaderboardParams">
+      <div>
         <v-text-field 
           v-model="player.name" 
           label="Your AI name"
         />
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
+
+    <div>
+      <div>
         <v-btn 
           block
           color="primary" 
           @click="startGame">Start</v-btn>
       </div>
     </div>
-  </div>
-  
+  </v-flex>
 </template>
 
 <script>
@@ -141,4 +135,3 @@ export default {
 <style lang="stylus" scoped>
 
 </style>
-
