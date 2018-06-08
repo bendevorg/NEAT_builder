@@ -117,11 +117,11 @@ export default {
       return parseInt(this.neuralNetwork.inputLayers, 10);
     }
   },
-  created() {
-    if (localStorage.getItem('neural_inputLayers') > 0){
-      this.neuralNetwork.inputLayers = localStorage.getItem('neural_inputLayers');
-    }
-  },
+  // created() {
+  //   this.loadNeuralInputs();
+  //   this.loadGeneticInputs();
+  //   this.loadPlayerInputs();
+  // },
   methods: {
     changeInputLayersAmount() {
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
@@ -134,7 +134,7 @@ export default {
       this.$store.commit('changeGameRunning', true);
       this.saveNeuralInputs();
       this.saveGeneticInputs();
-      this.savePlanerInputs();
+      this.savePlayerInputs();
     },
     saveNeuralInputs(){
       localStorage.setItem('neural_inputLayers', this.neuralNetwork.inputLayers)
@@ -145,8 +145,22 @@ export default {
       localStorage.setItem('genetic_population', this.genetic.population)
       localStorage.setItem('genetic_mutationRate', this.genetic.mutationRate)
     },
-    savePlanerInputs(){
+    savePlayerInputs(){
       localStorage.setItem('player_name', this.player.name)
+    },
+    loadNeuralInputs(){
+      if (localStorage.getItem('neural_inputLayers') > 0){
+        this.neuralNetwork.inputLayers = localStorage.getItem('neural_inputLayers');
+      }
+      this.neuralNetwork.hiddenLayers = localStorage.getItem('neural_hiddenLayers');
+      this.neuralNetwork.learningRate = localStorage.getItem('neural_learningRate');
+    },
+    loadGeneticInputs(){
+      this.genetic.population = localStorage.getItem('genetic_population');
+      this.genetic.mutationRate = localStorage.getItem('genetic_mutationRate');
+    },
+    loadPlayerInputs(){
+      this.player.name = localStorage.getItem('player_name');
     }
   }
 };
