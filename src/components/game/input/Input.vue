@@ -117,11 +117,11 @@ export default {
       return parseInt(this.neuralNetwork.inputLayers, 10);
     }
   },
-  // created() {
-  //   this.loadNeuralInputs();
-  //   this.loadGeneticInputs();
-  //   this.loadPlayerInputs();
-  // },
+  created() {
+    this.loadNeuralInputs();
+    this.loadGeneticInputs();
+    this.loadPlayerInputs();
+  },
   methods: {
     changeInputLayersAmount() {
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
