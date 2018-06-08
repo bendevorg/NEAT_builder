@@ -118,8 +118,8 @@ export default {
     }
   },
   created() {
-    if (localStorage.getItem('inputLayers') > 0){
-      this.neuralNetwork.inputLayers = localStorage.getItem('inputLayers');
+    if (localStorage.getItem('neural_inputLayers') > 0){
+      this.neuralNetwork.inputLayers = localStorage.getItem('neural_inputLayers');
     }
   },
   methods: {
@@ -132,12 +132,22 @@ export default {
       this.$store.commit('changeGenetic', this.genetic);
       this.$store.commit('changePlayerName', this.player.name);
       this.$store.commit('changeGameRunning', true);
-      this.saveInputs();
+      this.saveNeuralInputs();
+      this.saveGeneticInputs();
+      this.savePlanerInputs();
     },
-    saveInputs(){
-      localStorage.setItem('inputLayers', this.neuralNetwork.inputLayers)
-
+    saveNeuralInputs(){
+      localStorage.setItem('neural_inputLayers', this.neuralNetwork.inputLayers)
+      localStorage.setItem('neural_hiddenLayers', this.neuralNetwork.hiddenLayers)
+      localStorage.setItem('neural_learningRate', this.neuralNetwork.inputLayers)
     },
+    saveGeneticInputs(){
+      localStorage.setItem('genetic_population', this.genetic.population)
+      localStorage.setItem('genetic_mutationRate', this.genetic.mutationRate)
+    },
+    savePlanerInputs(){
+      localStorage.setItem('player_name', this.player.name)
+    }
   }
 };
 </script>
