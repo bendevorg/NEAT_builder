@@ -26,6 +26,7 @@
               <app-instruction v-if="!gameRunning"/>
               <app-input v-if="!gameRunning"/>
             </div>
+            <app-neural-network v-if="gameRunning"/>
             <app-leaderboard/>
           </div>
         </v-card>
@@ -38,6 +39,7 @@
 import Instruction from './instruction/Instruction';
 import Input from './input/Input';
 import Leaderboard from './leaderboard/Leaderboard';
+import NeuralNetwork from './NeuralNetwork';
 import Gameover from '../Shared/Gameover';
 import Runner from './games/Runner';
 import Snake from './games/Snake';
@@ -48,6 +50,7 @@ export default {
     AppInstruction: Instruction,
     AppInput: Input,
     AppLeaderboard: Leaderboard,
+    AppNeuralNetwork : NeuralNetwork,
     AppGameover: Gameover,
     AppRunner: Runner,
     AppSnake: Snake
