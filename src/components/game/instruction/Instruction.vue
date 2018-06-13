@@ -32,6 +32,20 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    // Should this be here?
+    getInputs() {
+      API.get(`/games/${this.$store.getters.gameId}/parameters`)
+        .then(response => {
+          let inputs = [];
+          response.msg.forEach(input => {
+            inputs[input.name] = input.value;
+          })
+          this.$store.commit('changeGameInputs', inputs);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

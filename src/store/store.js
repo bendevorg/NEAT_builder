@@ -20,12 +20,7 @@ export const store = new Vuex.Store({
       goal: 1000,
       parameters: {
         // TODO: Get this from an API
-        inputs: {  
-          'player.head': 'params[0]',
-          'player': 'params[1]',
-          //'blocks.closest': 'params[1]',
-          'food': 'params[2]',
-          'game': 'params[3]'
+        inputs: {
         }
       },
       canvas: {
@@ -103,6 +98,9 @@ export const store = new Vuex.Store({
     },
     changeGameName(state, payload){
       state.game.name = payload;
+    },
+    changeGameInputs(state, payload){
+      state.game.parameters.inputs = payload;
     },
     changeGameRunning(state, payload) {
       state.game.running = payload;

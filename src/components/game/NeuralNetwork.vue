@@ -25,9 +25,10 @@ export default {
   mounted() {
 
     //  TODO: This will come from the best agent neural network
-    const inputLayers = 8;
-    const hiddenLayers = 16;
-    const outputLayers = 4;
+    const neuralNetwork = this.$store.getters.neuralNetwork;
+    // const inputLayers = 8;
+    // const hiddenLayers = 16;
+    // const outputLayers = 4;
 
     const width = 400;
     const height = 400;
@@ -45,24 +46,24 @@ export default {
         let canvas = pFive.createCanvas(width, height);
         canvas.parent('neuralNetworkContainer');
 
-        inputRadius = Math.min(height / inputLayers, (width * 0.8) / 3);
-        for (let i = 0; i < inputLayers; i++){
+        inputRadius = Math.min(height / neuralNetwork.inputLayers, (width * 0.8) / 3);
+        for (let i = 0; i < neuralNetwork.inputLayers; i++){
           inputNeurons.push({
             x: inputRadius / 2,
             y: inputRadius / 2 + inputRadius * i
           });
         }
 
-        hiddenRadius = Math.min(height / hiddenLayers, (width * 0.8) / 3)
-        for (let i = 0; i < hiddenLayers; i++){
+        hiddenRadius = Math.min(height / neuralNetwork.hiddenLayers, (width * 0.8) / 3)
+        for (let i = 0; i < neuralNetwork.hiddenLayers; i++){
           hiddenNeurons.push({
             x: width / 2,
             y: hiddenRadius / 2 + hiddenRadius * i
           });
         }
 
-        outputRadius = Math.min(height / outputLayers, (width * 0.8) / 3);
-        for (let i = 0; i < outputLayers; i++){
+        outputRadius = Math.min(height / neuralNetwork.outputLayers, (width * 0.8) / 3);
+        for (let i = 0; i < neuralNetwork.outputLayers; i++){
           outputNeurons.push({
             x: width - (outputRadius / 2),
             y: outputRadius / 2 + outputRadius * i
