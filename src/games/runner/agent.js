@@ -4,13 +4,13 @@ import {store} from '../../store/store.js';
 
 class Agent {
   constructor(brain){
-    let parameters = store.getters.neuralNetwork;
+    const parameters = store.getters.neuralNetwork;
 
     if (brain instanceof NeuralNetwork){
       this.brain = brain.copy();
       this.brain.mutate(mutate);
     } else {
-      this.brain = new NeuralNetwork(parameters.inputLayers, parameters.hiddenLayers, 2);
+      this.brain = new NeuralNetwork(parameters.inputLayers, parameters.hiddenLayers, parameters.outputLayers);
       this.brain.setLearningRate(parameters.learningRate);
     }
 

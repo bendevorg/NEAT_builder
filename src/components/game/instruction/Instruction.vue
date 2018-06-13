@@ -38,7 +38,7 @@ export default {
       API.get(`/games/${this.$store.getters.gameId}/parameters`)
         .then(response => {
           let inputs = [];
-          response.msg.forEach(input => {
+          response.data.msg.forEach(input => {
             inputs[input.name] = input.value;
           })
           this.$store.commit('changeGameInputs', inputs);

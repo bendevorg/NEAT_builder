@@ -45,7 +45,6 @@
           placeholder="0.2"
         />
       </v-flex>
-      <p>FIXED Output layers: 2 (jump or do nothing)</p>
 
       <v-divider/>
     </div>

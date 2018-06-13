@@ -88,7 +88,7 @@ export default {
       this.post = this.error = null;
       const {games} = this.$store.getters;
       const selectedGame = games.find(game => game.name === this.$store.getters.gameName);
-      this.$store.commit('changeGameId', selectedGame.id);
+      this.$store.commit('changeGame', selectedGame);
       this.loading = false;
       this.post = true;
     }

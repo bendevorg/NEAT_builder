@@ -16,10 +16,8 @@ export const store = new Vuex.Store({
         steps: 0,
         timeSpent: 0,
       },
-      // TODO: Get this from an API
-      goal: 1000,
+      goal: 0,
       parameters: {
-        // TODO: Get this from an API
         inputs: {
         }
       },
@@ -35,7 +33,8 @@ export const store = new Vuex.Store({
     genetic: {
     },
     neuralNetwork: {
-      inputLayers: 1
+      inputLayers: 1,
+      outputLayers: 1
     }
   },
   getters: {
@@ -93,8 +92,11 @@ export const store = new Vuex.Store({
     changeGames(state, payload){
       state.games = payload;
     },
-    changeGameId(state, payload){
-      state.game.id = payload;
+    changeGame(state, payload){
+      state.game.name = payload.name;
+      state.game.id = payload.id;
+      state.game.goal = payload.goal;
+      state.neuralNetwork.outputLayers = payload.actions;
     },
     changeGameName(state, payload){
       state.game.name = payload;
@@ -119,10 +121,14 @@ export const store = new Vuex.Store({
       state.game.info.steps = payload.steps;
       state.game.info.timeSpent = payload.timeSpent;
     },
-    changeNeuralNetwork(state, payload){
+    changeOutputAmount(state, payload) {
+      state.neuralNetwork.outputLayers = payload;
+    },
+    changeNeuralNetwork(state, payload) {
       state.neuralNetwork = {
         inputLayers: parseInt(payload.inputLayers),
-        hiddenLayers : parseInt(payload.hiddenLayers),
+        hiddenLayers: parseInt(payload.hiddenLayers),
+        outputLayers: state.neuralNetwork.outputLayers,
         learningRate: parseFloat(payload.learningRate),
         inputs: payload.inputs
       };
