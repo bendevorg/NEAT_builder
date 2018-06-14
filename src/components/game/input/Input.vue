@@ -16,7 +16,7 @@
           v-for="index in getInputLayers" 
           :key="index"
           d-flex 
-          xs6 
+          xs12
         >
           <v-text-field 
             v-model="neuralNetwork.inputs[index-1]" 
