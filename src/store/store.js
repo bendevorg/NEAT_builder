@@ -26,6 +26,7 @@ export const store = new Vuex.Store({
         width: 300,
         height: 200
       }, 
+      bestAgent: {}
     },
     player: {
       name: ''
@@ -87,6 +88,9 @@ export const store = new Vuex.Store({
     timeSpent: state => {
       return state.game.info.timeSpent;
     },
+    bestAgent: state => {
+      return state.game.bestAgent;
+    }
   },
   mutations: {
     changeGames(state, payload){
@@ -138,6 +142,9 @@ export const store = new Vuex.Store({
         population: parseInt(payload.population),
         mutationRate: parseFloat(payload.mutationRate)
       };
+    },
+    changeBestAgent(state, payload) {
+      state.game.bestAgent = payload;
     }
   }
 });

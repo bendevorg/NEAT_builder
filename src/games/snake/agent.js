@@ -52,6 +52,9 @@ class Agent {
       this.blue = Math.floor(Math.random() * 255);
     }
 
+    this.lastInputs = [];
+    this.lastAction = null;
+
   }
 
   copy(){
@@ -80,7 +83,10 @@ class Agent {
     }
 
     // Get the outputs from the network
-    let actions = this.brain.predict(inputs);
+    const actions = this.brain.predict(inputs);
+
+    this.lastInputs = inputs;
+    this.lastAction = actions.indexOf(Math.max(...actions));
     this.turn(actions.indexOf(Math.max(...actions)));
   }
 

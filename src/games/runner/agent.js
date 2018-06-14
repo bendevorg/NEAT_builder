@@ -42,6 +42,9 @@ class Agent {
       this.blue = Math.floor(Math.random() * 255);
     }
 
+    this.lastInputs = [];
+    this.lastAction = null;
+
   }
 
   copy(){
@@ -79,9 +82,11 @@ class Agent {
       }
 
       // Get the outputs from the network
-      let action = this.brain.predict(inputs);
+      let actions = this.brain.predict(inputs);
+      this.lastInputs = inputs;
+      this.lastAction = actions.indexOf(Math.max(...actions));
       // Decide to jump or not!
-      if (action[1] > action[0]) {
+      if (actions[1] > actions[0]) {
         this.jump();
       }
     }

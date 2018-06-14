@@ -26,9 +26,9 @@ export default {
 
     //  TODO: This will come from the best agent neural network
     const neuralNetwork = this.$store.getters.neuralNetwork;
-    // const inputLayers = 8;
-    // const hiddenLayers = 16;
-    // const outputLayers = 4;
+    // neuralNetwork.inputLayers = 8;
+    // neuralNetwork.hiddenLayers = 16;
+    // neuralNetwork.outputLayers = 4;
 
     const width = 400;
     const height = 400;
@@ -74,23 +74,32 @@ export default {
 
       pFive.draw = () => {
         pFive.background(0);
+        let bestAgent = this.$store.getters.bestAgent;
 
         //  Draw all neurons
         inputNeurons.forEach((inputNeuron, inputIndex) => {
           pFive.fill(255);
           pFive.ellipse(inputNeuron.x, inputNeuron.y, inputRadius, inputRadius);
+          if (bestAgent != null && bestAgent.lastInputs.length > inputIndex){
+            pFive.fill(0);
+            pFive.text(bestAgent.lastInputs[inputIndex].toString().substring(0, 4), inputNeuron.x, inputNeuron.y);
+          }
           hiddenNeurons.forEach((hiddenNeuron, hiddenIndex) => {
-            pFive.fill(255);
+            pFive.stroke(255);
             pFive.line(inputNeuron.x, inputNeuron.y, hiddenNeuron.x, hiddenNeuron.y);
             if (inputIndex === 0){
-              pFive.stroke(255);
+              pFive.fill(255);
               pFive.ellipse(hiddenNeuron.x, hiddenNeuron.y, hiddenRadius, hiddenRadius);
             }
-            outputNeurons.forEach(outputNeuron => {
-              pFive.fill(255);
+            outputNeurons.forEach((outputNeuron, outputIndex) => {
+              pFive.stroke(255);
               pFive.line(hiddenNeuron.x, hiddenNeuron.y, outputNeuron.x, outputNeuron.y);
               if (hiddenIndex === 0){
-                pFive.stroke(255);
+                if (bestAgent && bestAgent.lastAction == outputIndex){
+                  pFive.fill(125);
+                } else {
+                  pFive.fill(255);
+                }
                 pFive.ellipse(outputNeuron.x, outputNeuron.y, outputRadius, outputRadius);
               }
             });
