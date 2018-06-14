@@ -11,7 +11,7 @@
         max="10"
         @input="changeInputLayersAmount"
       />
-      <div id="inputList">
+      <div id="input-list">
         <v-flex 
           v-for="index in getInputLayers" 
           :key="index"
@@ -166,5 +166,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+#input-list {
+  font-family: monospace;
+}
 </style>
