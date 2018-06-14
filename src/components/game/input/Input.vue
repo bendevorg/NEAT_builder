@@ -11,12 +11,12 @@
         max="10"
         @input="changeInputLayersAmount"
       />
-      <div id="inputList">
+      <div id="input-list">
         <v-flex 
           v-for="index in getInputLayers" 
           :key="index"
           d-flex 
-          xs6 
+          xs12
         >
           <v-text-field 
             v-model="neuralNetwork.inputs[index-1]" 
@@ -166,5 +166,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+#input-list {
+  font-family: monospace;
+}
 </style>
