@@ -1,54 +1,7 @@
 <template>
   <v-flex>
-    <div id="NNParams">
-      <v-subheader>Neural Network</v-subheader>
-      <v-slider 
-        v-model="neuralNetwork.inputLayers" 
-        :label="`Inputs: ${neuralNetwork.inputLayers}`" 
-        thumb-label
-        ticks
-        min="1"
-        max="10"
-        @input="changeInputLayersAmount"
-      />
-      <div id="input-list">
-        <v-flex 
-          v-for="index in getInputLayers" 
-          :key="index"
-          d-flex 
-          xs12
-        >
-          <v-text-field 
-            v-model="neuralNetwork.inputs[index-1]" 
-            :label="`Input ${index}`"
-            single-line
-          />
-        </v-flex>
-      </div>
-
-      <v-flex d-flex>
-        <v-text-field 
-          v-model="neuralNetwork.hiddenLayers" 
-          type="number" 
-          name="Hidden Layers" 
-          label="Hidden layers"
-          placeholder="5"
-        />
-        <v-text-field 
-          v-model="neuralNetwork.learningRate" 
-          type="number" 
-          name="Learning Rate" 
-          label="Learning rate"
-          min="0"
-          max="1"
-          step="0.1"
-          placeholder="0.2"
-        />
-      </v-flex>
-
-      <v-divider/>
-    </div>
-
+  
+    <app-neural-network-input/>
 
     <div id="GAParams">
       <v-subheader>Genetic Algorithm</v-subheader>
@@ -90,18 +43,15 @@
 </template>
 
 <script>
-import formatInputs from '../../../utils/formatInputs';
+import NeuralNetworkInput from './NeuralNetworkInput';
 
 export default {
   name: 'Input',
+  components: {
+    AppNeuralNetworkInput: NeuralNetworkInput
+  },
   data() {
     return {
-      neuralNetwork: {
-        inputLayers: 1,
-        inputs: [],
-        hiddenLayers: null,
-        learningRate: null
-      },
       genetic: {
         population: null,
         mutationRate: null
@@ -111,13 +61,7 @@ export default {
       }
     };
   },
-  computed: {
-    getInputLayers() {
-      return parseInt(this.neuralNetwork.inputLayers, 10);
-    }
-  },
   created() {
-    this.loadNeuralInputs();
     this.loadGeneticInputs();
     this.loadPlayerInputs();
   },
@@ -126,19 +70,12 @@ export default {
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
     },
     startGame() {
-      this.neuralNetwork.inputs = formatInputs(this.neuralNetwork.inputs);
-      this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
+      this.$emit('start');
       this.$store.commit('changeGenetic', this.genetic);
       this.$store.commit('changePlayerName', this.player.name);
       this.$store.commit('changeGameRunning', true);
-      this.saveNeuralInputs();
       this.saveGeneticInputs();
       this.savePlayerInputs();
-    },
-    saveNeuralInputs(){
-      localStorage.setItem('neural_inputLayers', this.neuralNetwork.inputLayers)
-      localStorage.setItem('neural_hiddenLayers', this.neuralNetwork.hiddenLayers)
-      localStorage.setItem('neural_learningRate', this.neuralNetwork.learningRate)
     },
     saveGeneticInputs(){
       localStorage.setItem('genetic_population', this.genetic.population)
@@ -146,13 +83,6 @@ export default {
     },
     savePlayerInputs(){
       localStorage.setItem('player_name', this.player.name)
-    },
-    loadNeuralInputs(){
-      if (localStorage.getItem('neural_inputLayers') > 0){
-        this.neuralNetwork.inputLayers = localStorage.getItem('neural_inputLayers');
-      }
-      this.neuralNetwork.hiddenLayers = localStorage.getItem('neural_hiddenLayers');
-      this.neuralNetwork.learningRate = localStorage.getItem('neural_learningRate');
     },
     loadGeneticInputs(){
       this.genetic.population = localStorage.getItem('genetic_population');

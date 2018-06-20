@@ -64,19 +64,23 @@ class QLearning {
     }
 
     let max = Number.MIN_SAFE_INTEGER;
-    QTable[this.currentState].forEach((possibleReward, possibleAction) => {
+    this.QTable[this.currentState].forEach(possibleReward => {
       if (possibleReward > max) {
         max = possibleReward;
       }
     });
-    QTable[this.lastState][this.lastAction] =
-      QTable[this.lastState][this.lastAction] +
+    this.QTable[this.lastState][this.lastAction] =
+      this.QTable[this.lastState][this.lastAction] +
       this.learningRate *
-        (reward + this.futureSignificancy * max - QTable[this.lastState][this.lastAction]);
+        (reward + this.futureSignificancy * max - this.QTable[this.lastState][this.lastAction]);
   }
 
   copy() {
     return new QLearning(this);
+  }
+
+  mutate() {
+    return;
   }
 }
 

@@ -89,9 +89,15 @@ export default {
               // It's hit a pipe
               if (blocks[j].hits(activeAgents[i])) {
                 // Remove this agent
+                // TODO: Die reward comes elsewhere
+                activeAgents[i].afterAction(blocks, -10);
                 activeAgents.splice(i, 1);
+                agent = null;
                 break;
               }
+            }
+            if (agent !== null) {
+              agent.afterAction(blocks, 1);
             }
           }
 

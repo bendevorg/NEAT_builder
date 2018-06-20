@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 Vue.use(Vuex);
 export const store = new Vuex.Store({
@@ -14,18 +14,17 @@ export const store = new Vuex.Store({
         generationHighScore: 0,
         allTimeHighScore: 0,
         steps: 0,
-        timeSpent: 0,
+        timeSpent: 0
       },
       goal: 0,
       parameters: {
-        inputs: {
-        }
+        inputs: {}
       },
       canvas: {
         // TODO: Get this from an API
         width: 300,
         height: 200
-      }, 
+      },
       bestAgent: {}
     },
     player: {
@@ -38,88 +37,54 @@ export const store = new Vuex.Store({
     neuralNetwork: {
       inputLayers: 1,
       outputLayers: 1
+    },
+    QLearning: {
+      outputLayers: 1
     }
   },
   getters: {
     //  Game getters
-    games: state => {
-      return state.games;
-    },
-    gameId: state => {
-      return state.game.id;
-    },
-    gameRunning: state => {
-      return state.game.running;
-    },
-    gameCanvas: state => {
-      return state.game.canvas;
-    },
-    gameName: state => {
-      return state.game.name;
-    },
-    playerName: state => {
-      return state.player.name;
-    },
-    inputParameters: state => {
-      return state.game.parameters.inputs;
-    },
-    inputLayers: state => {
-      return state.neuralNetwork.inputLayers;
-    },
-    genetic: state => {
-      return state.genetic;
-    },
-    speciesAmount: state => {
-      return state.genetic.speciesAmount;
-    },
-    currentGeneration: state => {
-      return state.genetic.currentGeneration;
-    },
-    neuralNetwork: state => {
-      return state.neuralNetwork;
-    },
-    goal: state => {
-      return state.game.goal;
-    },
-    speed: state => {
-      return state.game.info.speed;
-    },
-    generationHighScore: state => {
-      return state.game.info.generationHighScore;
-    },
-    allTimeHighScore: state => {
-      return state.game.info.allTimeHighScore;
-    },
-    steps: state => {
-      return state.game.info.steps;
-    },
-    timeSpent: state => {
-      return state.game.info.timeSpent;
-    },
-    bestAgent: state => {
-      return state.game.bestAgent;
-    }
+    games: state => state.games,
+    gameId: state => state.game.id,
+    gameRunning: state => state.game.running,
+    gameCanvas: state => state.game.canvas,
+    gameName: state => state.game.name,
+    playerName: state => state.player.name,
+    inputParameters: state => state.game.parameters.inputs,
+    inputLayers: state => state.neuralNetwork.inputLayers,
+    genetic: state => state.genetic,
+    speciesAmount: state => state.genetic.speciesAmount,
+    currentGeneration: state => state.genetic.currentGeneration,
+    neuralNetwork: state => state.neuralNetwork,
+    QLearning: state => state.QLearning,
+    goal: state => state.game.goal,
+    speed: state => state.game.info.speed,
+    generationHighScore: state => state.game.info.generationHighScore,
+    allTimeHighScore: state => state.game.info.allTimeHighScore,
+    steps: state => state.game.info.steps,
+    timeSpent: state => state.game.info.timeSpent,
+    bestAgent: state => state.game.bestAgent
   },
   mutations: {
-    changeGames(state, payload){
+    changeGames(state, payload) {
       state.games = payload;
     },
-    changeGame(state, payload){
+    changeGame(state, payload) {
       state.game.name = payload.name;
       state.game.id = payload.id;
       state.game.goal = payload.goal;
       state.neuralNetwork.outputLayers = payload.actions;
     },
-    changeGameName(state, payload){
+    changeGameName(state, payload) {
       state.game.name = payload;
     },
-    changeGameInputs(state, payload){
+    changeGameInputs(state, payload) {
       state.game.parameters.inputs = payload;
     },
     changeGameRunning(state, payload) {
       state.game.running = payload;
     },
-    changePlayerName(state, payload){
+    changePlayerName(state, payload) {
       state.player.name = payload;
     },
     changeSpeed(state, payload) {
@@ -143,6 +108,15 @@ export const store = new Vuex.Store({
         outputLayers: state.neuralNetwork.outputLayers,
         learningRate: parseFloat(payload.learningRate),
         inputs: payload.inputs
+      };
+    },
+    changeQLearning(state, payload) {
+      state.QLearning = {
+        amountOfActions: parseInt(payload.amountOfActions),
+        learningRate: parseFloat(payload.learningRate),
+        futureSignificancy: parseFloat(payload.futureSignificancy),
+        probabilityToExplore: parseFloat(payload.probabilityToExplore),
+        exploreDecay: parseFloat(payload.exploreDecay)
       };
     },
     changeGenetic(state, payload) {
