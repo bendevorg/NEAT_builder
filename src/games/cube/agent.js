@@ -71,6 +71,8 @@ class Agent {
       this.brain.setLearningRate(parameters.learningRate);
     }
 
+    this.lifeSpan = 300;
+
     this.canvas = store.getters.gameCanvas;
 
     let colorsToPick = [8, 8, 8, 8, 8, 8];
@@ -407,10 +409,11 @@ class Agent {
         }
       }
     });
+    this.lifeSpan -= 1;
   }
 
   isDead(){
-    return false;
+    return this.lifeSpan <= 0;
   }
 
 }

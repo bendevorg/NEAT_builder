@@ -105,7 +105,9 @@ export default {
           timeSpent: timeSpent
         });
         let bestAgent = this.$store.getters.bestAgent;
-        bestAgent.show(pFive);
+        if (bestAgent) {
+          bestAgent.show(pFive);
+        }
 
         // If we're out of agents go to the next generation
         if (activeAgents.length == 0) {
