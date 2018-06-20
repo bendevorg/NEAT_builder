@@ -41,6 +41,7 @@ import Leaderboard from './leaderboard/Leaderboard';
 import Gameover from '../Shared/Gameover';
 import Runner from './games/Runner';
 import Snake from './games/Snake';
+import IAHero from './games/IAHero';
 
 export default {
   name: 'Game',
@@ -50,7 +51,8 @@ export default {
     AppLeaderboard: Leaderboard,
     AppGameover: Gameover,
     AppRunner: Runner,
-    AppSnake: Snake
+    AppSnake: Snake,
+    AppIAHero: IAHero
   },
   data() {
     return {
@@ -61,7 +63,7 @@ export default {
   },
   computed: {
     currentGame() {
-      return `App${this.$route.params.gameName}`;
+      return `AppIAHero`;
     },
     getGames() {
       return this.$store.getters.game;
