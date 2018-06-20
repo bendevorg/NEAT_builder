@@ -70,28 +70,28 @@ export default {
     }
   },
   created() {
-    this.loadNeuralInputs();
+    this.loadInputs();
     this.$parent.$on('start', () => {
-      this.changeNeuralNetwork();
-      this.saveNeuralInputs();
+      this.changeInputs();
+      this.saveInputs();
     });
   },
   methods: {
-    changeNeuralNetwork() {
+    changeInputs() {
       this.neuralNetwork.inputs = formatInputs(this.neuralNetwork.inputs);
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
     },
     changeInputLayersAmount() {
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
     },
-    loadNeuralInputs() {
+    loadInputs() {
       if (localStorage.getItem('neural_inputLayers') > 0) {
         this.neuralNetwork.inputLayers = localStorage.getItem('neural_inputLayers');
       }
       this.neuralNetwork.hiddenLayers = localStorage.getItem('neural_hiddenLayers');
       this.neuralNetwork.learningRate = localStorage.getItem('neural_learningRate');
     },
-    saveNeuralInputs(){
+    saveInputs(){
       localStorage.setItem('neural_inputLayers', this.neuralNetwork.inputLayers)
       localStorage.setItem('neural_hiddenLayers', this.neuralNetwork.hiddenLayers)
       localStorage.setItem('neural_learningRate', this.neuralNetwork.learningRate)
