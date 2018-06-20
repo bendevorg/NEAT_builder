@@ -1,7 +1,6 @@
 import NeuralNetwork from '../../utils/neural_network/NeuralNetwork.js';
 import mutate from '../../utils/GeneticAlgorithm/mutate.js';
 import {store} from '../../store/store.js';
-import { timingSafeEqual } from 'crypto';
 
 const DIRECTIONS = {
   UP: 0,
@@ -12,13 +11,13 @@ const DIRECTIONS = {
 
 class Agent {
   constructor(brain){
-    let parameters = store.getters.neuralNetwork;
+    const parameters = store.getters.neuralNetwork;
 
     if (brain instanceof NeuralNetwork){
       this.brain = brain.copy();
       this.brain.mutate(mutate);
     } else {
-      this.brain = new NeuralNetwork(parameters.inputLayers, parameters.hiddenLayers, 3);
+      this.brain = new NeuralNetwork(parameters.inputLayers, parameters.hiddenLayers, parameters.outputLayers);
       this.brain.setLearningRate(parameters.learningRate);
     }
 
@@ -53,6 +52,9 @@ class Agent {
       this.blue = Math.floor(Math.random() * 255);
     }
 
+    this.lastInputs = [];
+    this.lastAction = null;
+
   }
 
   copy(){
@@ -81,7 +83,10 @@ class Agent {
     }
 
     // Get the outputs from the network
-    let actions = this.brain.predict(inputs);
+    const actions = this.brain.predict(inputs);
+
+    this.lastInputs = inputs;
+    this.lastAction = actions.indexOf(Math.max(...actions));
     this.turn(actions.indexOf(Math.max(...actions)));
   }
 

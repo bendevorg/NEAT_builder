@@ -1,9 +1,13 @@
 <template>
-  <div class="col-md-6" id="gameDescription">
-    <div v-for="instruction in getInstructions" :key="instruction.index">
-      <h3>{{instruction.name}}</h3>
+  <div id="gameDescription">
+    <div 
+      v-for="instruction in instructions" 
+      :key="instruction.index">
+      <h3>{{ instruction.name }}</h3>
       <ul>
-        <li v-for="item in instruction.items" :key="item.index">
+        <li 
+          v-for="item in instruction.items" 
+          :key="item.index">
           {{ item.name }} - {{ item.description }}
         </li>
       </ul>
@@ -12,36 +16,40 @@
 </template>
 
 <script>
-import API from '../../../utils/API.js';
+import API from '../../../utils/API';
 
 export default {
   name: 'Instructions',
-  props: {
-    msg: String
-  },
-  data: () => {
-    return {
-      instructions: []
+  data: () => ({
+    instructions: []
+  }),
+  asyncComputed: {
+    getInstructions() {
+      API.get(`/games/${this.$store.getters.gameId}/instructions`)
+        .then(response => {
+          this.instructions = response.data.msg;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // Should this be here?
+    getInputs() {
+      API.get(`/games/${this.$store.getters.gameId}/parameters`)
+        .then(response => {
+          let inputs = [];
+          response.data.msg.forEach(input => {
+            inputs[input.name] = input.value;
+          })
+          this.$store.commit('changeGameInputs', inputs);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
-  },
-  computed: {
-    getInstructions(){
-      return this.instructions;
-    }
-  },
-  mounted() {
-    API
-      .get(`/game/ ${this.$store.getters.gameId} /instructions`)
-      .then(response => {
-        this.instructions = response.data.msg
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
-}
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="stylus" scoped>
 </style>

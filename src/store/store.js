@@ -16,16 +16,9 @@ export const store = new Vuex.Store({
         steps: 0,
         timeSpent: 0,
       },
-      // TODO: Get this from an API
-      goal: 1000,
+      goal: 0,
       parameters: {
-        // TODO: Get this from an API
-        inputs: {  
-          'player.head': 'params[0]',
-          'player': 'params[1]',
-          //'blocks.closest': 'params[1]',
-          'food': 'params[2]',
-          'game': 'params[3]'
+        inputs: {
         }
       },
       canvas: {
@@ -33,6 +26,7 @@ export const store = new Vuex.Store({
         width: 300,
         height: 200
       }, 
+      bestAgent: {}
     },
     player: {
       name: ''
@@ -40,7 +34,8 @@ export const store = new Vuex.Store({
     genetic: {
     },
     neuralNetwork: {
-      inputLayers: 1
+      inputLayers: 1,
+      outputLayers: 1
     }
   },
   getters: {
@@ -93,16 +88,25 @@ export const store = new Vuex.Store({
     timeSpent: state => {
       return state.game.info.timeSpent;
     },
+    bestAgent: state => {
+      return state.game.bestAgent;
+    }
   },
   mutations: {
     changeGames(state, payload){
       state.games = payload;
     },
-    changeGameId(state, payload){
-      state.game.id = payload;
+    changeGame(state, payload){
+      state.game.name = payload.name;
+      state.game.id = payload.id;
+      state.game.goal = payload.goal;
+      state.neuralNetwork.outputLayers = payload.actions;
     },
     changeGameName(state, payload){
       state.game.name = payload;
+    },
+    changeGameInputs(state, payload){
+      state.game.parameters.inputs = payload;
     },
     changeGameRunning(state, payload) {
       state.game.running = payload;
@@ -121,10 +125,14 @@ export const store = new Vuex.Store({
       state.game.info.steps = payload.steps;
       state.game.info.timeSpent = payload.timeSpent;
     },
-    changeNeuralNetwork(state, payload){
+    changeOutputAmount(state, payload) {
+      state.neuralNetwork.outputLayers = payload;
+    },
+    changeNeuralNetwork(state, payload) {
       state.neuralNetwork = {
         inputLayers: parseInt(payload.inputLayers),
-        hiddenLayers : parseInt(payload.hiddenLayers),
+        hiddenLayers: parseInt(payload.hiddenLayers),
+        outputLayers: state.neuralNetwork.outputLayers,
         learningRate: parseFloat(payload.learningRate),
         inputs: payload.inputs
       };
@@ -134,6 +142,9 @@ export const store = new Vuex.Store({
         population: parseInt(payload.population),
         mutationRate: parseFloat(payload.mutationRate)
       };
+    },
+    changeBestAgent(state, payload) {
+      state.game.bestAgent = payload;
     }
   }
 });

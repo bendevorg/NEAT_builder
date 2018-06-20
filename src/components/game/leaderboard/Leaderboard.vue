@@ -1,44 +1,49 @@
 <template>
-  <div class="row" id="leaderboard">
-    <div class="col-md-6">
-      <h3 class="text-left">LEADERBOARD</h3>
-      <table class="table table-striped" id="highScoreTable">
-        <thead id="leaderboardTable"> 
-          <tr>
-            <th>Name</th>
-            <th>High Score</th>
-            <th>Time</th>
-          </tr>
-          <tr v-for="entry in getEntries" :key="entry.index">
-            <th>{{entry.name}}</th>
-            <th>{{entry.score}}</th>
-            <th>{{entry.time}}</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
+  <div 
+    id="leaderboard">
+    <v-card>
+      <v-card-title primary-title>
+        <div>
+          <h3 class="headline">Leaderboard</h3>
+        </div>
+      </v-card-title>
+      <div>
+        <table 
+          id="highScoreTable" 
+          class="table table-striped">
+          <thead id="leaderboardTable"> 
+            <tr>
+              <th>Name</th>
+              <th>High Score</th>
+              <th>Time</th>
+            </tr>
+            <tr 
+              v-for="entry in getEntries" 
+              :key="entry.index">
+              <th>{{ entry.name }}</th>
+              <th>{{ entry.score }}</th>
+              <th>{{ entry.time }}</th>
+            </tr>
+          </thead>
+          <tbody/>
+        </table>
+      </div>
+    </v-card>
   </div>
 </template>
 
 <script>
-import API from '../../../utils/API.js';
+import API from '../../../utils/API';
 
 export default {
   name: 'Leaderboard',
-  data: () => {
-    return {
+  data: () => ({
       entries: []
-    }
-  },
-  props: {
-    msg: String
-  },
+    }),
   asyncComputed: {
     getEntries(){
       return API
-        .get('/leaderboard/' + this.$store.getters.gameId)
+        .get(`/leaderboard/${this.$store.getters.gameId}`)
         .then(response => {
           this.entries = response.data.msg;
           return this.entries;
@@ -52,6 +57,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="stylus" scoped>
+
 </style>
