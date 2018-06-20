@@ -43,6 +43,7 @@ import NeuralNetwork from './NeuralNetwork';
 import Gameover from '../Shared/Gameover';
 import Runner from './games/Runner';
 import Snake from './games/Snake';
+import Cube from './games/Cube';
 
 export default {
   name: 'Game',
@@ -53,7 +54,8 @@ export default {
     AppNeuralNetwork : NeuralNetwork,
     AppGameover: Gameover,
     AppRunner: Runner,
-    AppSnake: Snake
+    AppSnake: Snake,
+    AppCube: Cube
   },
   data() {
     return {
