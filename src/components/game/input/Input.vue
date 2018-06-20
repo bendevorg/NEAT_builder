@@ -138,7 +138,7 @@ export default {
     saveNeuralInputs(){
       localStorage.setItem('neural_inputLayers', this.neuralNetwork.inputLayers)
       localStorage.setItem('neural_hiddenLayers', this.neuralNetwork.hiddenLayers)
-      localStorage.setItem('neural_learningRate', this.neuralNetwork.inputLayers)
+      localStorage.setItem('neural_learningRate', this.neuralNetwork.learningRate)
     },
     saveGeneticInputs(){
       localStorage.setItem('genetic_population', this.genetic.population)
