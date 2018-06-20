@@ -11,6 +11,39 @@ const COLORS = {
   ORANGE: 5
 };
 
+const COLOR_TO_RGB = {
+  0: {
+    red: 255,
+    green: 255,
+    blue: 255
+  },
+  1: {
+    red: 255,
+    green: 255,
+    blue: 0
+  },
+  2: {
+    red: 0,
+    green: 0,
+    blue: 255
+  },
+  3: {
+    red: 0,
+    green: 255,
+    blue: 0
+  },
+  4: {
+    red: 255,
+    green: 0,
+    blue: 0
+  },
+  5: {
+    red: 255,
+    green: 128,
+    blue: 0
+  }
+};
+
 const MOVES = {
   LEFT: 0,
   LEFT_INVERSE: 1,
@@ -95,8 +128,6 @@ class Agent {
     this.lastInputs = [];
     this.lastAction = null;
 
-    console.log(this.disposition);
-
   }
 
   copy(){
@@ -105,9 +136,15 @@ class Agent {
 
   // Display the bird
   show(game) {
-    game.fill(this.red, this.green, this.blue, 70);
-    game.noStroke();
-    game.rect(this.x, this.y, this.width, this.height);
+    for (let i = 0; i < this.disposition.length; i++){
+      for (let j = 0; j < this.disposition[i].length; j++){
+        game.fill(COLOR_TO_RGB[this.disposition[i][j]].red,
+          COLOR_TO_RGB[this.disposition[i][j]].green,
+          COLOR_TO_RGB[this.disposition[i][j]].blue);
+        game.stroke(0);
+        game.rect(20 * (j % 3) + (80 * (i % 3)), 20 * Math.floor(j / 3) + (80 * Math.floor(i / 3)), 20, 20);
+      }
+    }
   }
 
   think(){
