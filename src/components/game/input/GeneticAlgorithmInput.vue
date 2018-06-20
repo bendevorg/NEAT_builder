@@ -30,11 +30,6 @@ export default {
       }
     };
   },
-  computed: {
-    getInputLayers() {
-      return parseInt(this.neuralNetwork.inputLayers, 10);
-    }
-  },
   created() {
     this.loadInputs();
     this.$parent.$on('start', () => {
