@@ -34,7 +34,7 @@ class Agent {
       this.brain = brain.copy();
       this.brain.mutate(mutate);
     } else {
-      this.brain = new NeuralNetwork(parameters.inputLayers, parameters.hiddenLayers, parameters.outputLayers);
+      this.brain = new NeuralNetwork(54, parameters.hiddenLayers, parameters.outputLayers);
       this.brain.setLearningRate(parameters.learningRate);
     }
 
@@ -126,7 +126,7 @@ class Agent {
     let actions = this.brain.predict(inputs);
     this.lastInputs = inputs;
     this.lastAction = actions.indexOf(Math.max(...actions));
-    this.turn(this.lastAcion);
+    this.turn(this.lastAction);
   }
 
   turn(action) {
@@ -158,7 +158,6 @@ class Agent {
         secondColor = COLORS.ORANGE;
         thirdColor = COLORS.RED;
         fourthColor = COLORS.YELLOW;
-
         break;
       case MOVES.LEFT_INVERSE:
         firstIndex = 0;
