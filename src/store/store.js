@@ -32,6 +32,8 @@ export const store = new Vuex.Store({
       name: ''
     },
     genetic: {
+      speciesAmount: 0,
+      currentGeneration: 1
     },
     neuralNetwork: {
       inputLayers: 1,
@@ -66,6 +68,12 @@ export const store = new Vuex.Store({
     },
     genetic: state => {
       return state.genetic;
+    },
+    speciesAmount: state => {
+      return state.genetic.speciesAmount;
+    },
+    currentGeneration: state => {
+      return state.genetic.currentGeneration;
     },
     neuralNetwork: state => {
       return state.neuralNetwork;
@@ -138,10 +146,14 @@ export const store = new Vuex.Store({
       };
     },
     changeGenetic(state, payload) {
-      state.genetic = {
-        population: parseInt(payload.population),
-        mutationRate: parseFloat(payload.mutationRate)
-      };
+      state.genetic.population = parseInt(payload.population);
+      state.genetic.mutationRate = parseFloat(payload.mutationRate);
+    },
+    changeSpeciesAmount(state, payload) {
+      state.genetic.speciesAmount = parseInt(payload);
+    },
+    changeCurrentGeneration(state, payload) {
+      state.genetic.currentGeneration = parseInt(payload);
     },
     changeBestAgent(state, payload) {
       state.game.bestAgent = payload;

@@ -9,6 +9,10 @@
         <span id="generationHighScore">{{getGenerationHighScore}}</span>
         <br/> all time high score:
         <span id="allTimeHighScore">{{getAllTimeHighScore}}</span>
+        <br/> current species:
+        <span id="currentSpecies">{{getSpeciesAmount}}</span>
+        <br/> current generation:
+        <span id="currentGeneration">{{getCurrentGeneration}}</span>
         <br/> steps:
         <span id="stepsCount">{{getSteps}}</span>
         <br/> time spent:
@@ -36,6 +40,12 @@ export default {
     },
     getAllTimeHighScore() {
       return this.$store.getters.allTimeHighScore;
+    },
+    getSpeciesAmount() {
+      return this.$store.getters.genetic.speciesAmount;
+    },
+    getCurrentGeneration() {
+      return this.$store.getters.genetic.currentGeneration;
     },
     getSteps() {
       return parseInt(this.$store.getters.steps);

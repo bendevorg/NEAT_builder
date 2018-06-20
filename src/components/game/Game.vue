@@ -36,26 +36,28 @@
 </template>
 
 <script>
-import Instruction from './instruction/Instruction';
-import Input from './input/Input';
-import Leaderboard from './leaderboard/Leaderboard';
-import NeuralNetwork from './NeuralNetwork';
-import Gameover from '../Shared/Gameover';
-import Runner from './games/Runner';
-import Snake from './games/Snake';
-import IAHero from './games/IAHero';
+import Instruction from "./instruction/Instruction";
+import Input from "./input/Input";
+import Leaderboard from "./leaderboard/Leaderboard";
+import NeuralNetwork from "./NeuralNetwork";
+import Gameover from "../Shared/Gameover";
+import Runner from "./games/Runner";
+import Snake from "./games/Snake";
+import IAHero from "./games/IAHero";
+import Cube from "./games/Cube";
 
 export default {
-  name: 'Game',
+  name: "Game",
   components: {
     AppInstruction: Instruction,
     AppInput: Input,
     AppLeaderboard: Leaderboard,
-    AppNeuralNetwork : NeuralNetwork,
+    AppNeuralNetwork: NeuralNetwork,
     AppGameover: Gameover,
     AppRunner: Runner,
     AppSnake: Snake,
-    AppIAHero: IAHero
+    AppIAHero: IAHero,
+    AppCube: Cube
   },
   data() {
     return {
@@ -66,7 +68,7 @@ export default {
   },
   computed: {
     currentGame() {
-      return `AppIAHero`;
+      return `App${this.$route.params.gameName}`;
     },
     getGames() {
       return this.$store.getters.game;
@@ -76,21 +78,23 @@ export default {
     }
   },
   beforeRouteUpdate(to, from, next) {
-    this.$store.commit('changeGameName', to.params.gameName);
+    this.$store.commit("changeGameName", to.params.gameName);
     this.updateGame();
     next();
   },
   created() {
-    this.$store.commit('changeGameName', this.$route.params.gameName);
+    this.$store.commit("changeGameName", this.$route.params.gameName);
     this.updateGame();
   },
   methods: {
     updateGame() {
       this.loading = true;
       this.post = this.error = null;
-      const {games} = this.$store.getters;
-      const selectedGame = games.find(game => game.name === this.$store.getters.gameName);
-      this.$store.commit('changeGame', selectedGame);
+      const { games } = this.$store.getters;
+      const selectedGame = games.find(
+        game => game.name === this.$store.getters.gameName
+      );
+      this.$store.commit("changeGame", selectedGame);
       this.loading = false;
       this.post = true;
     }
