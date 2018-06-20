@@ -7,7 +7,7 @@ class ActivationFunction {
   }
 }
 
-let sigmoid = new ActivationFunction(
+const sigmoid = new ActivationFunction(
   x => 1 / (1 + Math.exp(-x)),
   y => y * (1 - y)
 );
@@ -87,7 +87,6 @@ class NeuralNetwork{
     let gradients = Matrix.map(outputs, this.activationFunction.activation);
     gradients.multiply(outputErrors);
     gradients.multiply(this.learningRate);
-
 
     // Calculate deltas
     let hiddenTransposed = Matrix.transpose(hidden);
