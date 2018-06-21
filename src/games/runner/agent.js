@@ -11,7 +11,7 @@ class Agent {
       } else {
         const parameters = store.getters.QLearning;
         this.brain = new QLearning(
-          parameters.outputLayers,
+          parameters.amountOfActions,
           parameters.learningRate,
           parameters.futureSignificancy,
           parameters.probabilityToExplore,

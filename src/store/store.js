@@ -39,7 +39,7 @@ export const store = new Vuex.Store({
       outputLayers: 1
     },
     QLearning: {
-      outputLayers: 1
+      amountOfActions: 1
     }
   },
   getters: {

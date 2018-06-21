@@ -2,6 +2,7 @@
   <v-flex>
   
     <app-neural-network-input/>
+    <app-q-learning-input/>
     <app-genetic-algorithm-input/>
     <app-leaderboard-input/>
 
@@ -18,6 +19,7 @@
 
 <script>
 import NeuralNetworkInput from './NeuralNetworkInput';
+import QLearningInput from './QLearningInput';
 import GeneticAlgorithmInput from './GeneticAlgorithmInput';
 import LeaderboardInput from './LeaderboardInput';
 
@@ -25,6 +27,7 @@ export default {
   name: 'Input',
   components: {
     AppNeuralNetworkInput: NeuralNetworkInput,
+    AppQLearningInput: QLearningInput,
     AppGeneticAlgorithmInput: GeneticAlgorithmInput,
     AppLeaderboardInput: LeaderboardInput
   },
