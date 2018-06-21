@@ -90,7 +90,7 @@ export default {
               if (blocks[j].hits(activeAgents[i])) {
                 // Remove this agent
                 // TODO: Die reward comes elsewhere
-                activeAgents[i].afterAction(blocks, -10);
+                activeAgents[i].afterAction(blocks, -1000);
                 activeAgents.splice(i, 1);
                 agent = null;
                 break;

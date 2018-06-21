@@ -2,17 +2,17 @@
   <div id="QLearningParams">
     <v-subheader>Q Learning</v-subheader>
     <v-slider 
-      v-model="QLearning.amountOfActions" 
-      :label="`Inputs: ${QLearning.amountOfActions}`" 
+      v-model="QLearning.amountOfInputs" 
+      :label="`Inputs: ${QLearning.amountOfInputs}`" 
       thumb-label
       ticks
       min="1"
       max="10"
-      @input="changeAmountOfActions"
+      @input="changeAmountOfInputs"
     />
     <div id="input-list">
       <v-flex 
-        v-for="index in getAmountOfActions" 
+        v-for="index in getamountOfInputs" 
         :key="index"
         d-flex 
         xs12
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       QLearning: {
-        amountOfActions: 1,
+        amountOfInputs: 1,
         inputs: [],
         learningRate: 0.01,
         futureSignificancy: 0.01,
@@ -71,8 +71,8 @@ export default {
     };
   },
   computed: {
-    getAmountOfActions() {
-      return parseInt(this.QLearning.amountOfActions, 10);
+    getamountOfInputs() {
+      return parseInt(this.QLearning.amountOfInputs, 10);
     }
   },
   created() {
@@ -87,12 +87,12 @@ export default {
       this.QLearning.inputs = formatInputs(this.QLearning.inputs);
       this.$store.commit('changeQLearning', this.QLearning);
     },
-    changeAmountOfActions() {
+    changeAmountOfInputs() {
       this.$store.commit('changeQLearning', this.QLearning);
     },
     loadInputs() {
-      if (localStorage.getItem('QLearning_amountOfActions') > 0) {
-        this.QLearning.amountOfActions = localStorage.getItem('QLearning_amountOfActions');
+      if (localStorage.getItem('QLearning_amountOfInputs') > 0) {
+        this.QLearning.amountOfInputs = localStorage.getItem('QLearning_amountOfInputs');
       }
       this.QLearning.learningRate = localStorage.getItem('QLearning_learningRate');
       this.QLearning.futureSignificancy = localStorage.getItem('QLearning_futureSignificancy');
@@ -101,7 +101,7 @@ export default {
       
     },
     saveInputs(){
-      localStorage.setItem('QLearning_amountOfActions', this.QLearning.amountOfActions)
+      localStorage.setItem('QLearning_amountOfInputs', this.QLearning.amountOfInputs)
       localStorage.setItem('QLearning_learningRate', this.QLearning.learningRate)
       localStorage.setItem('QLearning_futureSignificancy', this.QLearning.futureSignificancy)
       localStorage.setItem('QLearning_probabilityToExplore', this.QLearning.probabilityToExplore)

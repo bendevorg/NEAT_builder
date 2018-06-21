@@ -5,7 +5,7 @@ import { store } from '../../store/store.js';
 
 class Agent {
   constructor(brain) {
-    if (store.getters.brainType === 'QLearning') {
+    if (true) {
       if (brain instanceof QLearning) {
         this.brain = brain.copy();
       } else {
@@ -18,20 +18,21 @@ class Agent {
           parameters.exploreDecay
         );
       }
+    } else {
+      if (brain instanceof NeuralNetwork) {
+        this.brain = brain.copy();
+        this.brain.mutate(mutate);
+      } else {
+        const parameters = store.getters.neuralNetwork;
+        this.brain = new NeuralNetwork(
+          parameters.inputLayers,
+          parameters.hiddenLayers,
+          parameters.outputLayers
+        );
+        this.brain.setLearningRate(parameters.learningRate);
+      }
     }
 
-    if (brain instanceof NeuralNetwork) {
-      this.brain = brain.copy();
-      this.brain.mutate(mutate);
-    } else {
-      const parameters = store.getters.neuralNetwork;
-      this.brain = new NeuralNetwork(
-        parameters.inputLayers,
-        parameters.hiddenLayers,
-        parameters.outputLayers
-      );
-      this.brain.setLearningRate(parameters.learningRate);
-    }
 
     this.canvas = store.getters.gameCanvas;
     this.width = 40;
@@ -79,11 +80,10 @@ class Agent {
   think(blocks) {
     
     const closest = this.getClosest(blocks);
-
     if (closest != null) {
       // Now create the inputs to the neural network
-      let inputs = this.generateInputs(closest);
-
+      const inputs = this.generateInputs(closest);
+      console.log(this.brain.QTable);
       // Get the outputs from the network
       if (this.brain instanceof NeuralNetwork) {
         const actions = this.brain.predict(inputs);
@@ -93,7 +93,7 @@ class Agent {
         this.lastInputs = inputs;
         this.lastAction = this.brain.predict(inputs.join(''));
       }
-
+      console.log(this.brain.QTable);
       // Decide to jump or not!
       if (this.lastAction === 1) {
         this.jump();
@@ -119,7 +119,8 @@ class Agent {
     let inputs = [];
 
     const params = [this, closest, this.canvas];
-    const parameters = store.getters.neuralNetwork;
+
+    const parameters = this.brain instanceof NeuralNetwork ? store.getters.neuralNetwork : store.getters.QLearning;
 
     for (let i = 0; i < parameters.inputs.length; i++) {
       inputs[i] = parameters.inputs[i](params);
@@ -158,8 +159,10 @@ class Agent {
   afterAction(blocks, reward) {
     if (this.brain instanceof QLearning) {
       const closest = this.getClosest(blocks);
-      const inputs = this.generateInputs(closest);
-      this.brain.update(inputs.join(''), reward);
+      if (closest != null) {
+        const inputs = this.generateInputs(closest);
+        this.brain.update(inputs.join(''), reward);
+      }
     }
   }
 }

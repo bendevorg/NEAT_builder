@@ -24,11 +24,7 @@ export default {
   },
   mounted() {
 
-    //  TODO: This will come from the best agent neural network
     const neuralNetwork = this.$store.getters.neuralNetwork;
-    // neuralNetwork.inputLayers = 8;
-    // neuralNetwork.hiddenLayers = 16;
-    // neuralNetwork.outputLayers = 4;
 
     const width = 400;
     const height = 400;

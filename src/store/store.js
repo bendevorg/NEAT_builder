@@ -9,6 +9,7 @@ export const store = new Vuex.Store({
       id: '',
       name: '',
       running: false,
+      actions: 0,
       info: {
         speed: 1,
         generationHighScore: 0,
@@ -39,7 +40,7 @@ export const store = new Vuex.Store({
       outputLayers: 1
     },
     QLearning: {
-      amountOfActions: 1
+      amountOfInputs: 1
     }
   },
   getters: {
@@ -50,6 +51,7 @@ export const store = new Vuex.Store({
     gameCanvas: state => state.game.canvas,
     gameName: state => state.game.name,
     playerName: state => state.player.name,
+    brainType: state => 'QLearning',
     inputParameters: state => state.game.parameters.inputs,
     inputLayers: state => state.neuralNetwork.inputLayers,
     genetic: state => state.genetic,
@@ -73,7 +75,7 @@ export const store = new Vuex.Store({
       state.game.name = payload.name;
       state.game.id = payload.id;
       state.game.goal = payload.goal;
-      state.neuralNetwork.outputLayers = payload.actions;
+      state.game.actions = payload.actions;
     },
     changeGameName(state, payload) {
       state.game.name = payload;
@@ -105,18 +107,20 @@ export const store = new Vuex.Store({
       state.neuralNetwork = {
         inputLayers: parseInt(payload.inputLayers),
         hiddenLayers: parseInt(payload.hiddenLayers),
-        outputLayers: state.neuralNetwork.outputLayers,
+        outputLayers: state.game.actions,
         learningRate: parseFloat(payload.learningRate),
         inputs: payload.inputs
       };
     },
     changeQLearning(state, payload) {
       state.QLearning = {
-        amountOfActions: parseInt(payload.amountOfActions),
+        amountOfActions: state.game.actions,
+        amountOfInputs: parseInt(payload.amountOfInputs),
         learningRate: parseFloat(payload.learningRate),
         futureSignificancy: parseFloat(payload.futureSignificancy),
         probabilityToExplore: parseFloat(payload.probabilityToExplore),
-        exploreDecay: parseFloat(payload.exploreDecay)
+        exploreDecay: parseFloat(payload.exploreDecay),
+        inputs: payload.inputs
       };
     },
     changeGenetic(state, payload) {
