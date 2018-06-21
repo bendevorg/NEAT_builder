@@ -89,11 +89,8 @@ export default {
         localStorage.getItem('neural_inputs') &&
         localStorage.getItem('neural_inputs').length > 0
       ) {
-        let inputs = localStorage.getItem('neural_inputs').split(',');
-        inputs.forEach((input, index) => {
-          this.neuralNetwork.inputs[index] = input;
-        });
-        this.neuralNetwork.inputLayers = inputs.length;
+        this.neuralNetwork.inputs = localStorage.getItem('neural_inputs').split(',');
+        this.neuralNetwork.inputLayers = this.neuralNetwork.inputs.length;
       } else if (localStorage.getItem('neural_inputLayers') > 0) {
         this.neuralNetwork.inputLayers = localStorage.getItem('neural_inputLayers');
       }

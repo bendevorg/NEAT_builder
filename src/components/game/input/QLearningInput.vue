@@ -95,11 +95,8 @@ export default {
         localStorage.getItem('QLearning_inputs') &&
         localStorage.getItem('QLearning_inputs').length > 0
       ) {
-        let inputs = localStorage.getItem('QLearning_inputs').split(',');
-        inputs.forEach((input, index) => {
-          this.QLearning.inputs[index] = input;
-        });
-        this.QLearning.amountOfInputs = inputs.length;
+        this.QLearning.inputs = localStorage.getItem('QLearning_inputs').split(',');
+        this.QLearning.amountOfInputs = this.QLearning.inputs.length;
       } else if (localStorage.getItem('QLearning_amountOfInputs') > 0) {
         this.QLearning.amountOfInputs = localStorage.getItem('QLearning_amountOfInputs');
       }
