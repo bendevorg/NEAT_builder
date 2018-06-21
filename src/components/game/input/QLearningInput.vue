@@ -78,8 +78,8 @@ export default {
   created() {
     this.loadInputs();
     this.$parent.$on('start', () => {
-      this.changeInputs();
       this.saveInputs();
+      this.changeInputs();
     });
   },
   methods: {
@@ -91,21 +91,30 @@ export default {
       this.$store.commit('changeQLearning', this.QLearning);
     },
     loadInputs() {
-      if (localStorage.getItem('QLearning_amountOfInputs') > 0) {
+      if (
+        localStorage.getItem('QLearning_inputs') &&
+        localStorage.getItem('QLearning_inputs').length > 0
+      ) {
+        let inputs = localStorage.getItem('QLearning_inputs').split(',');
+        inputs.forEach((input, index) => {
+          this.QLearning.inputs[index] = input;
+        });
+        this.QLearning.amountOfInputs = inputs.length;
+      } else if (localStorage.getItem('QLearning_amountOfInputs') > 0) {
         this.QLearning.amountOfInputs = localStorage.getItem('QLearning_amountOfInputs');
       }
       this.QLearning.learningRate = localStorage.getItem('QLearning_learningRate');
       this.QLearning.futureSignificancy = localStorage.getItem('QLearning_futureSignificancy');
       this.QLearning.probabilityToExplore = localStorage.getItem('QLearning_probabilityToExplore');
       this.QLearning.exploreDecay = localStorage.getItem('QLearning_exploreDecay');
-      
     },
-    saveInputs(){
-      localStorage.setItem('QLearning_amountOfInputs', this.QLearning.amountOfInputs)
-      localStorage.setItem('QLearning_learningRate', this.QLearning.learningRate)
-      localStorage.setItem('QLearning_futureSignificancy', this.QLearning.futureSignificancy)
-      localStorage.setItem('QLearning_probabilityToExplore', this.QLearning.probabilityToExplore)
-      localStorage.setItem('QLearning_exploreDecay', this.QLearning.exploreDecay)
+    saveInputs() {
+      localStorage.setItem('QLearning_inputs', this.QLearning.inputs.slice());
+      localStorage.setItem('QLearning_amountOfInputs', this.QLearning.amountOfInputs);
+      localStorage.setItem('QLearning_learningRate', this.QLearning.learningRate);
+      localStorage.setItem('QLearning_futureSignificancy', this.QLearning.futureSignificancy);
+      localStorage.setItem('QLearning_probabilityToExplore', this.QLearning.probabilityToExplore);
+      localStorage.setItem('QLearning_exploreDecay', this.QLearning.exploreDecay);
     }
   }
 };

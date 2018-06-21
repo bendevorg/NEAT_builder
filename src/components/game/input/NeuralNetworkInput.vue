@@ -72,8 +72,8 @@ export default {
   created() {
     this.loadInputs();
     this.$parent.$on('start', () => {
-      this.changeInputs();
       this.saveInputs();
+      this.changeInputs();
     });
   },
   methods: {
@@ -85,13 +85,23 @@ export default {
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
     },
     loadInputs() {
-      if (localStorage.getItem('neural_inputLayers') > 0) {
+      if (
+        localStorage.getItem('neural_inputs') &&
+        localStorage.getItem('neural_inputs').length > 0
+      ) {
+        let inputs = localStorage.getItem('neural_inputs').split(',');
+        inputs.forEach((input, index) => {
+          this.neuralNetwork.inputs[index] = input;
+        });
+        this.neuralNetwork.inputLayers = inputs.length;
+      } else if (localStorage.getItem('neural_inputLayers') > 0) {
         this.neuralNetwork.inputLayers = localStorage.getItem('neural_inputLayers');
       }
       this.neuralNetwork.hiddenLayers = localStorage.getItem('neural_hiddenLayers');
       this.neuralNetwork.learningRate = localStorage.getItem('neural_learningRate');
     },
     saveInputs(){
+      localStorage.setItem('neural_inputs', this.neuralNetwork.inputs.slice());
       localStorage.setItem('neural_inputLayers', this.neuralNetwork.inputLayers)
       localStorage.setItem('neural_hiddenLayers', this.neuralNetwork.hiddenLayers)
       localStorage.setItem('neural_learningRate', this.neuralNetwork.learningRate)
