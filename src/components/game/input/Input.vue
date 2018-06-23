@@ -1,9 +1,17 @@
 <template>
   <v-flex>
-  
-    <app-neural-network-input/>
-    <app-q-learning-input/>
-    <app-genetic-algorithm-input/>
+    <v-flex s6>
+      <v-select
+        :items="AIList"
+        v-model="AIType"
+        label="Choose your AI type"
+        class="input-group--focused"
+        item-value="text"
+      ></v-select>
+    </v-flex>
+    <app-neural-network-input v-if="AITypes.neuralNetwork.includes(AIType)"/>
+    <app-q-learning-input v-if="AITypes.QLearning.includes(AIType)"/>
+    <app-genetic-algorithm-input v-if="AITypes.genetic.includes(AIType)"/>
     <app-leaderboard-input/>
 
     <div>
@@ -22,6 +30,7 @@ import NeuralNetworkInput from './NeuralNetworkInput';
 import QLearningInput from './QLearningInput';
 import GeneticAlgorithmInput from './GeneticAlgorithmInput';
 import LeaderboardInput from './LeaderboardInput';
+import AITypes from '../../../utils/AITypes';
 
 export default {
   name: 'Input',
@@ -30,6 +39,13 @@ export default {
     AppQLearningInput: QLearningInput,
     AppGeneticAlgorithmInput: GeneticAlgorithmInput,
     AppLeaderboardInput: LeaderboardInput
+  },
+  data() {
+    return {
+      AIType: '',
+      AITypes: AITypes,
+      AIList: AITypes.list
+    }
   },
   methods: {
     startGame() {
