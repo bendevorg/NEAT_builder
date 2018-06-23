@@ -96,10 +96,8 @@ export default {
         localStorage.getItem('QLearning_inputs').length > 0
       ) {
         this.QLearning.inputs = localStorage.getItem('QLearning_inputs').split(',');
-        this.QLearning.amountOfInputs = this.QLearning.inputs.length;
-      } else if (localStorage.getItem('QLearning_amountOfInputs') > 0) {
-        this.QLearning.amountOfInputs = localStorage.getItem('QLearning_amountOfInputs');
       }
+      this.QLearning.amountOfInputs = localStorage.getItem('QLearning_amountOfInputs');
       this.QLearning.learningRate = localStorage.getItem('QLearning_learningRate');
       this.QLearning.futureSignificancy = localStorage.getItem('QLearning_futureSignificancy');
       this.QLearning.probabilityToExplore = localStorage.getItem('QLearning_probabilityToExplore');

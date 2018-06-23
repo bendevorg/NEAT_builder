@@ -32,7 +32,7 @@ class QLearning {
     if (this.QTable[this.currentState] == null) {
       this.QTable[this.currentState] = [];
       for (let i = 0; i < this.amountOfActions; i++) {
-        this.QTable[this.currentState][i] = Number.MAX_SAFE_INTEGER;
+        this.QTable[this.currentState][i] = 0;
       }
     }
 
@@ -49,8 +49,6 @@ class QLearning {
         this.probabilityToExplore - this.probabilityToExplore * this.exploreDecay;
       this.lastAction = Math.floor(Math.random() * (this.amountOfActions + 1));
     }
-    console.log(this.currentState);
-    console.log(this.lastAction);
     return this.lastAction;
   }
 
@@ -61,7 +59,7 @@ class QLearning {
     if (this.QTable[this.currentState] == null) {
       this.QTable[this.currentState] = [];
       for (let i = 0; i < this.amountOfActions; i++) {
-        this.QTable[this.currentState][i] = Number.MAX_SAFE_INTEGER;
+        this.QTable[this.currentState][i] = 0;
       }
     }
 
@@ -71,9 +69,6 @@ class QLearning {
         max = possibleReward;
       }
     });
-    //console.log(this.lastState);
-    //console.log(this.lastAction);
-    //console.log(this.QTable[this.lastState][this.lastAction]);
     this.QTable[this.lastState][this.lastAction] =
       this.QTable[this.lastState][this.lastAction] +
       this.learningRate *
@@ -85,7 +80,7 @@ class QLearning {
   }
 
   mutate() {
-    return;
+    
   }
 }
 
