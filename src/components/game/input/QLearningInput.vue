@@ -92,27 +92,67 @@ export default {
     },
     loadInputs() {
       if (
-        localStorage.getItem('QLearning_inputs') &&
-        localStorage.getItem('QLearning_inputs').length > 0
+        localStorage.getItem(`QLearning_inputs_${this.$store.getters.gameName}`) &&
+        localStorage.getItem(`QLearning_inputs_${this.$store.getters.gameName}`).length > 0
       ) {
-        localStorage.getItem('QLearning_inputs').split(',').forEach(input => {
-          if (input && input.trim().length > 0)
-            this.QLearning.inputs.push(input);
-        });
+        localStorage
+          .getItem(`QLearning_inputs_${this.$store.getters.gameName}`)
+          .split(',')
+          .forEach(input => {
+            if (input && input.trim().length > 0) this.QLearning.inputs.push(input);
+          });
       }
-      this.QLearning.amountOfInputs = localStorage.getItem('QLearning_amountOfInputs');
-      this.QLearning.learningRate = localStorage.getItem('QLearning_learningRate');
-      this.QLearning.futureSignificancy = localStorage.getItem('QLearning_futureSignificancy');
-      this.QLearning.probabilityToExplore = localStorage.getItem('QLearning_probabilityToExplore');
-      this.QLearning.exploreDecay = localStorage.getItem('QLearning_exploreDecay');
+      this.QLearning.amountOfInputs = localStorage.getItem(
+        `QLearning_amountOfInputs_${this.$store.getters.gameName}`
+      )
+        ? localStorage.getItem(`QLearning_amountOfInputs_${this.$store.getters.gameName}`)
+        : this.QLearning.amountOfInputs;
+      this.QLearning.learningRate = localStorage.getItem(
+        `QLearning_learningRate_${this.$store.getters.gameName}`
+      )
+        ? localStorage.getItem(`QLearning_learningRate_${this.$store.getters.gameName}`)
+        : this.QLearning.learningRate;
+      this.QLearning.futureSignificancy = localStorage.getItem(
+        `QLearning_futureSignificancy_${this.$store.getters.gameName}`
+      )
+        ? localStorage.getItem(`QLearning_futureSignificancy_${this.$store.getters.gameName}`)
+        : this.QLearning.futureSignificancy;
+      this.QLearning.probabilityToExplore = localStorage.getItem(
+        `QLearning_probabilityToExplore_${this.$store.getters.gameName}`
+      )
+        ? localStorage.getItem(`QLearning_probabilityToExplore_${this.$store.getters.gameName}`)
+        : this.QLearning.probabilityToExplore;
+      this.QLearning.exploreDecay = localStorage.getItem(
+        `QLearning_exploreDecay_${this.$store.getters.gameName}`
+      )
+        ? localStorage.getItem(`QLearning_exploreDecay_${this.$store.getters.gameName}`)
+        : this.QLearning.exploreDecay;
     },
     saveInputs() {
-      localStorage.setItem('QLearning_inputs', this.QLearning.inputs.slice());
-      localStorage.setItem('QLearning_amountOfInputs', this.QLearning.amountOfInputs);
-      localStorage.setItem('QLearning_learningRate', this.QLearning.learningRate);
-      localStorage.setItem('QLearning_futureSignificancy', this.QLearning.futureSignificancy);
-      localStorage.setItem('QLearning_probabilityToExplore', this.QLearning.probabilityToExplore);
-      localStorage.setItem('QLearning_exploreDecay', this.QLearning.exploreDecay);
+      localStorage.setItem(
+        `QLearning_inputs_${this.$store.getters.gameName}`,
+        this.QLearning.inputs.slice()
+      );
+      localStorage.setItem(
+        `QLearning_amountOfInputs_${this.$store.getters.gameName}`,
+        this.QLearning.amountOfInputs
+      );
+      localStorage.setItem(
+        `QLearning_learningRate_${this.$store.getters.gameName}`,
+        this.QLearning.learningRate
+      );
+      localStorage.setItem(
+        `QLearning_futureSignificancy_${this.$store.getters.gameName}`,
+        this.QLearning.futureSignificancy
+      );
+      localStorage.setItem(
+        `QLearning_probabilityToExplore_${this.$store.getters.gameName}`,
+        this.QLearning.probabilityToExplore
+      );
+      localStorage.setItem(
+        `QLearning_exploreDecay_${this.$store.getters.gameName}`,
+        this.QLearning.exploreDecay
+      );
     }
   }
 };

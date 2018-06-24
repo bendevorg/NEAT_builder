@@ -86,23 +86,49 @@ export default {
     },
     loadInputs() {
       if (
-        localStorage.getItem('neural_inputs') &&
-        localStorage.getItem('neural_inputs').length > 0
+        localStorage.getItem(`neural_inputs_${this.$store.getters.gameName}`) &&
+        localStorage.getItem(`neural_inputs_${this.$store.getters.gameName}`).length > 0
       ) {
-        localStorage.getItem('neural_inputs').split(',').forEach(input => {
-          if (input && input.trim().length > 0)
-            this.neuralNetwork.inputs.push(input);
-        });
+        localStorage
+          .getItem(`neural_inputs_${this.$store.getters.gameName}`)
+          .split(',')
+          .forEach(input => {
+            if (input && input.trim().length > 0) this.neuralNetwork.inputs.push(input);
+          });
       }
-      this.neuralNetwork.inputLayers = localStorage.getItem('neural_inputLayers');
-      this.neuralNetwork.hiddenLayers = localStorage.getItem('neural_hiddenLayers');
-      this.neuralNetwork.learningRate = localStorage.getItem('neural_learningRate');
+      this.neuralNetwork.inputLayers = localStorage.getItem(
+        `neural_inputLayers_${this.$store.getters.gameName}`
+      )
+        ? localStorage.getItem(`neural_inputLayers_${this.$store.getters.gameName}`)
+        : this.neuralNetwork.inputLayers;
+      this.neuralNetwork.hiddenLayers = localStorage.getItem(
+        `neural_hiddenLayers_${this.$store.getters.gameName}`
+      )
+        ? localStorage.getItem(`neural_hiddenLayers_${this.$store.getters.gameName}`)
+        : this.neuralNetwork.hiddenLayers;
+      this.neuralNetwork.learningRate = localStorage.getItem(
+        `neural_learningRate_${this.$store.getters.gameName}`
+      )
+        ? localStorage.getItem(`neural_learningRate_${this.$store.getters.gameName}`)
+        : this.neuralNetwork.learningRate;
     },
     saveInputs() {
-      localStorage.setItem('neural_inputs', this.neuralNetwork.inputs.slice());
-      localStorage.setItem('neural_inputLayers', this.neuralNetwork.inputLayers);
-      localStorage.setItem('neural_hiddenLayers', this.neuralNetwork.hiddenLayers);
-      localStorage.setItem('neural_learningRate', this.neuralNetwork.learningRate);
+      localStorage.setItem(
+        `neural_inputs_${this.$store.getters.gameName}`,
+        this.neuralNetwork.inputs.slice()
+      );
+      localStorage.setItem(
+        `neural_inputLayers_${this.$store.getters.gameName}`,
+        this.neuralNetwork.inputLayers
+      );
+      localStorage.setItem(
+        `neural_hiddenLayers_${this.$store.getters.gameName}`,
+        this.neuralNetwork.hiddenLayers
+      );
+      localStorage.setItem(
+        `neural_learningRate_${this.$store.getters.gameName}`,
+        this.neuralNetwork.learningRate
+      );
     }
   }
 };
