@@ -1,5 +1,3 @@
-import NeuralNetwork from '../../utils/neural_network/NeuralNetwork';
-import QLearning from '../../utils/QLearning/QLearning';
 import brainConstructor from '../../utils/brainConstructor';
 import generateInputs from '../../utils/generateInputs';
 import { store } from '../../store/store';
@@ -70,16 +68,11 @@ class Agent {
     const params = [this, food, this.canvas];
     const inputs = generateInputs(this.brain, params);
 
-    if (this.brain instanceof NeuralNetwork) {
-      const actions = this.brain.predict(inputs);
-      this.lastInputs = inputs;
-      this.lastAction = actions.indexOf(Math.max(...actions));
-    } else if (this.brain instanceof QLearning) {
-      this.lastInputs = inputs;
-      this.lastAction = this.brain.predict(inputs.join(''));
-    }
+    const actions = this.brain.predict(inputs);
+    this.lastInputs = Array.isArray(inputs) ? inputs : inputs.split('');
+    this.lastAction = Array.isArray(actions) ? actions.indexOf(Math.max(...actions)) : actions;
 
-    this.turn(this.lastAction);
+    this.takeAction(this.lastAction);
   }
 
   isDead() {
@@ -103,7 +96,7 @@ class Agent {
   }
 
   // Do nothing, turn left or turn right
-  turn(action) {
+  takeAction(action) {
     switch (action) {
       case 0:
         // Do nothing
@@ -117,6 +110,8 @@ class Agent {
         // Turn right
         this.direction++;
         if (this.direction > DIRECTIONS.LEFT) this.direction = DIRECTIONS.UP;
+        break;
+      default:
         break;
     }
     
@@ -141,15 +136,17 @@ class Agent {
       case DIRECTIONS.LEFT:
         this.body[this.body.length - 1].x -= this.width;
         break;
+      default:
+        break;
     }
   }
 
   afterAction(food, reward) {
-    if (this.brain instanceof QLearning) {
+    if (Object.prototype.hasOwnProperty.call(this.brain, 'afterAction')) {
       if (food != null) {
         const params = [this, food, this.canvas];
         const inputs = generateInputs(this.brain, params);
-        this.brain.update(inputs.join(''), reward);
+        this.brain.afterAction(inputs.join(''), reward);
       }
     }
   }

@@ -52,7 +52,7 @@ class QLearning {
     return this.lastAction;
   }
 
-  update(state, reward) {
+  afterAction(state, reward) {
     this.lastState = this.currentState;
     this.currentState = state;
 

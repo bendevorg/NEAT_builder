@@ -9,5 +9,5 @@ export default (brain, params) => {
     inputs[i] = parameters.inputs[i](params);
   }
 
-  return inputs;
+  return brain instanceof NeuralNetwork ? inputs : inputs.join('');
 }

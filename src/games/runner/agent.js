@@ -1,5 +1,3 @@
-import NeuralNetwork from '../../utils/neural_network/NeuralNetwork';
-import QLearning from '../../utils/QLearning/QLearning';
 import brainConstructor from '../../utils/brainConstructor';
 import generateInputs from '../../utils/generateInputs';
 import { store } from '../../store/store';
@@ -58,18 +56,11 @@ class Agent {
       const params = [this, closest, this.canvas];
       const inputs = generateInputs(this.brain, params);
       // Get the outputs from the network
-      if (this.brain instanceof NeuralNetwork) {
-        const actions = this.brain.predict(inputs);
-        this.lastInputs = inputs;
-        this.lastAction = actions.indexOf(Math.max(...actions));
-      } else if (this.brain instanceof QLearning) {
-        this.lastInputs = inputs;
-        this.lastAction = this.brain.predict(inputs.join(''));
-      }
-      // Decide to jump or not!
-      if (this.lastAction === 1) {
-        this.jump();
-      }
+      const actions = this.brain.predict(inputs);
+      this.lastInputs = Array.isArray(inputs) ? inputs : inputs.split('');
+      this.lastAction = Array.isArray(actions) ? actions.indexOf(Math.max(...actions)) : actions;
+
+      this.takeAction(this.lastAction);
     }
   }
 
@@ -85,6 +76,11 @@ class Agent {
       }
     }
     return closest;
+  }
+
+  takeAction(action) {
+    if (action === 1)
+      this.jump();
   }
 
   // Jump up
@@ -110,7 +106,7 @@ class Agent {
   }
 
   afterAction(blocks, reward) {
-    if (this.brain instanceof QLearning) {
+    if (Object.prototype.hasOwnProperty.call(this.brain, 'afterAction')) {
       const closest = this.getClosest(blocks);
       if (closest != null) {
         const params = [this, closest, this.canvas];

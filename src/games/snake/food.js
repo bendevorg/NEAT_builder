@@ -1,8 +1,8 @@
-import {store} from '../../store/store.js';
+import {store} from '../../store/store';
 
 class Food {
   constructor(red, green, blue) {
-    let canvas = store.getters.gameCanvas;
+    const canvas = store.getters.gameCanvas;
     
     this.width = 20;
     this.height = 20;
