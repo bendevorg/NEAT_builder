@@ -1,6 +1,8 @@
-import NeuralNetwork from '../../utils/neural_network/NeuralNetwork.js';
-import mutate from '../../utils/GeneticAlgorithm/mutate.js';
-import {store} from '../../store/store.js';
+import NeuralNetwork from '../../utils/neural_network/NeuralNetwork';
+import QLearning from '../../utils/QLearning/QLearning';
+import brainConstructor from '../../utils/brainConstructor';
+import generateInputs from '../../utils/generateInputs';
+import { store } from '../../store/store';
 
 const DIRECTIONS = {
   UP: 0,
@@ -10,16 +12,8 @@ const DIRECTIONS = {
 };
 
 class Agent {
-  constructor(brain){
-    const parameters = store.getters.neuralNetwork;
-
-    if (brain instanceof NeuralNetwork){
-      this.brain = brain.copy();
-      this.brain.mutate(mutate);
-    } else {
-      this.brain = new NeuralNetwork(parameters.inputLayers, parameters.hiddenLayers, parameters.outputLayers);
-      this.brain.setLearningRate(parameters.learningRate);
-    }
+  constructor(brain) {
+    this.brain = brainConstructor(brain);
 
     this.canvas = store.getters.gameCanvas;
     this.width = 20;
@@ -28,14 +22,16 @@ class Agent {
     this.hunger = 0;
     this.maxHunger = 25;
 
-    this.body = [{
-      x: 1 * this.width,
-      y: 0 * this.height
-    },
-    {
-      x: 2 * this.width,
-      y: 0 * this.height
-    }];
+    this.body = [
+      {
+        x: 1 * this.width,
+        y: 0 * this.height
+      },
+      {
+        x: 2 * this.width,
+        y: 0 * this.height
+      }
+    ];
 
     this.direction = DIRECTIONS.RIGHT;
 
@@ -54,10 +50,9 @@ class Agent {
 
     this.lastInputs = [];
     this.lastAction = null;
-
   }
 
-  copy(){
+  copy() {
     return new Agent(this.brain);
   }
 
@@ -70,33 +65,35 @@ class Agent {
     });
   }
 
-  think(food){
+  think(food) {
     // Now create the inputs to the neural network
-    let inputs = [];
-    let head = this.body[this.body.length - 1];
+    const params = [this, food, this.canvas];
+    const inputs = generateInputs(this.brain, params);
 
-    let params = [head, this, food, this.canvas];
-    let parameters = store.getters.neuralNetwork;
-
-    for (let i = 0; i < parameters.inputs.length; i++){
-      inputs[i] = parameters.inputs[i](params);
+    if (this.brain instanceof NeuralNetwork) {
+      const actions = this.brain.predict(inputs);
+      this.lastInputs = inputs;
+      this.lastAction = actions.indexOf(Math.max(...actions));
+    } else if (this.brain instanceof QLearning) {
+      this.lastInputs = inputs;
+      this.lastAction = this.brain.predict(inputs.join(''));
     }
 
-    // Get the outputs from the network
-    const actions = this.brain.predict(inputs);
-
-    this.lastInputs = inputs;
-    this.lastAction = actions.indexOf(Math.max(...actions));
-    this.turn(actions.indexOf(Math.max(...actions)));
+    this.turn(this.lastAction);
   }
 
-  isDead(){
-    let starved = this.hunger >= this.maxHunger;
-    let hitWall = this.body[this.body.length - 1].x >= this.canvas.width || this.body[this.body.length - 1].y >= this.canvas.height;
+  isDead() {
+    const starved = this.hunger >= this.maxHunger;
+    const hitWall =
+      this.body[this.body.length - 1].x >= this.canvas.width ||
+      this.body[this.body.length - 1].y >= this.canvas.height;
     let hitItself = false;
-    if (!hitWall && !starved){
-      for (let i = 0; i < this.body.length - 1; i++){
-        if (this.body[i].x == this.body[this.body.length - 1].x && this.body[i].y == this.body[this.body.length - 1].y){
+    if (!hitWall && !starved) {
+      for (let i = 0; i < this.body.length - 1; i++) {
+        if (
+          this.body[i].x == this.body[this.body.length - 1].x &&
+          this.body[i].y == this.body[this.body.length - 1].y
+        ) {
           hitItself = true;
           break;
         }
@@ -107,33 +104,31 @@ class Agent {
 
   // Do nothing, turn left or turn right
   turn(action) {
-    switch(action){
+    switch (action) {
       case 0:
         // Do nothing
         break;
       case 1:
         // Turn left
         this.direction--;
-        if (this.direction < DIRECTIONS.UP)
-          this.direction = DIRECTIONS.LEFT;
+        if (this.direction < DIRECTIONS.UP) this.direction = DIRECTIONS.LEFT;
         break;
       case 2:
         // Turn right
         this.direction++;
-        if (this.direction > DIRECTIONS.LEFT)
-          this.direction = DIRECTIONS.UP;
+        if (this.direction > DIRECTIONS.LEFT) this.direction = DIRECTIONS.UP;
         break;
     }
-    return;
+    
   }
 
   // Update bird's position based on velocity, gravity, etc.
   update() {
-    for (let i = 0; i < this.body.length - 1; i++){
+    for (let i = 0; i < this.body.length - 1; i++) {
       this.body[i].x = this.body[i + 1].x;
       this.body[i].y = this.body[i + 1].y;
     }
-    switch(this.direction){
+    switch (this.direction) {
       case DIRECTIONS.UP:
         this.body[this.body.length - 1].y -= this.height;
         break;
@@ -147,11 +142,17 @@ class Agent {
         this.body[this.body.length - 1].x -= this.width;
         break;
     }
-
-    // Every frame it is alive increases the score
-    //this.score++;
   }
 
+  afterAction(food, reward) {
+    if (this.brain instanceof QLearning) {
+      if (food != null) {
+        const params = [this, food, this.canvas];
+        const inputs = generateInputs(this.brain, params);
+        this.brain.update(inputs.join(''), reward);
+      }
+    }
+  }
 }
 
 export default Agent;

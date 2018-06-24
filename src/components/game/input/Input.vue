@@ -50,6 +50,7 @@ export default {
   methods: {
     startGame() {
       this.$emit('start');
+      this.$store.commit('changeBrainType', this.AIType);
       this.$store.commit('changeGameRunning', true);
     }
   }

@@ -89,7 +89,10 @@ export default {
         localStorage.getItem('neural_inputs') &&
         localStorage.getItem('neural_inputs').length > 0
       ) {
-        this.neuralNetwork.inputs = localStorage.getItem('neural_inputs').split(',');
+        localStorage.getItem('neural_inputs').split(',').forEach(input => {
+          if (input && input.trim().length > 0)
+            this.neuralNetwork.inputs.push(input);
+        });
       }
       this.neuralNetwork.inputLayers = localStorage.getItem('neural_inputLayers');
       this.neuralNetwork.hiddenLayers = localStorage.getItem('neural_hiddenLayers');

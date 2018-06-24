@@ -31,6 +31,9 @@ export const store = new Vuex.Store({
     player: {
       name: ''
     },
+    brain: {
+      type: ''
+    },
     genetic: {
       speciesAmount: 0,
       currentGeneration: 1
@@ -51,7 +54,7 @@ export const store = new Vuex.Store({
     gameCanvas: state => state.game.canvas,
     gameName: state => state.game.name,
     playerName: state => state.player.name,
-    brainType: state => 'QLearning',
+    brainType: state => state.brain.type,
     inputParameters: state => state.game.parameters.inputs,
     inputLayers: state => state.neuralNetwork.inputLayers,
     genetic: state => state.genetic,
@@ -79,6 +82,9 @@ export const store = new Vuex.Store({
     },
     changeGameName(state, payload) {
       state.game.name = payload;
+    },
+    changeBrainType(state, payload) {
+      state.brain.type = payload
     },
     changeGameInputs(state, payload) {
       state.game.parameters.inputs = payload;

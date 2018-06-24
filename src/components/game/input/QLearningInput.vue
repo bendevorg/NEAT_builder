@@ -95,7 +95,10 @@ export default {
         localStorage.getItem('QLearning_inputs') &&
         localStorage.getItem('QLearning_inputs').length > 0
       ) {
-        this.QLearning.inputs = localStorage.getItem('QLearning_inputs').split(',');
+        localStorage.getItem('QLearning_inputs').split(',').forEach(input => {
+          if (input && input.trim().length > 0)
+            this.QLearning.inputs.push(input);
+        });
       }
       this.QLearning.amountOfInputs = localStorage.getItem('QLearning_amountOfInputs');
       this.QLearning.learningRate = localStorage.getItem('QLearning_learningRate');

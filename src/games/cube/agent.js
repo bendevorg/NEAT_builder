@@ -1,5 +1,7 @@
-import NeuralNetwork from '../../utils/neural_network/NeuralNetwork.js';
-import mutate from '../../utils/GeneticAlgorithm/mutate.js';
+import NeuralNetwork from '../../utils/neural_network/NeuralNetwork';
+import QLearning from '../../utils/QLearning/QLearning';
+import brainConstructor from '../../utils/brainConstructor';
+import generateInputs from '../../utils/generateInputs';
 import {store} from '../../store/store.js';
 
 const COLORS = {
@@ -61,15 +63,7 @@ const MOVES = {
 
 class Agent {
   constructor(brain){
-    const parameters = store.getters.neuralNetwork;
-
-    if (brain instanceof NeuralNetwork){
-      this.brain = brain.copy();
-      this.brain.mutate(mutate);
-    } else {
-      this.brain = new NeuralNetwork(54, parameters.hiddenLayers, parameters.outputLayers);
-      this.brain.setLearningRate(parameters.learningRate);
-    }
+    this.brain = brainConstructor(brain);
 
     this.lifeSpan = 300;
 
