@@ -1,6 +1,5 @@
 <template>
-  <div 
-    id="leaderboard">
+  <v-flex id="leaderboard" xs10>
     <v-card>
       <v-card-title primary-title>
         <div>
@@ -29,7 +28,7 @@
         </table>
       </div>
     </v-card>
-  </div>
+  </v-flex>
 </template>
 
 <script>
