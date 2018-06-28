@@ -1,6 +1,5 @@
 <template>
-  <v-flex>
-    <v-flex s6>
+  <v-flex xs6 sm3>
       <v-select
         :items="AIList"
         v-model="AIType"
@@ -8,19 +7,16 @@
         class="input-group--focused"
         item-value="text"
       ></v-select>
-    </v-flex>
     <app-neural-network-input v-if="AITypes.neuralNetwork.includes(AIType)"/>
     <app-q-learning-input v-if="AITypes.QLearning.includes(AIType)"/>
     <app-genetic-algorithm-input v-if="AITypes.genetic.includes(AIType)"/>
     <app-leaderboard-input/>
 
     <div>
-      <div>
-        <v-btn 
-          block
-          color="primary" 
-          @click="startGame">Start</v-btn>
-      </div>
+      <v-btn 
+        block
+        color="primary" 
+        @click="startGame">Start</v-btn>
     </div>
   </v-flex>
 </template>
