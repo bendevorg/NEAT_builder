@@ -1,18 +1,26 @@
 <template>
-  <div id="gameDescription">
-    <div 
-      v-for="instruction in instructions" 
-      :key="instruction.index">
-      <h3>{{ instruction.name }}</h3>
-      <ul>
-        <li 
-          v-for="item in instruction.items" 
-          :key="item.index">
-          {{ item.name }} - {{ item.description }}
-        </li>
-      </ul>
-    </div>
-  </div>
+  <v-flex xs6 sm3>
+    <v-layout row>
+      <v-list two-line>
+        <template v-for="instruction in instructions">
+          <v-container :key="instruction.title">
+            <v-list-tile-title>{{ instruction.name }}</v-list-tile-title>
+            <v-container v-for="item in instruction.items" :key="item.title">
+              
+              <v-list-tile :key="instruction.title">
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                  <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              
+            </v-container>
+          </v-container>
+          <v-divider :key="instruction"></v-divider>
+        </template>
+      </v-list>
+    </v-layout>
+  </v-flex>
 </template>
 
 <script>
