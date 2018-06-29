@@ -6,6 +6,9 @@
       app
     >
       <v-list dense>
+        <v-subheader>
+          Games
+        </v-subheader>
         <v-list-tile 
           v-for="game in getGames" 
           :key="game.index"
@@ -21,11 +24,11 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar 
-      color="indigo" 
-      dark 
+    <v-toolbar
       fixed 
-      app>
+      app
+      dark
+      class="secondary">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
       <v-toolbar-title>NEAT Builder</v-toolbar-title>
     </v-toolbar>
