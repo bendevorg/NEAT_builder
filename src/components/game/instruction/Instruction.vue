@@ -1,7 +1,11 @@
 <template>
-  <v-flex xs8 sm4>
+  <v-flex xs8 sm5>
     <v-layout row>
       <v-list>
+       <v-list-tile>
+          <v-list-tile-title class="title">Game Variables</v-list-tile-title>
+       </v-list-tile>
+
         <template v-for="(instruction, index) in instructions">
           <v-container :key="instruction.title">
             <v-list-tile-title>{{ instruction.name }}</v-list-tile-title>
