@@ -10,11 +10,24 @@ import routes from './routes';
 import { store } from './store/store';
 // import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(Vuetify);
+// Vue.use(Vuetify);
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(Vuex);
 Vue.use(AsyncComputed);
+
+Vue.use(Vuetify, {
+  theme: {
+    primary: "#673AB7",
+    secondary: "#6200EA",
+    accent: "#9575CD",
+    error: "#f44336",
+    warning: "#FF9800",
+    info: "#2196f3",
+    success: "#4caf50"
+  }
+})
+
 // Vue.use(BootstrapVue);
 Vue.http.options.root = 'http://localhost:3339/api';
 const router = new VueRouter({
