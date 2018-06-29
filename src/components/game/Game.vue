@@ -1,10 +1,10 @@
 <template>
   <v-content>
-    <v-container>
-      <v-flex 
-        xs12 
-        sm6 
-        offset-sm3>
+    <!-- <v-container> -->
+      <v-layout row wrap>
+      <!-- <v-flex 
+        xs12
+    > -->
         <div 
           v-if="loading" 
           class="loading">
@@ -15,23 +15,22 @@
           class="error">
           {{ error }}
         </div>
-        <v-card v-if="post">
+        <v-container v-if="post">
           <div class="game">
-            <component 
-              v-if="gameRunning" 
-              :is="currentGame"/>
-            <div 
-              id="gameSetup" 
-              class="row">
+            <v-layout id="gameSetup" row wrap>
+              <component 
+                v-if="gameRunning" 
+                :is="currentGame"/>
               <app-instruction v-if="!gameRunning"/>
               <app-input v-if="!gameRunning"/>
-            </div>
-            <app-neural-network v-if="gameRunning"/>
-            <app-leaderboard/>
+              <app-neural-network v-if="gameRunning"/>
+              <app-leaderboard/>
+            </v-layout>
           </div>
-        </v-card>
-      </v-flex>
-    </v-container>
+        </v-container>
+      <!-- </v-flex> -->
+        </v-layout>
+    <!-- </v-container> -->
   </v-content>
 </template>
 
