@@ -1,11 +1,11 @@
 create_folder() {
   echo "Creating temp folder to hold our dist"
-  ssh -i $3 $1@$2 "mkdir -p tmp"
+  ssh $1@$2 "mkdir -p tmp"
 }
 
 clone_dist() {
   echo "Cloning our dist to the remote server"
-  scp -i $3 -r dist $1@$2:tmp
+  scp -r dist $1@$2:tmp
 }
 
 setup() {
@@ -27,6 +27,6 @@ update_server() {
   forever --id $1 -a -l /dev/null start tools/startServer.js
 }
 
-create_folder $1 $2 $3
-clone_dist $1 $2 $3
-ssh -i $3 $1@$2 "$(typeset -f setup replace_dist update_server); setup $4; replace_dist; update_server $4"
+create_folder $1 $2
+clone_dist $1 $2
+ssh $1@$2 "$(typeset -f setup replace_dist update_server); setup $3; replace_dist; update_server $3"
