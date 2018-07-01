@@ -1,6 +1,6 @@
 {
   "name": "neatbuilder",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "npm run env_setup_development && webpack-dev-server --open --inline --hot --progress --config build/webpack.dev.conf.js",
     "prod": "npm run env_setup_production && npm run start",
