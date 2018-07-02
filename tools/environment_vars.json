@@ -6,6 +6,7 @@
   },
   "production":{
     "NODE_ENV": "production",
-    "PORT": 3339
+    "PORT": 3339,
+    "BACKEND_HOST": "https://bendev.com.br:2056/neat"
   }
 }
