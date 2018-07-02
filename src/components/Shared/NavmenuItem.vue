@@ -1,18 +1,40 @@
 
 <template>
-  <v-list-tile>
+  <v-flex>
+    
+
+  <v-list-tile v-for="game in getGames" 
+          :to="{path: `/games/${game.name}`}"
+          :key="game.index">
     <v-list-tile-action>
-      <v-icon>contact_mail</v-icon>
+      <v-icon left>label</v-icon>
     </v-list-tile-action>
     <v-list-tile-content>
-      <v-list-tile-title><router-link to="/snake">Snake</router-link></v-list-tile-title>
+      <v-list-tile-title>
+        {{ game.name }}
+      </v-list-tile-title>
     </v-list-tile-content>
   </v-list-tile>
-</template>
+  </v-flex>
 
+</template>
 <script>
+import Content from './Content';
 
 export default {
-  name: "NavmenuItem"
+  name: "NavmenuItem",
+  components: {
+    appContent: Content
+  },
+  data() {
+    return {
+      drawer: false
+    };
+  },
+  computed: {
+    getGames() {
+      return this.$store.getters.games;
+    }
+  }
 };
 </script>
