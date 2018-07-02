@@ -9,16 +9,20 @@
         <template v-for="(instruction, index) in instructions">
           <v-container :key="instruction.title">
             <v-list-tile-title>{{ instruction.name }}</v-list-tile-title>
-            <div v-for="item in instruction.items" :key="item.title">
+            <template v-for="item in instruction.items" >
               
-              <v-list-tile :key="instruction.title">
+              <v-list-tile 
+                :key="item.title"
+                ripple
+                @click="copyItem"
+              >
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.name }}</v-list-tile-title>
                   <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
-              
-            </div>
+            </template>
+
           </v-container>
           <v-divider v-if="index + 1 < instructions.length" :key="index"></v-divider>
         </template>
@@ -58,6 +62,11 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    }
+  },
+  methods: {
+    copyItem (index) {
+      
     }
   }
 };
