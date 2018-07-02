@@ -1,12 +1,12 @@
 {
   "development":{
-    "NODE_ENV": "development",
+    "NODE_ENV": "'\"development\"'",
     "PORT": 3339,
-    "BACKEND_HOST": "http://localhost:3340/api"
+    "BACKEND_HOST": "'\"http://localhost:3340/api\"'"
   },
   "production":{
-    "NODE_ENV": "production",
+    "NODE_ENV": "'\"production\"'",
     "PORT": 3339,
-    "BACKEND_HOST": "https://bendev.com.br:2056/neat"
+    "BACKEND_HOST": "'\"https://bendev.com.br:2056/neat\"'"
   }
 }
