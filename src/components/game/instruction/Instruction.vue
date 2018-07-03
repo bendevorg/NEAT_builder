@@ -16,6 +16,7 @@
                 ripple
                 @click="sendInstructionName(item.name)"
               >
+              {{blurredI}}
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.name }}</v-list-tile-title>
                   <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
@@ -66,7 +67,14 @@ export default {
   },
   methods: {
     sendInstructionName (instName) {
-      console.log(instName)
+      this.$store.commit('changeInstructionName' , instName);
+    }
+  },
+  computed: {
+    blurredI () {
+      console.log('burred')
+      console.log(this.$store.state.neuralNetwork.blurInput)
+      // return this.$store.state.neuralNetwork.blurInput
     }
   }
 };
