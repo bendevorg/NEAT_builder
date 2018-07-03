@@ -153,7 +153,7 @@ export const store = new Vuex.Store({
       state.neuralNetwork.blurInput = payload;
     },
     changeInstructionName(state, payload) {
-      steate.instruction.name = payload;
+      state.instruction.name = payload;
     }
   }
 });
