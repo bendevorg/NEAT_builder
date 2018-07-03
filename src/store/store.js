@@ -117,7 +117,8 @@ export const store = new Vuex.Store({
         hiddenLayers: parseInt(payload.hiddenLayers),
         outputLayers: state.game.actions,
         learningRate: parseFloat(payload.learningRate),
-        inputs: payload.inputs
+        inputs: payload.inputs,
+        blurInput: state.neuralNetwork.blurInput
       };
     },
     changeQLearning(state, payload) {
