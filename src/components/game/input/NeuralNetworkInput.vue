@@ -21,6 +21,7 @@
           v-model="neuralNetwork.inputs[index-1]" 
           :label="`Input ${index}`"
           single-line
+          @blur="storeInputIndex(index)"
         />
       </v-flex>
     </div>
@@ -83,6 +84,9 @@ export default {
     },
     changeInputLayersAmount() {
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
+    },
+    storeInputIndex(index){
+      this.$store.commit('changeBlurInput', index);
     },
     loadInputs() {
       if (
