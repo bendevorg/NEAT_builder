@@ -57,6 +57,7 @@ const router = new VueRouter({
   mode: 'history'
 });
 
+export const eventBus = new Vue();
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
