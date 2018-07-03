@@ -14,7 +14,7 @@
               <v-list-tile 
                 :key="item.title"
                 ripple
-                @click="copyItem"
+                @click="sendInstructionName(item.name)"
               >
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.name }}</v-list-tile-title>
@@ -65,8 +65,8 @@ export default {
     }
   },
   methods: {
-    copyItem (index) {
-      
+    sendInstructionName (instName) {
+      console.log(instName)
     }
   }
 };
