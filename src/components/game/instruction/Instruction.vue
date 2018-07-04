@@ -16,14 +16,12 @@
                 ripple
                 @click="sendInstructionName(item.name)"
               >
-              {{blurredI}}
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.name }}</v-list-tile-title>
                   <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </template>
-
           </v-container>
           <v-divider v-if="index + 1 < instructions.length" :key="index"></v-divider>
         </template>
@@ -34,6 +32,7 @@
 
 <script>
 import API from '../../../utils/API';
+import { eventBus } from '../../../main';
 
 export default {
   name: 'Instructions',
@@ -68,13 +67,8 @@ export default {
   methods: {
     sendInstructionName (instName) {
       this.$store.commit('changeInstructionName' , instName);
-    }
-  },
-  computed: {
-    blurredI () {
-      console.log('burred')
-      console.log(this.$store.state.neuralNetwork.blurInput)
-      // return this.$store.state.neuralNetwork.blurInput
+      eventBus.$emit('instructionClick');
+      console.log('storaged instruction' + this.$store.getters.instructionName)
     }
   }
 };
