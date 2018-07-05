@@ -44,6 +44,7 @@ import Runner from "./games/Runner";
 import Snake from "./games/Snake";
 import IAHero from "./games/IAHero";
 import Cube from "./games/Cube";
+import Asteroids from "./games/Asteroids";
 
 export default {
   name: "Game",
@@ -56,7 +57,8 @@ export default {
     AppRunner: Runner,
     AppSnake: Snake,
     AppIAHero: IAHero,
-    AppCube: Cube
+    AppCube: Cube,
+    AppAsteroids: Asteroids
   },
   data() {
     return {
