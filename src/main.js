@@ -8,7 +8,9 @@ import Vuetify from 'vuetify';
 import App from './App.vue';
 import routes from './routes';
 import { store } from './store/store';
+import VueClipboard from 'vue-clipboard2'
 
+Vue.use(VueClipboard)
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(Vuex);
@@ -57,6 +59,7 @@ const router = new VueRouter({
   mode: 'history'
 });
 
+export const eventBus = new Vue();
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
