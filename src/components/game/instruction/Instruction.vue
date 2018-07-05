@@ -7,21 +7,25 @@
        </v-list-tile>
 
         <template v-for="(instruction, index) in instructions">
+
           <v-container :key="instruction.title">
             <v-list-tile-title>{{ instruction.name }}</v-list-tile-title>
             <template v-for="item in instruction.items" >
-              
-              <v-list-tile 
-                :key="item.title"
-                ripple
-                @click="doCopy(item.name)"
-              >
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
+              <v-tooltip :key="item.title" bottom>
+                <v-list-tile 
+                  ripple
+                  slot="activator"
+                  @click="doCopy(item.name)"
+                >
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                    <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <span>Click to copy!</span>
+              </v-tooltip>
             </template>
+
           </v-container>
           <v-divider v-if="index + 1 < instructions.length" :key="index"></v-divider>
         </template>
