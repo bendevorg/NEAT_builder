@@ -65,11 +65,12 @@ export default {
   },
   methods: {
     doCopy(str) {
-      this.$copyText(str).then(function (e) {
-        console.log(e)
-      }, function (e) {
-        console.log(e)
+      this.$copyText(str).then(res => {
+        console.log(res)
       })
+      .catch(err => {
+          console.log(err);
+      });
     }
   }
 };
