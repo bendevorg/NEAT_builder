@@ -52,7 +52,6 @@
 
 <script>
 import formatInputs from '../../../utils/formatInputs';
-import { eventBus } from '../../../main';
 
 export default {
   name: 'NeuralNetworkInput',
@@ -70,10 +69,6 @@ export default {
     getInputLayers() {
       return parseInt(this.neuralNetwork.inputLayers, 10);
     },
-    // showinput(){
-    //   let inputIndex = this.$store.getters.neuralNetwork.blurInput
-    //   return this.neuralNetwork.inputs[inputIndex -1];
-    // }
   },
   created() {
     this.loadInputs();
@@ -81,21 +76,8 @@ export default {
       this.saveInputs();
       this.changeInputs();
     });
-    eventBus.$on('instructionClick',() =>{
-      let inputIndex = this.$store.getters.neuralNetwork.blurInput;
-      let newStr = this.$store.state.instruction.name;
-      console.log('inputing at: ' + inputIndex)
-      console.log(this.neuralNetwork.inputs[inputIndex -1])
-      this.changeStr(newStr, inputIndex)
-    });
   },
   methods: {
-    changeStr(newStr, inputIndex){
-      if (this.neuralNetwork.inputs[inputIndex -1]){
-        this.neuralNetwork.inputs[inputIndex -1] += newStr
-      }
-      else this.neuralNetwork.inputs[inputIndex -1] = newStr
-    },
     changeInputs() {
       this.neuralNetwork.inputs = formatInputs(this.neuralNetwork.inputs);
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
