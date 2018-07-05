@@ -32,7 +32,6 @@
 
 <script>
 import API from '../../../utils/API';
-import { eventBus } from '../../../main';
 
 export default {
   name: 'Instructions',
@@ -65,11 +64,6 @@ export default {
     }
   },
   methods: {
-    sendInstructionName(instName) {
-      this.$store.commit('changeInstructionName' , instName);
-      eventBus.$emit('instructionClick');
-      console.log('storaged instruction' + this.$store.getters.instructionName)
-    },
     doCopy(str) {
       this.$copyText(str).then(function (e) {
         console.log(e)
