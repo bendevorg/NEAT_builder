@@ -40,7 +40,11 @@ export const store = new Vuex.Store({
     },
     neuralNetwork: {
       inputLayers: 1,
-      outputLayers: 1
+      outputLayers: 1,
+      blurInput: 0
+    },
+    instruction:{
+      name:''
     },
     QLearning: {
       amountOfInputs: 1
@@ -68,7 +72,9 @@ export const store = new Vuex.Store({
     allTimeHighScore: state => state.game.info.allTimeHighScore,
     steps: state => state.game.info.steps,
     timeSpent: state => state.game.info.timeSpent,
-    bestAgent: state => state.game.bestAgent
+    bestAgent: state => state.game.bestAgent,
+    blurInput: state => state.neuralNetwork.blurInput,
+    instructionName: state => state.instruction.name
   },
   mutations: {
     changeGames(state, payload) {
@@ -115,7 +121,8 @@ export const store = new Vuex.Store({
         hiddenLayers: parseInt(payload.hiddenLayers),
         outputLayers: state.game.actions,
         learningRate: parseFloat(payload.learningRate),
-        inputs: payload.inputs
+        inputs: payload.inputs,
+        blurInput: state.neuralNetwork.blurInput
       };
     },
     changeQLearning(state, payload) {
@@ -141,6 +148,12 @@ export const store = new Vuex.Store({
     },
     changeBestAgent(state, payload) {
       state.game.bestAgent = payload;
+    },
+    changeBlurInput(state, payload) {
+      state.neuralNetwork.blurInput = payload;
+    },
+    changeInstructionName(state, payload) {
+      state.instruction.name = payload;
     }
   }
 });

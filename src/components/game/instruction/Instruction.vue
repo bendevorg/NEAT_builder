@@ -14,7 +14,7 @@
               <v-list-tile 
                 :key="item.title"
                 ripple
-                @click="copyItem"
+                @click="doCopy(item.name)"
               >
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.name }}</v-list-tile-title>
@@ -22,7 +22,6 @@
                 </v-list-tile-content>
               </v-list-tile>
             </template>
-
           </v-container>
           <v-divider v-if="index + 1 < instructions.length" :key="index"></v-divider>
         </template>
@@ -65,8 +64,13 @@ export default {
     }
   },
   methods: {
-    copyItem (index) {
-      
+    doCopy(str) {
+      this.$copyText(str).then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+          console.log(err);
+      });
     }
   }
 };
