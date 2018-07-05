@@ -14,7 +14,7 @@
               <v-list-tile 
                 :key="item.title"
                 ripple
-                @click="sendInstructionName(item.name)"
+                @click="doCopy(item.name)"
               >
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.name }}</v-list-tile-title>
@@ -65,10 +65,17 @@ export default {
     }
   },
   methods: {
-    sendInstructionName (instName) {
+    sendInstructionName(instName) {
       this.$store.commit('changeInstructionName' , instName);
       eventBus.$emit('instructionClick');
       console.log('storaged instruction' + this.$store.getters.instructionName)
+    },
+    doCopy(str) {
+      this.$copyText(str).then(function (e) {
+        console.log(e)
+      }, function (e) {
+        console.log(e)
+      })
     }
   }
 };
