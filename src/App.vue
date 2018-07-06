@@ -1,9 +1,12 @@
 <template>
   <v-app>
-    <div 
+    <div
       v-if="loading" 
-      class="loading">
-      Loading...
+      class="loading text-xs-center">
+      <v-progress-circular
+        indeterminate
+        color="red"
+      ></v-progress-circular>
     </div>
     <div 
       v-if="error" 
