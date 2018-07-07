@@ -1,3 +1,4 @@
+import p5 from 'p5';
 import brainConstructor from '../../utils/brainConstructor';
 import generateInputs from '../../utils/generateInputs';
 import { store } from '../../store/store';
@@ -5,7 +6,6 @@ import { store } from '../../store/store';
 const ACTIONS = {
   UP: 0,
   RIGHT: 1,
-  DOWN: 2,
   LEFT: 3
 };
 
@@ -14,17 +14,17 @@ class Agent {
     this.brain = brainConstructor(brain);
 
     this.canvas = store.getters.gameCanvas;
-    this.width = 40;
-    this.height = 40;
+    this.radius = 20;
 
-    this.x = this.width / 2;
-    this.y = this.height / 2;
+    this.heading = 0;
+    this.rotation = 0;
+
+    this.x = this.radius / 2;
+    this.y = this.radius / 2;
 
     // Gravity, lift and velocity
-    this.xVelocity = 0;
-    this.yVelocity = 0;
-
-    this.maxVelocity = 7;
+    this.velocity = new p5.Vector(this.x, this.y);
+    this.acceleration = 0;
 
     this.score = 0;
     this.fitness = 0;
@@ -49,16 +49,31 @@ class Agent {
 
   // Display the bird
   show(game) {
-    game.fill(this.red, this.green, this.blue, 70);
+    /**game.fill(this.red, this.green, this.blue, 70);
     game.noStroke();
+    game.translate(this.x, this.y);
+    game.rotate(this.heading);
     game.triangle(
-      this.x - this.width / 2,
-      this.y + this.height / 2,
+      this.x - this.radius / 2,
+      this.y + this.radius / 2,
       this.x,
-      this.y - this.height / 2,
-      this.x + this.width / 2,
-      this.y + this.height / 2
+      this.y - this.radius / 2,
+      this.x + this.radius / 2,
+      this.y + this.radius / 2
     );
+    **/
+   game.push();
+   console.log(this.x);
+   console.log(this.y);
+   console.log(this.heading);
+    game.translate(this.x, this.y);
+    game.rotate(this.heading);
+    game.fill(255);
+    game.noStroke();
+    game.triangle(-2 / 3 * this.radius, -this.radius,
+               -2 / 3 * this.radius, this.radius,
+                4 / 3 * this.radius, 0);
+                game.pop();
   }
 
   think(asteroids) {
@@ -93,16 +108,13 @@ class Agent {
   takeAction(action) {
     switch (action) {
       case ACTIONS.UP:
-        this.yVelocity -= 50;
+        this.acceleration += 0.1;
         break;
       case ACTIONS.RIGHT:
-        this.xVelocity += 50;
-        break;
-      case ACTIONS.DOWN:
-        this.yVelocity += 50;
+        this.rotation += 0.08;
         break;
       case ACTIONS.LEFT:
-        this.xVelocity -= 50;
+        this.rotation -= 0.08;
         break;
       default:
         break;
@@ -111,38 +123,32 @@ class Agent {
 
   // Update agent's position based on velocity, etc.
   update() {
-    this.xVelocity =
-      Math.abs(this.xVelocity) > Math.abs(this.maxVelocity)
-        ? this.maxVelocity * Math.sign(this.xVelocity)
-        : this.xVelocity;
 
-    this.yVelocity =
-      Math.abs(this.yVelocity) > Math.abs(this.maxVelocity)
-        ? this.maxVelocity * Math.sign(this.yVelocity)
-        : this.yVelocity;
+    this.heading += this.rotation;
 
-    if (this.x + this.xVelocity < this.canvas.width && this.x + this.xVelocity > 0) {
-      this.x = this.x + this.xVelocity;
-    } else if (this.x + this.xVelocity >= this.canvas.width) {
-      this.x = this.canvas.width;
-      this.xVelocity = 0;
-    } else if (this.x + this.xVelocity <= 0) {
-      this.x = 0;
-      this.xVelocity = 0;
-    }
-
-    if (this.y + this.yVelocity < this.canvas.height && this.y + this.yVelocity > 0) {
-      this.y = this.y + this.yVelocity;
-    } else if (this.y + this.yVelocity >= this.canvas.height) {
-      this.y = this.canvas.height;
-      this.yVelocity = 0;
-    } else if (this.y + this.yVelocity <= 0) {
-      this.y = 0;
-      this.yVelocity = 0;
-    }
+    // Accelerate using the heading and the accelMagnitude
+    const force = p5.Vector.fromAngle(this.heading);
+    force.mult(this.acceleration);
+    this.velocity.add(force);
+    this.x += this.velocity.x;
+    this.y += this.velocity.y;
+    this.edges();
     
     // Every frame it is alive increases the score
     this.score++;
+  }
+
+  edges() {
+    if (this.x > this.canvas.width + this.radius) {
+      this.x = this.radius;
+    } else if (this.x < -this.radius) {
+      this.x = this.canvas.width - this.radius;
+    }
+    if (this.y > this.canvas.height + this.radius) {
+      this.y = this.radius;
+    } else if (this.canvas.y < -this.radius) {
+      this.y = this.canvas.height - this.radius;
+    }
   }
 
   afterAction(asteroids, reward) {
