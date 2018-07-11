@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs6 sm3>
+  <v-flex xs6 sm7>
       <v-select
         :items="AIList"
         v-model="AIType"
