@@ -23,8 +23,8 @@ export const store = new Vuex.Store({
       },
       canvas: {
         // TODO: Get this from an API
-        width: 1020,
-        height: 760
+        width: 300,
+        height: 200
       },
       bestAgent: {}
     },
