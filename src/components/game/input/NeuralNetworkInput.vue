@@ -60,6 +60,7 @@ export default {
       neuralNetwork: {
         inputLayers: 1,
         inputs: [],
+        literalInputs: [],
         hiddenLayers: null,
         learningRate: null
       }
@@ -79,6 +80,7 @@ export default {
   },
   methods: {
     changeInputs() {
+      this.neuralNetwork.literalInputs = this.neuralNetwork.inputs;
       this.neuralNetwork.inputs = formatInputs(this.neuralNetwork.inputs);
       this.$store.commit('changeNeuralNetwork', this.neuralNetwork);
     },

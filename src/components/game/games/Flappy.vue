@@ -123,7 +123,9 @@ export default {
             let entryInfo = {
               name: this.$store.getters.playerName,
               score: parseInt(this.$store.getters.allTimeHighScore),
-              time: parseInt(this.$store.getters.timeSpent)
+              time: parseInt(this.$store.getters.timeSpent),
+              neuralNetwork: this.$store.getters.neuralNetwork,
+              genetic: this.$store.getters.genetic
             };
             utils.sendLeaderboardEntry(entryInfo);
           }

@@ -122,6 +122,7 @@ export const store = new Vuex.Store({
         outputLayers: state.game.actions,
         learningRate: parseFloat(payload.learningRate),
         inputs: payload.inputs,
+        literalInputs: payload.literalInputs,
         blurInput: state.neuralNetwork.blurInput
       };
     },
