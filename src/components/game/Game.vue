@@ -15,8 +15,10 @@
           class="error">
           {{ error }}
         </div>
-        <v-container v-if="post">
-          <div class="game">
+        <v-container 
+          grid-list-lg
+          v-if="post">
+          <!-- <div class="game"> -->
             <v-layout id="gameSetup" row wrap>
               <component 
                 v-if="gameRunning" 
@@ -26,7 +28,7 @@
               <app-neural-network v-if="gameRunning"/>
               <app-leaderboard/>
             </v-layout>
-          </div>
+          <!-- </div> -->
         </v-container>
       <!-- </v-flex> -->
         </v-layout>

@@ -12,12 +12,13 @@
     <app-genetic-algorithm-input v-if="AITypes.genetic.includes(AIType)"/>
     <app-leaderboard-input/>
 
-    <div>
-      <v-btn 
+    <v-flex
+      right>
+      <v-btn
         block
         color="primary" 
         @click="startGame">Start</v-btn>
-    </div>
+    </v-flex>
   </v-flex>
 </template>
 

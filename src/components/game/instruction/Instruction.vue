@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs8 sm5>
+  <v-flex xs8 sm4>
     <v-layout row>
       <v-list>
        <v-list-tile>
@@ -16,6 +16,7 @@
                   ripple
                   slot="activator"
                   @click="doCopy(item.name)"
+                  class="list-tile"
                 >
                   <v-list-tile-content>
                     <v-list-tile-title>{{ item.name }}</v-list-tile-title>
@@ -81,4 +82,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  .v-list__tile__sub-title {
+    white-space: normal;
+  }
+  .list-tile >>> .v-list__tile.v-list__tile--link{
+    height: 100%;
+  }
+  .v-list{
+    width: 100%;
+  }
 </style>
