@@ -1,6 +1,7 @@
+import { store } from '../../store/store';
+
 class Pipe {
   constructor() {
-
     this.canvas = store.getters.gameCanvas;
 
     // How big is the empty space
@@ -23,10 +24,13 @@ class Pipe {
     this.speed = 6;
   }
 
-  // Did this pipe hit a bird?
-  hits(bird) {
-    if ((bird.y - bird.radius) < this.top || (bird.y + bird.radius) > (game.height - this.bottom)) {
-      if (bird.x > this.x && bird.x < this.x + this.w) {
+  // Did this block hit an agent?
+  hits(agent) {
+    if (
+      agent.y - agent.radius < this.top ||
+      agent.y + agent.radius > this.canvas.height - this.bottom
+    ) {
+      if (agent.x > this.x && agent.x < this.x + this.width) {
         return true;
       }
     }
@@ -37,8 +41,8 @@ class Pipe {
   show(game) {
     game.stroke(255);
     game.fill(200);
-    game.rect(this.x, 0, this.w, this.top);
-    game.rect(this.x, game.height - this.bottom, this.w, this.bottom);
+    game.rect(this.x, 0, this.width, this.top);
+    game.rect(this.x, this.canvas.height - this.bottom, this.width, this.bottom);
   }
 
   // Update the pipe
@@ -48,10 +52,11 @@ class Pipe {
 
   // Has it moved offscreen?
   offscreen() {
-    if (this.x < -this.w) {
+    if (this.x < -this.width) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 }
+
+export default Pipe;

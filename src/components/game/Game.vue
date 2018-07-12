@@ -41,6 +41,7 @@ import Leaderboard from "./leaderboard/Leaderboard";
 import NeuralNetwork from "./NeuralNetwork";
 import Gameover from "../Shared/Gameover";
 import Runner from "./games/Runner";
+import Flappy from "./games/Flappy";
 import Snake from "./games/Snake";
 import IAHero from "./games/IAHero";
 import Cube from "./games/Cube";
@@ -55,6 +56,7 @@ export default {
     AppNeuralNetwork: NeuralNetwork,
     AppGameover: Gameover,
     AppRunner: Runner,
+    AppFlappy: Flappy,
     AppSnake: Snake,
     AppIAHero: IAHero,
     AppCube: Cube,
