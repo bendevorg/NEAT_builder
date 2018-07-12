@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs8 sm5>
+  <v-flex xs8 sm4>
     <v-layout row>
       <v-list>
        <v-list-tile>
@@ -87,5 +87,8 @@ export default {
   }
   .list-tile >>> .v-list__tile.v-list__tile--link{
     height: 100%;
+  }
+  .v-list{
+    width: 100%;
   }
 </style>

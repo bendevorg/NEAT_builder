@@ -9,10 +9,10 @@
       >
         <v-flex 
           text-xs-center 
-          sm6 
+          sm5
           pa-5>
           <v-card>
-            <h1>お客さんはようこそ</h1>
+            <h1>Welcome to NEAT Builder!</h1>
           </v-card>
         </v-flex>
       </v-layout>
