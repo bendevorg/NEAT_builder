@@ -18,7 +18,11 @@
       dark
       class="secondary">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
-      <v-toolbar-title>NEAT Builder</v-toolbar-title>
+      <router-link class="nav-link" to="/">
+        <v-toolbar-title>
+          NEAT Builder
+        </v-toolbar-title>
+      </router-link>
     </v-toolbar>
   </div>
 </template>
@@ -45,3 +49,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .nav-link{
+    text-decoration: none;
+    color: #FFF;
+  }
+</style>
