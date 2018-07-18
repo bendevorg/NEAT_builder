@@ -1,4 +1,5 @@
-const list = ['NEAT', 'QLearning', 'Mutation QLearning'];
+//const list = ['NEAT', 'QLearning', 'Mutation QLearning'];
+const list = ['NEAT'];
 
 const neuralNetwork = [list[0]];
 const QLearning = [list[1], list[2]];
