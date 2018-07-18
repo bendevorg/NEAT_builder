@@ -134,6 +134,8 @@ export default {
           let {newActiveAgents, newAllAgents} = GA.nextGeneration(activeAgents, allAgents);
           activeAgents = newActiveAgents;
           allAgents = newAllAgents;
+          
+          this.$store.commit('changeCurrentGeneration', this.$store.getters.genetic.currentGeneration + 1);
           for (let i = 0; i < activeAgents.length; i++){
             foods[i] = new Food(activeAgents[i].red, activeAgents[i].green, activeAgents[i].blue);
           }
