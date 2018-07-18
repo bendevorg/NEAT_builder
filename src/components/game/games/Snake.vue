@@ -140,6 +140,7 @@ export default {
             foods[i] = new Food(activeAgents[i].red, activeAgents[i].green, activeAgents[i].blue);
           }
         }
+        this.$store.commit('changeSpeciesAmount', activeAgents.length);
       }
     }
     new p5(this.script);

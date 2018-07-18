@@ -161,6 +161,7 @@ export default {
 
           this.$store.commit('changeCurrentGeneration', this.$store.getters.genetic.currentGeneration + 1);
         }
+        this.$store.commit('changeSpeciesAmount', activeAgents.length);
       }
     }
     new p5(this.script);
