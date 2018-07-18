@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      AIType: '',
+      AIType: 'NEAT',
       AITypes: AITypes,
       AIList: AITypes.list
     }
