@@ -27,23 +27,32 @@
     </div>
 
     <v-flex d-flex>
-      <v-text-field 
-        v-model="neuralNetwork.hiddenLayers" 
-        type="number" 
-        name="Hidden Layers" 
-        label="Hidden layers"
-        placeholder="5"
-      />
-      <v-text-field 
-        v-model="neuralNetwork.learningRate" 
-        type="number" 
-        name="Learning Rate" 
-        label="Learning rate"
-        min="0"
-        max="1"
-        step="0.1"
-        placeholder="0.2"
-      />
+      <v-tooltip bottom>
+        <v-text-field 
+          v-model="neuralNetwork.hiddenLayers" 
+          type="number" 
+          name="Hidden Layers" 
+          label="Hidden layers"
+          placeholder="5"
+          slot="activator"
+        />
+        <span>HIDDEN'S TOOLTIP</span>
+      </v-tooltip>
+
+      <v-tooltip bottom>
+        <v-text-field 
+          v-model="neuralNetwork.learningRate" 
+          type="number" 
+          name="Learning Rate" 
+          label="Learning rate"
+          min="0"
+          max="1"
+          step="0.1"
+          placeholder="0.2"
+          slot="activator"
+        />
+        <span>LEARNIN'S TOOLTIP</span>
+      </v-tooltip>
     </v-flex>
 
     <v-divider/>
