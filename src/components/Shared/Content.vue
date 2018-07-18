@@ -8,15 +8,8 @@
         align-center
         column
       >
-        <v-flex 
-          text-xs-center
-          sm10
-          pa-5>
-          <v-card>
-            <v-card-title>
-              <h1>Welcome to NEAT Builder!</h1>
-            </v-card-title>
-          </v-card>
+        <v-flex pa-5>
+              <h1 class="welcome">Welcome to NEAT Builder!</h1>
         </v-flex>
 
         <v-flex>
@@ -69,3 +62,9 @@
     </v-container>
   </v-content>
 </template>
+
+<style lang="stylus" scoped>
+.welcome {
+  color: black;
+}
+</style>
