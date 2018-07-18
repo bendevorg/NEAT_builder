@@ -2,18 +2,26 @@
   <div id="GAParams">
     <v-subheader>Genetic Algorithm</v-subheader>
     <v-flex d-flex>
-      <v-text-field 
-        v-model="genetic.population" 
-        type="number" 
-        label="Species per generation"
-        placeholder="500"
-      />
-      <v-text-field 
-        v-model="genetic.mutationRate" 
-        type="number" 
-        label="Mutation rate"
-        placeholder="0.01"
-      />
+      <v-tooltip bottom>
+        <v-text-field 
+          v-model="genetic.population" 
+          type="number" 
+          label="Species per generation"
+          placeholder="500"
+          slot="activator"
+        />
+        <span>How many species each generation of your AI will have</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <v-text-field 
+          v-model="genetic.mutationRate" 
+          type="number" 
+          label="Mutation rate"
+          placeholder="0.01"
+          slot="activaor"
+        />
+        <span>How much mutation those selected best agents will suffer while creating the new generation</span>
+      </v-tooltip>
     </v-flex>
   </div>
 </template>

@@ -41,7 +41,7 @@
                 Your job here is to find a good value that will make your AI learn at a good pace without going crazy with wrong experiments.
               </li>
               <li>
-                Species per generation - Self explained, chooses how much species each generation of your AI will have. 
+                Species per generation - Self explained, chooses how many species each generation of your AI will have. 
                 Having a high amount is good, because you will have more experimentation, but it will make the processing be more heavy and consequently run the game slower.
               </li>
               <li>

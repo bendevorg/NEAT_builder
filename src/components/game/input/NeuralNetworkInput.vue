@@ -36,7 +36,7 @@
           placeholder="5"
           slot="activator"
         />
-        <span>HIDDEN'S TOOLTIP</span>
+        <span>How many neurons you want to have between your inputs and your outputs</span>
       </v-tooltip>
 
       <v-tooltip bottom>
@@ -51,7 +51,7 @@
           placeholder="0.2"
           slot="activator"
         />
-        <span>LEARNIN'S TOOLTIP</span>
+        <span>How much the knowledge of previous experiences matters</span>
       </v-tooltip>
     </v-flex>
 
