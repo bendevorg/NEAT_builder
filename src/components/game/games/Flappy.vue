@@ -158,6 +158,8 @@ export default {
           let {newActiveAgents, newAllAgents} = GA.nextGeneration(activeAgents, allAgents);
           activeAgents = newActiveAgents;
           allAgents = newAllAgents;
+
+          this.$store.commit('changeCurrentGeneration', this.$store.getters.genetic.currentGeneration + 1);
         }
       }
     }
