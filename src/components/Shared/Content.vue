@@ -59,8 +59,13 @@
                   This values defines how much mutation those selected best agents will suffer while creating the new generation.
                 </li>
               </ul>
+              <br/>
               <p>
                 Those are really simple explanations, we recommend you to take a quick look at Neural Networks and Genetic Algorithms to have a better understanding about all these parameters.
+              </p>
+              <p>
+                At the moment we understand that the app state is really simple and it's a little hard to solve more complex games.
+                We recommend to start at Runner then proceed to Flappy. The Snake we kinda think it is impossible right now.
               </p>
             </v-card-text>
           </v-card>
