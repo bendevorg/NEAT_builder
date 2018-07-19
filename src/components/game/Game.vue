@@ -80,6 +80,10 @@ export default {
     },
     gameRunning() {
       return this.$store.getters.gameRunning;
+    },
+    errorOccurred() {
+      error = this.$store.getters.errorOccurred;
+      return error;
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -94,7 +98,7 @@ export default {
   methods: {
     updateGame() {
       this.loading = true;
-      this.post = this.error = null;
+      this.post = this.error = false;
       const { games } = this.$store.getters;
       const selectedGame = games.find(
         game => game.name === this.$store.getters.gameName

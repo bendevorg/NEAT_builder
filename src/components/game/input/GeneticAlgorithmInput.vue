@@ -18,7 +18,7 @@
           type="number" 
           label="Mutation rate"
           placeholder="0.01"
-          slot="activaor"
+          slot="activator"
         />
         <span>How much mutation those selected best agents will suffer while creating the new generation</span>
       </v-tooltip>

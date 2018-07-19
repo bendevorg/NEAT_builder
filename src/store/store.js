@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
+    errorOccurred: false,
     games: [],
     game: {
       id: '',
@@ -51,6 +52,8 @@ export const store = new Vuex.Store({
     }
   },
   getters: {
+    //  General getters
+    errorOccurred: state => state.errorOccurred,
     //  Game getters
     games: state => state.games,
     gameId: state => state.game.id,
@@ -77,6 +80,9 @@ export const store = new Vuex.Store({
     instructionName: state => state.instruction.name
   },
   mutations: {
+    changeErrorStatus(state, payload) {
+      state.errorOccurred = payload;
+    },
     changeGames(state, payload) {
       state.games = payload;
     },
