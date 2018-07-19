@@ -8,7 +8,9 @@ const logger = require('./logger');
 
 const app = express();
 
+//    app.use('/static', express.static('dist/static'));
 app.use('/', express.static('dist'));
+app.use('/games/*', express.static('dist'));
 app.use(logger.errorHandler());
 
 module.exports = app;
